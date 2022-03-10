@@ -7,11 +7,9 @@ import Navbar from "components/Navbars/AuthNavbar.js";
 import FooterSmall from "components/Footers/FooterSmall.js";
 
 // views
+import UploadFile from "views/upload/UploadFile";
 
-import Login from "views/auth/Login.js";
-import Register from "views/auth/Register.js";
-
-export default function Auth() {
+export default function Upload() {
   return (
     <>
       <Navbar transparent />
@@ -21,9 +19,8 @@ export default function Auth() {
             className="absolute top-0 w-full h-full bg-blueGray-800 bg-no-repeat bg-full"
           ></div>
           <Switch>
-            <Route path="/auth/login" exact component={Login} />
-            <Route path="/auth/register" exact component={Register} />
-            <Redirect from="/auth" to="/auth/login" />
+            <Route path="/upload/uploadfile" exact component={UploadFile} />
+            <Redirect from="/upload" to="/upload/uploadfile" />
           </Switch>
           <FooterSmall absolute />
         </section>
