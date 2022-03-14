@@ -1,8 +1,36 @@
-import React from "react";
+import React, {useState}  from "react";
 import { Link } from "react-router-dom";
-
+import axios from 'axios';
 
 export default function Register() {
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const handleUsernameChange = (e) => {
+    console.log(e.target.value);
+    setUsername(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    console.log(e.target.value);
+    setPassword(e.target.value);
+  };
+  const registerSubmit = () => {
+    axios
+      .post(
+        "https://prelive.paywho.com/api/smu_register",
+        {
+          username: username,
+          password: password,
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -14,7 +42,7 @@ export default function Register() {
                       Sign up with
                   </h6>
                 <form>
-                  <div className="relative w-full mb-3">
+                  {/* <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
@@ -22,11 +50,12 @@ export default function Register() {
                       Name
                     </label>
                     <input
+
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Name"
                     />
-                  </div>
+                  </div> */}
 
                   <div className="relative w-full mb-3">
                     <label
@@ -36,6 +65,8 @@ export default function Register() {
                       Email
                     </label>
                     <input
+                      value={username}  
+                      onChange={handleUsernameChange}
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
@@ -50,6 +81,8 @@ export default function Register() {
                       Password
                     </label>
                     <input
+                    value={password}
+                    onChange={handlePasswordChange}
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
@@ -59,7 +92,7 @@ export default function Register() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                      type="button" onClick={registerSubmit}
                     >
                       Create Account
                     </button>
