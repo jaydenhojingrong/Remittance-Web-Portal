@@ -15,6 +15,7 @@ import Upload from "layouts/Upload.js"
 import Landing from "views/Landing.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
+import MapFields from "views/MapFields.js"
 
 ReactDOM.render(
   <BrowserRouter>
@@ -27,6 +28,7 @@ ReactDOM.render(
       {/* add routes without layouts */}
       <Route path="/landing" exact component={Landing} />
       <Route path="/profile" exact component={Profile} />
+      <Route path="/mapfields" exact component={MapFields} />
       <Route path="/" exact component={Index} />
     </Switch>
   </BrowserRouter>,
