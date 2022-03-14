@@ -1,7 +1,31 @@
-import React from "react";
-
+import React, {useState} from 'react';
+import axios from "axios";
 
 export default function UploadFile() {
+  const [selectedFile, setSelectedFile] = useState(undefined);
+	const [isFilePicked, setIsFilePicked] = useState(false);
+
+	const changeHandler = (event) => {
+		setSelectedFile(event.target.files[0]);
+		setIsFilePicked(true);
+	};
+  
+  const submitFile = () => {
+    axios
+      .post(
+        "http://localhost:8080/files/",
+        {
+          file: selectedFile,
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        window.location.replace("/admin/dashboard");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
     return (
       <>
         <div className="container mx-auto px-4 h-full">
@@ -26,12 +50,12 @@ export default function UploadFile() {
                                         <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                                             Attach a file</p>
                                     </div>
-                                    <input type="file" className="opacity-0" />
+                                    <input type="file" className="opacity-0" name="file" defaultValue ={selectedFile} onChange={changeHandler}/>
                                 </label>
                             </div>
                         </div>
                         <div className="flex justify-center p-2">
-                            <button className="w-full px-4 py-2 text-white bg-sky-500/100 rounded shadow-xl">Upload</button>
+                            <button className="w-full px-4 py-2 text-white bg-sky-500/100 rounded shadow-xl" onClick={submitFile}>Upload</button>
                         </div>
                     </div>
                 </div> 

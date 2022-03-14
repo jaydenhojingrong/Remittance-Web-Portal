@@ -25,6 +25,7 @@ export default function Login() {
       )
       .then((response) => {
         console.log(response);
+        window.location.replace("/admin/dashboard");
       })
       .catch((error) => {
         console.log(error);
