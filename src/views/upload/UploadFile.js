@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from "axios";
+// import multer from "multer";
 
 export default function UploadFile() {
   const [selectedFile, setSelectedFile] = useState(undefined);
@@ -11,13 +12,26 @@ export default function UploadFile() {
 	};
   
   const submitFile = () => {
-    axios
-      .post(
-        "http://localhost:8080/files/",
-        {
-          file: selectedFile,
-        }
-      )
+    // axios
+    //   .post(
+    //     "http://localhost:8080/files/",
+    //     {
+    //       file: selectedFile,
+    //     }
+    //   )
+
+    axios.post(
+      "http://localhost:8080/files/",
+      {
+              file: selectedFile,
+            },
+      {
+          headers: {
+              "Authorization": "YOUR_API_AUTHORIZATION_KEY_SHOULD_GOES_HERE_IF_HAVE",
+              "Content-type": "multipart/form-data",
+          },                    
+      }
+  )
       .then((response) => {
         console.log(response);
         window.location.replace("/admin/dashboard");
