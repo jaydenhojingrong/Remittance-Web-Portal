@@ -30,7 +30,9 @@ public class FileController {
     @Autowired
     private RemittanceService remittanceService;
 
+
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file){
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
