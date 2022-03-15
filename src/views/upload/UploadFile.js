@@ -27,7 +27,7 @@ export default function UploadFile() {
             },
       {
           headers: {
-              "Authorization": "YOUR_API_AUTHORIZATION_KEY_SHOULD_GOES_HERE_IF_HAVE",
+              // "Authorization": "YOUR_API_AUTHORIZATION_KEY_SHOULD_GOES_HERE_IF_HAVE",
               "Content-type": "multipart/form-data",
           },                    
       }
