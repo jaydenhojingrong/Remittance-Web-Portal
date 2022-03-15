@@ -22,11 +22,13 @@ export default function UploadFile() {
     //       file: selectedFile,
     //     }
     //   )
+
     const formData = new FormData();
     formData.append("file",selectedFile);
     const config = {
       headers: {
           'content-type': 'multipart/form-data'
+
       }
   }
     axios.post(
