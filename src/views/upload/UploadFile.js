@@ -3,6 +3,7 @@ import axios from "axios";
 // import multer from "multer";
 
 export default function UploadFile() {
+  
   const [selectedFile, setSelectedFile] = useState(undefined);
 	const [isFilePicked, setIsFilePicked] = useState(false);
 
@@ -10,7 +11,9 @@ export default function UploadFile() {
 		setSelectedFile(event.target.files[0]);
 		setIsFilePicked(true);
 	};
-  
+
+
+
   const submitFile = () => {
     // axios
     //   .post(
@@ -19,18 +22,16 @@ export default function UploadFile() {
     //       file: selectedFile,
     //     }
     //   )
-
-    axios.post(
-      "http://localhost:8080/files/",
-      {
-              file: selectedFile,
-            },
-      {
-          headers: {
-              "Authorization": "YOUR_API_AUTHORIZATION_KEY_SHOULD_GOES_HERE_IF_HAVE",
-              "Content-type": "multipart/form-data",
-          },                    
+    const formData = new FormData();
+    formData.append("file",selectedFile);
+    const config = {
+      headers: {
+          'content-type': 'multipart/form-data'
       }
+  }
+    axios.post(
+      "http://localhost:8080/files/", formData, config
+      
   )
       .then((response) => {
         console.log(response);
