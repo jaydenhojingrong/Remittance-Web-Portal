@@ -1,3 +1,0 @@
-source_type,Country,segment,First Name,Last Name,Date of Birth,Nationality,ID Type,ID Country of Issue,ID Number,sender_currency,Address,Address City,Country of Address,recipient_type,recipient_country,Recipient First Name,Recipient Last Name,Mobile Number,Ewallet ID,recipient_currency,Amount,Source of Fund,Remittance Purpose
-partner,SGP,individual,Jayden,Ho,10/10/2010,SGP,national,SGP,123,EUR,788 Lower Changi #99-99,Singapore,SGP,bank_account,CHN,Putien,Muhd,98862855,19820546855,CNY,3009,4,008-03
-partner,SGP,individual,Jon,Jones,29/01/2000,MYS,national,MYS,124,EUR,494 Johor Barhu,Johor Barhu,MYS,bank_account,CHN,Ninjiom,Tan,98453688,18956571573,CNY,4009,3,001-01

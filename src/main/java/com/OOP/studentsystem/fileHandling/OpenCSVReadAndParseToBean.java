@@ -68,9 +68,6 @@ public class OpenCSVReadAndParseToBean {
             // handle exception here
         }
 
-         
-
-
         File tempFile = new File("./temp.csv");
         String newHeaderName;
         String newHeaders = "";
