@@ -23,8 +23,10 @@ public class FileStorageService {
     // auto injecting file properties
     @Autowired
     public FileStorageService(FileStorageProperties fileStorageProperties) {
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath();
+        // this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath();
 
+        String stringPath = "/Users/shawnteo/Documents/GitHub/Remittance-Web-Portal";
+        this.fileStorageLocation = Paths.get(stringPath);
         try {
             // create directory if doesnt exist
             Files.createDirectories(this.fileStorageLocation);
