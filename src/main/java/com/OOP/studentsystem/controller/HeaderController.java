@@ -1,4 +1,4 @@
-package com.OOP.studentsystem.fileHandling;
+package com.OOP.studentsystem.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,16 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import com.OOP.studentsystem.dao.HeaderDAO;
+import com.OOP.studentsystem.entity.HeaderNames;
+import com.OOP.studentsystem.service.HeaderService;
+
 @RestController
 public class HeaderController {
 
     @Autowired
     private HeaderService headerService;
 
-    public HeaderController(HeaderService headerService){
-        super();
-        this.headerService = headerService;
-    }
+    // public HeaderController(HeaderDAO headerService){
+    //     super();
+    //     this.headerService = headerService;
+    // }
 
     // handler method to handle list headers and return mode and view
 	/**
@@ -24,7 +28,7 @@ public class HeaderController {
 	 * @return List of headers
 	 */
 	@GetMapping("/headers")
-	public List <HeaderNames> listHeaders(HeaderNames headerNames) {
+	public List <HeaderNames> getAllHeaders(HeaderNames headerNames) {
 		return headerService.getAllHeaders();
 	}
 
@@ -34,7 +38,7 @@ public class HeaderController {
 	 * @return HeaderName Entity of the indicated currentHeader
 	 */
     @GetMapping("/headers/{currentHeader}")
-	public HeaderNames listHeader(@PathVariable String currentHeader) {
+	public HeaderNames getHeaderByCurrentHeader(@PathVariable String currentHeader) {
 		return headerService.getHeaderByCurrentHeader(currentHeader);
 	}
 

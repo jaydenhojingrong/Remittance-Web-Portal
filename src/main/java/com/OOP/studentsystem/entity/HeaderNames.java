@@ -1,4 +1,4 @@
-package com.OOP.studentsystem.fileHandling;
+package com.OOP.studentsystem.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

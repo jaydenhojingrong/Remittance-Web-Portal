@@ -5,6 +5,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.*;
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import com.OOP.studentsystem.service.HeaderService;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -14,7 +15,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OpenCSVReadAndParseToBean {
 //    private static final String SAMPLE_CSV_FILE_PATH = "./everywhereDummy.csv";
 
@@ -110,8 +114,9 @@ public class OpenCSVReadAndParseToBean {
          }
         
     }
+
     public static String renameHeader(String header){
-        
+
         if (header.equals("Country")){
             header = "sCountry";
         }
