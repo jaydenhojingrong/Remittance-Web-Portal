@@ -117,9 +117,7 @@ public class OpenCSVReadAndParseToBean {
 
     public static String renameHeader(String header){
 
-        if (header.equals("Country")){
-            header = "sCountry";
-        }
+       
         return header;
     }
 
