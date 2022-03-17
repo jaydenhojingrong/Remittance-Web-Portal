@@ -39,7 +39,7 @@ export default function MapFields() {
             type: 'input',
         },
         {
-            id: 'static7',
+            id: 'static8',
             shape: 'interfaceBox',
             type: 'input',
         },

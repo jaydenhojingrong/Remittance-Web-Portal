@@ -29,7 +29,7 @@
     align-items: center;
     height: 100%;
     width: var(--interfacesBarWidthPx);
-    border: solid black 1px;
+    /* border: solid black 1px; */
   }
   
   .interfaceTitleStyle {
@@ -57,7 +57,8 @@
     /* justify-content: space-around; */
     position: relative;
     width: var(--canvasWidthVw);
-    height: var(--canvasHeightVh);
+    height: auto;
+    /* height: var(--canvasHeightVh); */
     background: white;
     color: black;
   }
