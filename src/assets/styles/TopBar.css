@@ -2,14 +2,16 @@
   display: flex;
   overflow: hidden;
   /* overflow-x: auto; */
-  position: absolute;
+  /* position: absolute; */
+  position: sticky;
+  top:0;
   /* width: 70vw; */
   width: 100%;
   background: rgb(220, 240, 250);
   /* z-index: 1; */
   /* align-items: center; */
   padding: 0px 20px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   transition: all 0.2s ease-out;
   /* border: solid 1px black; */
   height: 90px;

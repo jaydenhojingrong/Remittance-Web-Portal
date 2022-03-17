@@ -10,6 +10,7 @@ import "assets/styles/tailwind.css";
 import Admin from "layouts/Admin.js";
 import Auth from "layouts/Auth.js";
 import Upload from "layouts/Upload.js"
+
 // views without layouts
 
 import Index from "views/Index.js";
