@@ -8,6 +8,18 @@ import MenuWindow from '../Playground/MenuWindow';
 import "../../assets/styles/mapping.css";
 
 function MapFields() {
+  const getFields = () => {
+    axios
+      .get(
+        "http://localhost:8080/headers"
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const [interfaces, setInterfaces] = useState([
     {
       id: 'first name',
