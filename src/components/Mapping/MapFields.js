@@ -6,6 +6,7 @@ import TopBar from '../Playground/TopBar';
 import Xarrow from '../Playground/Xarrow';
 import MenuWindow from '../Playground/MenuWindow';
 import "../../assets/styles/mapping.css";
+import axios from "axios";
 
 function MapFields() {
   const getFields = () => {
