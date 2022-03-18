@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -23,6 +22,8 @@ import com.OOP.remittancesystem.fileHandling.FileStorageProperties;
 public class FileStorageService {
 
     private final Path fileStorageLocation;
+
+
 
     // auto injecting file properties
     @Autowired
