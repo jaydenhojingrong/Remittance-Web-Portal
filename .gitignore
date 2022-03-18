@@ -24,3 +24,4 @@ yarn-error.log*
 
 commit.sh
 src/main/java/com/OOP/studentsystem/fileHandling/FileStorageService.java
+target/classes/application.properties
