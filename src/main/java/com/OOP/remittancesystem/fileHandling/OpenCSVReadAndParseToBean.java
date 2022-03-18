@@ -9,7 +9,6 @@ import java.io.*;
 import java.net.URL;
 import java.util.Scanner;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 public class OpenCSVReadAndParseToBean {
 //    private static final String SAMPLE_CSV_FILE_PATH = "./everywhereDummy.csv";

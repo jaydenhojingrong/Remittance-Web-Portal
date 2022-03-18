@@ -10,11 +10,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.OOP.remittancesystem.dao.RemittanceDAO;
 import com.OOP.remittancesystem.entity.EverywhereRemit;
 import com.OOP.remittancesystem.entity.Remittance;
 import com.OOP.remittancesystem.fileHandling.FileResponse;
 import com.OOP.remittancesystem.fileHandling.OpenCSVReadAndParseToBean;
-import com.OOP.remittancesystem.fileHandling.RemittanceService;
+
+import com.OOP.remittancesystem.service.RemittanceService;
 import com.OOP.remittancesystem.service.FileStorageService;
 
 import java.io.IOException;
@@ -32,6 +34,10 @@ public class FileController {
 
     @Autowired
     private RemittanceService remittanceService;
+    
+    @Autowired 
+    private RemittanceDAO remittanceDAO;
+    
 
 
     @PostMapping
@@ -51,9 +57,9 @@ public class FileController {
         List<Remittance> remittanceList = OpenCSVReadAndParseToBean.mapCSV(fileDownloadUrl);
         System.out.println(remittanceList);
         for (Remittance remittance: remittanceList) {
-                // remittanceService.save((EverywhereRemit) remittance)
-            remittanceService.saveRemittance((EverywhereRemit) remittance);
-            //Remittance remittance = csvUserIterator.next();
+
+            remittanceDAO.save((EverywhereRemit) remittance);
+
             System.out.println("Country : " + remittance.getsCountry());
             System.out.println("First Name : " + remittance.getsFirstName());
             System.out.println("Last Name : " + remittance.getsLastName());
