@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.OOP</groupId>
-	<artifactId>studentsystem</artifactId>
+	<artifactId>remittancesystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>studentsystem</name>
-	<description>full stack app using springboot and react</description>
+	<name>remittancesystem</name>
+	<description>techG remittance web portal</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

@@ -1,2 +1,0 @@
-cd c:\IS442\Remittance-Web-Portal && cmd /C "C:\Users\Shawn\.vscode\extensions\redhat.java-1.4.0\jre\17.0.2-win32-x86_64\bin\java.exe -XX:+ShowCodeDetailsInExceptionMessages @C:\Users\Shawn\AppData\Local\Temp\cp_hkudly4vdjsijoz38m1qvj8l.argfile com.OOP.studentsystem.StudentSystemApplication "
-22:07:31.891 [Thread-0] DEBUG org.springframework.boot.devtools.restart.classloader.RestartClassLoader - Created RestartClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@7ead0d55
