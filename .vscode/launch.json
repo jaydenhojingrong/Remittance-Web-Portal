@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch RemittanceWebPortal",
+            "request": "launch",
+            "mainClass": "com.OOP.remittancesystem.RemittanceWebPortal",
+            "projectName": "studentsystem"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-StudentSystemApplication<studentsystem>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
