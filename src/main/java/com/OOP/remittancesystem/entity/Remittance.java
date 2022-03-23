@@ -19,7 +19,7 @@ public class Remittance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int rowID;
 
-    @CsvBindByName(column = "sCountry", required = true)
+    @CsvBindByName(column = "Country", required = true)
     private String sCountry;
     @CsvBindByName(column = "First Name", required = true)
     private String sFirstName;
