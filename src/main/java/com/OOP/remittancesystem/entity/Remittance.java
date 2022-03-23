@@ -11,6 +11,10 @@ import javax.persistence.Table;
 @Entity
 
 public class Remittance {
+
+    //stores only the columns that are present in all three companies
+    //e.g. sender first name, sender country, currency etc...
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int rowID;

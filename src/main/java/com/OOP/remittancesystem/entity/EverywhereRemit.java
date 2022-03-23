@@ -9,7 +9,9 @@ import javax.persistence.Table;
 @Entity
 public class EverywhereRemit extends Remittance{
 
-    
+    //stores only the columns that do not exist in all three companies BUT exist in EverywhereRemit
+    //e.g. does not store sender first name since it exist in all three
+
     @CsvBindByName(column = "source_type", required = true)
     private String sourceType;
     @CsvBindByName(column = "segment", required = true)
@@ -33,9 +35,4 @@ public class EverywhereRemit extends Remittance{
     @CsvBindByName(column = "Amount", required = true)
     private String amount;
 
-
-    public EverywhereRemit(){
-
-
-    }
 }
