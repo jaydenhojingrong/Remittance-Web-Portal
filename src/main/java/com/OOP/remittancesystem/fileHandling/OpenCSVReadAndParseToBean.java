@@ -110,6 +110,8 @@ public class OpenCSVReadAndParseToBean {
              e.printStackTrace();
          }
          finally{
+            // System.out.println("\n\n\n\n\n\n"+ tempFile.renameTo(file));
+            System.out.println("x");
             file.exists();
             file.delete();
             tempFile.renameTo(file); 
@@ -118,7 +120,6 @@ public class OpenCSVReadAndParseToBean {
     }
 
     public static String renameHeader(String header){
-
         return header;
     }
 
