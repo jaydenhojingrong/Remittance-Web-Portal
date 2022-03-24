@@ -13,18 +13,25 @@ public class EverywhereRemit extends Remittance{
     //stores only the columns that do not exist in all three companies BUT exist in EverywhereRemit
     //e.g. does not store sender first name since it exist in all three
 
+    @Size(min = 1, max = 30, message = "source_type must be between 1 and 10 characters")
     @CsvBindByName(column = "source_type", required = true) 
     private String sourceType;
+
     @CsvBindByName(column = "segment", required = true)
     private String segment;
 
     @Size(min = 1, max = 10, message = "Date of Birth must be between 1 and 10 characters")
     @CsvBindByName(column = "Date of Birth", required = true)
     private String sDOB;
+
+    @Size(min = 1, max = 20, message = "ID Country of Issu must be between 1 and 10 characters")
     @CsvBindByName(column = "ID Country of Issue", required = true)
     private String sIDCountry;
+
     @CsvBindByName(column = "sender_currency", required = true)
     private String sCurrency;
+
+    @Size(min = 1, max = 50, message = "Address city must be between 1 and 50 characters")
     @CsvBindByName(column = "Address City", required = true)
     private String sCity;
 
@@ -44,7 +51,6 @@ public class EverywhereRemit extends Remittance{
     @Size(min = 8, max = 15, message = "Mobile Number must be between 8 and 15 characters")
     @CsvBindByName(column = "Mobile Number", required = true)
     private String rMobile;
-
 
     @CsvBindByName(column = "Amount", required = true)
     private String amount;
