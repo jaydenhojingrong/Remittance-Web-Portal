@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Table(name = "remittancetransaction")
 @Entity
@@ -28,6 +29,8 @@ public class EverywhereRemit extends Remittance{
     private String sCountryAddress;
     @CsvBindByName(column = "recipient_type", required = true)
     private String rType;
+
+    @Size(min = 4, max = 50, message = "recipient_country must be between 10 and 200 characters")
     @CsvBindByName(column = "recipient_country", required = true)
     private String rCountry;
     @CsvBindByName(column = "Mobile Number", required = true)
@@ -36,3 +39,9 @@ public class EverywhereRemit extends Remittance{
     private String amount;
 
 }
+
+
+
+
+
+// ReceiverCountry -- > recipient_country
