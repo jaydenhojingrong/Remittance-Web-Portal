@@ -12,36 +12,78 @@ export default function UploadFile() {
 		setIsFilePicked(true);
 	};
 
+  const sendTransaction = () => {
+    axios.post(
+      "https://prelive.paywho.com/api/smu_send_transaction",
+        {
+          access_token : localStorage.bearer_token,
+          api_name : "paymentgo",
+          payload: {
+            "remitGivenName":null,
+            "remitSurname":null,
+            "remitCaType":[
+              "1",
+              "National ID"
+              ],
+            "remitCaNo":null,
+            "merTransAmount":null,
+            "remitCountryCode":null,
+            "remitAddress":null,
+            "nationality":null,
+            "remitPurpose":"131",
+            "payeeCaType":[
+              "1",
+              "National ID"
+              ],
+            "settleCurrency":"sourceCurrency",
+            "transCurrency":"CNY",
+            "payeeGivenName":null,
+            "payeeSurname":null,
+            "payeeBirthDate":null,
+            "payeeAccountNo":null,
+            "payeePhone":null,
+            "payeeBankName":null,
+            "payeeBranchName":null,
+            "payeeCaNo":null,
+            "remitAccountNo":null,
+            "sourceOfFunds":[
+              "02",
+              "Business and investment"
+              ],
+                    
 
+          }
+        }
+    )
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
   const submitFile = () => {
-    // axios
-    //   .post(
-    //     "http://localhost:8080/files/",
-    //     {
-    //       file: selectedFile,
-    //     }
-    //   )
+    sendTransaction();
+    // const formData = new FormData();
+    // formData.append("file", selectedFile);
+    // const config = {
+    //   headers: {
+    //     'content-type': 'multipart/form-data'
 
-    const formData = new FormData();
-    formData.append("file",selectedFile);
-    const config = {
-      headers: {
-          'content-type': 'multipart/form-data'
-
-      }
-  }
-    axios.post(
-      "http://localhost:8080/files/", formData, config
-      
-  )
-      .then((response) => {
-        console.log(response);
-        window.location.replace("/admin/dashboard");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    //   }
+    // }
+    // axios.post(
+    //   "http://localhost:8080/files/", formData, config
+    // )
+    //   .then((response) => {
+    //     console.log(response);
+    //     sendTransaction();
+    //     window.location.replace("/admin/dashboard");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
     return (
       <>
