@@ -32,8 +32,8 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
-    @Autowired
-    private RemittanceService remittanceService;
+//     @Autowired
+//     private RemittanceService remittanceService;
     
     @Autowired 
     private RemittanceDAO remittanceDAO;
@@ -42,7 +42,8 @@ public class FileController {
 
     @PostMapping
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file){
+    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("company")String company){
+
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/files/")
@@ -53,8 +54,8 @@ public class FileController {
 
         OpenCSVReadAndParseToBean.mapKeywords(fileName,  file.getContentType(), fileDownloadUrl);
 
-        System.out.println(fileDownloadUrl);
-        List<Remittance> remittanceList = OpenCSVReadAndParseToBean.mapCSV(fileDownloadUrl);
+        // System.out.println(fileDownloadUrl);
+        List<Remittance> remittanceList = OpenCSVReadAndParseToBean.mapCSV(fileDownloadUrl, company);
         System.out.println(remittanceList);
         for (Remittance remittance: remittanceList) {
 

@@ -11,11 +11,15 @@ import javax.persistence.Table;
 @Entity
 
 public class Remittance {
+
+    //stores only the columns that are present in all three companies
+    //e.g. sender first name, sender country, currency etc...
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int rowID;
 
-    @CsvBindByName(column = "sCountry", required = true)
+    @CsvBindByName(column = "Country", required = true)
     private String sCountry;
     @CsvBindByName(column = "First Name", required = true)
     private String sFirstName;

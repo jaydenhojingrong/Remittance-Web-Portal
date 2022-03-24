@@ -13,24 +13,31 @@ import java.util.List;
 public class OpenCSVReadAndParseToBean {
 //    private static final String SAMPLE_CSV_FILE_PATH = "./everywhereDummy.csv";
 
-    public static List<Remittance> mapCSV(String fileDownloadUrl) {
+    public static List<Remittance> mapCSV(String fileDownloadUrl, String company) {
         List<Remittance> remittanceList = null;
-
-
+        
         try (InputStream input = new URL(fileDownloadUrl).openStream();
-            Reader reader = new InputStreamReader(input, "UTF-8"); ){
-            CsvToBean<Remittance> csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(EverywhereRemit.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-                    
+            Reader reader = new InputStreamReader(input, "UTF-8");)
+            {   
 
-            remittanceList = csvToBean.parse();
-            return remittanceList;
-        }
+                Class <?> companyClass = getClassByString(company);
+
+                CsvToBean<Remittance> csvToBean = new CsvToBeanBuilder(reader)
+                        .withType(companyClass)
+                        .withIgnoreLeadingWhiteSpace(true)
+                        .build();
+                        
+
+                remittanceList = csvToBean.parse();
+                return remittanceList;
+            }
       
         catch(IOException e){
             System.out.println("File missing");
+        }
+
+        catch(ClassNotFoundException e){
+            System.out.printf("Class: %s not found", company);
         }
 
         catch(Exception e){
@@ -43,10 +50,13 @@ public class OpenCSVReadAndParseToBean {
         return remittanceList;
     }
 
+    //takes in a String and returns the its Class object 
+    public static Class <?> getClassByString(String company) throws ClassNotFoundException{
+        return Class.forName("com.OOP.remittancesystem.entity." + company);
+    }
+
     public static void mapKeywords(String fileName, String fileType, String fileDownloadUrl) {
         boolean readHeader = false;
-
-
         String fullFileName = fileName;
 
         File file = new File(fullFileName);
@@ -88,6 +98,7 @@ public class OpenCSVReadAndParseToBean {
 
                }
                else{
+                //code will flow here if it is not at the header row
                 writer.println(csvLine);
                }
             //    fIn.nextLine();
@@ -108,7 +119,6 @@ public class OpenCSVReadAndParseToBean {
 
     public static String renameHeader(String header){
 
-       
         return header;
     }
 
