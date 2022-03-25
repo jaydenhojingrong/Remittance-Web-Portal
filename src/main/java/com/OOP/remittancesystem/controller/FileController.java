@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
 
 import com.OOP.remittancesystem.dao.RemittanceDAO;
 import com.OOP.remittancesystem.entity.EverywhereRemit;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("files")
@@ -60,7 +62,17 @@ public class FileController {
         System.out.println(remittanceList);
         for (Remittance remittance: remittanceList) {
 
-            remittanceDAO.save((EverywhereRemit) remittance);
+            try {
+                remittanceDAO.save((EverywhereRemit) remittance);
+            } catch (javax.validation.ConstraintViolationException e){
+                String message= "";
+                Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+                for (ConstraintViolation<?> violation : violations) {
+                  message = violation.getMessage() + " ";
+                  System.out.println(message);
+                }
+            }
+             
 
             System.out.println("Country : " + remittance.getsCountry());
             System.out.println("First Name : " + remittance.getsFirstName());

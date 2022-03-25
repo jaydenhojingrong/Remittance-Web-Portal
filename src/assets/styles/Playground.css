@@ -35,8 +35,11 @@
   .interfaceTitleStyle {
     font-size: 15px;
     color: black;
-    position: absolute;
+    position: static;
+    /* position: absolute; */
+    font-weight: 600;
     margin-top: 5px;
+    margin-bottom: 5px;
     top: 0%;
   }
   
@@ -59,7 +62,7 @@
     width: var(--canvasWidthVw);
     height: auto;
     /* height: var(--canvasHeightVh); */
-    background: white;
+    /* background: white; */
     color: black;
   }
   

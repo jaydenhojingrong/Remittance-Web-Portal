@@ -31,12 +31,12 @@ export default function Navbar(props) {
           </div>
           <div>
             <div className="flex flex-col lg:flex-row list-none lg:ml-auto">
-            <button
+            {/* <button
                   className="bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ml-3 mb-3 ease-linear"
                   type="button"
                 >
                   <i className="fas fa-arrow-alt-circle-up"></i> <NavLink to="/upload/uploadfile">Upload</NavLink>
-                </button>
+                </button> */}
             </div >
           </div>
         </div>

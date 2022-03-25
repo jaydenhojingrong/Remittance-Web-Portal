@@ -36,11 +36,12 @@ public class FileStorageService {
     public FileStorageService(FileStorageProperties fileStorageProperties) {
         this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath();
         
-
-        // String stringPath = "/Users/shawnteo/Documents/GitHub/Remittance-Web-Portal";
         // String stringPath = "/Users/shawnteo/Documents/GitHub/Remittance-Web-Portal";
         // this.fileStorageLocation = Paths.get(stringPath);
-        // this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath();
+
+        // String stringPath = "/Users/maarunipandithurai/Documents/GitHub/Remittance-Web-Portal";
+        // String stringPath = "./";
+        
 
         try {
             // create directory if doesnt exist
@@ -56,18 +57,13 @@ public class FileStorageService {
         // normalizes filename
         System.out.println(file);
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        // System.out.println("alibaba chocken man!!!!" +  fileName);
         try (InputStream inputFile = file.getInputStream();){
 
             // adding file location
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
-
-            System.out.println("\n\n\n\n\n\n store1" + targetLocation);
             Files.copy(inputFile, targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("it passsss!!!!!!!!!");
             return fileName;
         } catch (IOException ex) {
-            System.out.println("it fail!!!!!!!!!!");
             throw new FileStorageException("Could not store file " + fileName + " please try again", ex);
         }
     }

@@ -9,13 +9,15 @@ import "../../assets/styles/mapping.css";
 import axios from "axios";
 
 function MapFields() {
+  const [field, setField] = useState("");
   const getFields = () => {
     axios
       .get(
-        "http://localhost:8080/headers"
+        "localhost:8080/headers/" + field
       )
       .then((response) => {
         console.log(response);
+        console.log(response.data.ssotHeader);
       })
       .catch((error) => {
         console.log(error);
@@ -89,6 +91,56 @@ function MapFields() {
     },
   ]);
 
+  const [inputHeaders, setInputHeaders] = useState([
+    {
+      id: 'first name',
+      shape: 'interfaceBox',
+    },
+    {
+      id: 'last name',
+      shape: 'interfaceBox',
+    },
+    {
+      id: 'address',
+      shape: 'interfaceBox',
+    },
+    {
+      id: 'country',
+      shape: 'interfaceBox',
+    },
+    {
+      id: 'static6',
+      shape: 'interfaceBox',
+    },
+    {
+      id: 'static123456',
+      shape: 'interfaceBox',
+    },
+    {
+      id: 'a',
+      shape: 'interfaceBox',
+    },
+    {
+      id: 'c',
+      shape: 'interfaceBox',
+    },
+    {
+      id: 's',
+      shape: 'interfaceBox',
+    },
+  ]);
+
+  const [ouputHeaders, setOuputHeaders] = useState([
+    {
+      id: 'residence',
+      shape: 'interfaceBox',
+    },
+    {
+      id: 'f name',
+      shape: 'interfaceBox',
+    },
+  ]);
+
   const [boxes, setBoxes] = useState([]);
   const [lines, setLines] = useState([]);
 
@@ -134,7 +186,7 @@ function MapFields() {
         <div className="rounded h-full">
           <div className="relative p-3 flex content-center items-center justify-center min-h-screen-75">
             <div>
-              <div className="font-semibold text-lg text-blueGray-700">
+              <div className="font-semibold text-lg text-blueGray-700 mx-4 mb-4">
                 Mapping of Relevant Fields
               </div>
               <Xwrapper>
@@ -144,12 +196,16 @@ function MapFields() {
                     onDragOver={(e) => e.preventDefault()}
                     // onDrop={handleDropStatic}
                     id="interfacesInputsBar">
-                    <u className="interfaceTitleStyle">Your Headers</u>
-                    {interfaces
+                    <i className="interfaceTitleStyle">Your Headers</i>
+                    {inputHeaders
+                      .map((itr) => (
+                        <Box {...boxProps} key={itr.id} id={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="left" />
+                      ))}
+                    {/* {interfaces
                       .filter((itr) => itr.type === 'input')
                       .map((itr) => (
                         <Box {...boxProps} key={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="left" />
-                      ))}
+                      ))} */}
                   </div>
                   <div
                     id="boxesContainer"
@@ -168,22 +224,27 @@ function MapFields() {
                     onDragOver={(e) => e.preventDefault()}
                     // onDrop={handleDropStatic}
                     id="interfacesOutputsBar">
-                    <u className="interfaceTitleStyle">Our Headers</u>
-                    {interfaces
+                    <i className="interfaceTitleStyle">Our Headers</i>
+                    {ouputHeaders
+                      .map((itr) => (
+                        <Box {...boxProps} key={itr.id} id={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="right" />
+                      ))}
+                    {/* {interfaces
                       .filter((itr) => itr.type === 'output')
                       .map((itr) => (
                         <Box {...boxProps} key={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="right" />
-                      ))}
+                      ))} */}
                   </div>
                   {/* xarrow connections*/}
                   {lines.map((line, i) => (
                     <Xarrow
                       key={line.props.root + '-' + line.props.end + i}
                       line={line}
-                      selected={selected}
+                      selected={selected} 
                       setSelected={setSelected}
                     />
                   ))}
+
                   {/* boxes menu that may be opened */}
                   {lines.map((line, i) =>
                     line.menuWindowOpened ? (
