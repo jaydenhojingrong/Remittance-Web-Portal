@@ -7,12 +7,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.concurrent.TimeUnit;
 
 import com.OOP.remittancesystem.exception.FileStorageException;
 import com.OOP.remittancesystem.exception.MyFileNotFoundException;
@@ -29,12 +35,11 @@ public class FileStorageService {
     @Autowired
     public FileStorageService(FileStorageProperties fileStorageProperties) {
         this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath();
+        
 
         // String stringPath = "/Users/shawnteo/Documents/GitHub/Remittance-Web-Portal";
         // String stringPath = "/Users/shawnteo/Documents/GitHub/Remittance-Web-Portal";
         // this.fileStorageLocation = Paths.get(stringPath);
-
-
         // this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath();
 
         try {
@@ -45,17 +50,25 @@ public class FileStorageService {
         }
     }
 
-    // stores the files
+    // stores the files from postman to own computer
+    // returns filename
     public String storeFile(MultipartFile file){
         // normalizes filename
+        System.out.println(file);
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        try {
+        // System.out.println("alibaba chocken man!!!!" +  fileName);
+        try (InputStream inputFile = file.getInputStream();){
+
             // adding file location
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            System.out.println("\n\n\n\n\n\n store1" + targetLocation);
+            Files.copy(inputFile, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("it passsss!!!!!!!!!");
             return fileName;
         } catch (IOException ex) {
-            throw new FileStorageException("Could not store file" + fileName + "please try again", ex);
+            System.out.println("it fail!!!!!!!!!!");
+            throw new FileStorageException("Could not store file " + fileName + " please try again", ex);
         }
     }
 

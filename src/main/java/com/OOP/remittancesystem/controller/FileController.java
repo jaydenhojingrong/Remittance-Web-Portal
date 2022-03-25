@@ -38,7 +38,8 @@ public class FileController {
     @Autowired 
     private RemittanceDAO remittanceDAO;
     
-
+    @Autowired
+    private OpenCSVReadAndParseToBean openCSV;
 
     @PostMapping
     @CrossOrigin(origins = "http://localhost:3000")
@@ -52,10 +53,10 @@ public class FileController {
 
         FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize());
 
-        OpenCSVReadAndParseToBean.mapKeywords(fileName,  file.getContentType(), fileDownloadUrl);
+        openCSV.mapKeywords(fileName,  file.getContentType(), fileDownloadUrl);
 
-        // System.out.println(fileDownloadUrl);
-        List<Remittance> remittanceList = OpenCSVReadAndParseToBean.mapCSV(fileDownloadUrl, company);
+        System.out.println("filedownloadurl egeehghge: " +fileDownloadUrl);
+        List<Remittance> remittanceList = openCSV.mapCSV(fileDownloadUrl, company);
         System.out.println(remittanceList);
         for (Remittance remittance: remittanceList) {
 

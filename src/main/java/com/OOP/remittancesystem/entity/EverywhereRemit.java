@@ -1,3 +1,4 @@
+
 package com.OOP.remittancesystem.entity;
 
 import com.opencsv.bean.CsvBindByName;
@@ -11,28 +12,29 @@ public class EverywhereRemit extends Remittance{
 
     //stores only the columns that do not exist in all three companies BUT exist in EverywhereRemit
     //e.g. does not store sender first name since it exist in all three
+    // private String company = "EverywhereRemit";
 
-    @CsvBindByName(column = "source_type", required = true)
+    @CsvBindByName(column = "sourceType", required = true)
     private String sourceType;
     @CsvBindByName(column = "segment", required = true)
     private String segment;
-    @CsvBindByName(column = "Date of Birth", required = true)
+    @CsvBindByName(column = "sDOB", required = true)
     private String sDOB;
-    @CsvBindByName(column = "ID Country of Issue", required = true)
+    @CsvBindByName(column = "sCountryID", required = true)
     private String sIDCountry;
-    @CsvBindByName(column = "sender_currency", required = true)
+    @CsvBindByName(column = "sCurrency", required = true)
     private String sCurrency;
-    @CsvBindByName(column = "Address City", required = true)
+    @CsvBindByName(column = "sCity", required = true)
     private String sCity;
-    @CsvBindByName(column = "Country of Address", required = true)
-    private String sCountryAddress;
-    @CsvBindByName(column = "recipient_type", required = true)
+    @CsvBindByName(column = "sAddressCountry", required = true)
+    private String sAddressCountry;
+    @CsvBindByName(column = "rType", required = true)
     private String rType;
-    @CsvBindByName(column = "recipient_country", required = true)
+    @CsvBindByName(column = "rCountry", required = true)
     private String rCountry;
-    @CsvBindByName(column = "Mobile Number", required = true)
-    private String rMobile;
-    @CsvBindByName(column = "Amount", required = true)
+    @CsvBindByName(column = "rMobileNumber", required = true)
+    private String rMobileNumber;
+    @CsvBindByName(column = "amount", required = true)
     private String amount;
 
 }

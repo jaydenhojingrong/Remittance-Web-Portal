@@ -9,7 +9,6 @@ import javax.persistence.Table;
 
 @Table(name = "remittancetransaction")
 @Entity
-
 public class Remittance {
 
     //stores only the columns that are present in all three companies
@@ -19,31 +18,31 @@ public class Remittance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int rowID;
 
-    @CsvBindByName(column = "Country", required = true)
+    @CsvBindByName(column = "sCountry", required = true)
     private String sCountry;
-    @CsvBindByName(column = "First Name", required = true)
+    @CsvBindByName(column = "sFirstName", required = true)
     private String sFirstName;
-    @CsvBindByName(column = "Last Name", required = true)
+    @CsvBindByName(column = "sLastName", required = true)
     private String sLastName;
-    @CsvBindByName(column = "Nationality", required = true)
+    @CsvBindByName(column = "sNationality", required = true)
     private String sNationality;
-    @CsvBindByName(column = "ID Type", required = true)
+    @CsvBindByName(column = "sIDType", required = true)
     private String sIDType;
-    @CsvBindByName(column = "ID Number", required = true)
+    @CsvBindByName(column = "sIDNumber", required = true)
     private String sIDNumber;
-    @CsvBindByName(column = "Address", required = true)
+    @CsvBindByName(column = "sAddress", required = true)
     private String sAddress;
-    @CsvBindByName(column = "Recipient First Name", required = true)
+    @CsvBindByName(column = "rFirstName", required = true)
     private String rFirstName;
-    @CsvBindByName(column = "Recipient Last Name", required = true)
+    @CsvBindByName(column = "rLastName", required = true)
     private String rLastName;
-    @CsvBindByName(column = "Ewallet ID",required = true)
+    @CsvBindByName(column = "rAccountNumber",required = true)
     private String rAccountNum;
-    @CsvBindByName(column = "recipient_currency",required = true)
+    @CsvBindByName(column = "rCurrency",required = true)
     private String rCurrency;
-    @CsvBindByName(column = "Source of Fund",required = true)
-    private String sSourceOfFunds;
-    @CsvBindByName(column = "Remittance Purpose", required = true)
+    @CsvBindByName(column = "sSourceOfFund",required = true)
+    private String sSourceOfFund;
+    @CsvBindByName(column = "remitPurpose", required = true)
     private String remitPurpose;
     
   
@@ -138,12 +137,12 @@ public class Remittance {
         this.rCurrency = rCurrency;
     }
 
-    public String getsSourceOfFunds() {
-        return sSourceOfFunds;
+    public String getsSourceOfFund() {
+        return sSourceOfFund;
     }
 
-    public void setsSourceOfFunds(String sSourceOfFunds) {
-        this.sSourceOfFunds = sSourceOfFunds;
+    public void setsSourceOfFund(String sSourceOfFund) {
+        this.sSourceOfFund = sSourceOfFund;
     }
 
     public String getRemitPurpose() {
