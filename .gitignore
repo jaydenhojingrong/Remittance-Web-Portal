@@ -27,3 +27,4 @@ src/main/java/com/OOP/studentsystem/fileHandling/FileStorageService.java
 target/classes/application.properties
 src/main/java/com/OOP/remittancesystem/service/FileStorageService.java
 src/main/resources/application.properties
+src/main/resources/application.properties
