@@ -33,62 +33,7 @@ function MapFields() {
       id: 'last name',
       shape: 'interfaceBox',
       type: 'input',
-    },
-    {
-      id: 'address',
-      shape: 'interfaceBox',
-      type: 'input',
-    },
-    {
-      id: 'country',
-      shape: 'interfaceBox',
-      type: 'input',
-    },
-    {
-      id: 'static6',
-      shape: 'interfaceBox',
-      type: 'input',
-    },
-    {
-      id: 'static123',
-      shape: 'interfaceBox',
-      type: 'input',
-    },
-    {
-      id: 'a',
-      shape: 'interfaceBox',
-      type: 'input',
-    },
-    {
-      id: 'c',
-      shape: 'interfaceBox',
-      type: 'input',
-    },
-    {
-      id: 's',
-      shape: 'interfaceBox',
-      type: 'input',
-    },
-    {
-      id: 'd',
-      shape: 'interfaceBox',
-      type: 'input',
-    },
-    {
-      id: 'w',
-      shape: 'interfaceBox',
-      type: 'input',
-    },
-    {
-      id: 'residence',
-      shape: 'interfaceBox',
-      type: 'output',
-    },
-    {
-      id: 'f name',
-      shape: 'interfaceBox',
-      type: 'output',
-    },
+    }
   ]);
 
   const [inputHeaders, setInputHeaders] = useState([
@@ -99,35 +44,7 @@ function MapFields() {
     {
       id: 'last name',
       shape: 'interfaceBox',
-    },
-    {
-      id: 'address',
-      shape: 'interfaceBox',
-    },
-    {
-      id: 'country',
-      shape: 'interfaceBox',
-    },
-    {
-      id: 'static6',
-      shape: 'interfaceBox',
-    },
-    {
-      id: 'static123456',
-      shape: 'interfaceBox',
-    },
-    {
-      id: 'a',
-      shape: 'interfaceBox',
-    },
-    {
-      id: 'c',
-      shape: 'interfaceBox',
-    },
-    {
-      id: 's',
-      shape: 'interfaceBox',
-    },
+    }
   ]);
 
   const [ouputHeaders, setOuputHeaders] = useState([
@@ -142,7 +59,13 @@ function MapFields() {
   ]);
 
   const [boxes, setBoxes] = useState([]);
-  const [lines, setLines] = useState([]);
+  const [lines, setLines] = useState([{props:{end:"f name",start:"first name"}}]);
+
+
+  function checkstate() {
+    console.log(lines);
+    console.log('test');
+  }
 
   // selected:{id:string,type:"arrow"|"box"}
   const [selected, setSelected] = useState(null);
@@ -201,17 +124,12 @@ function MapFields() {
                       .map((itr) => (
                         <Box {...boxProps} key={itr.id} id={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="left" />
                       ))}
-                    {/* {interfaces
-                      .filter((itr) => itr.type === 'input')
-                      .map((itr) => (
-                        <Box {...boxProps} key={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="left" />
-                      ))} */}
+
                   </div>
                   <div
                     id="boxesContainer"
                     className="boxesContainer"
                     onDragOver={(e) => e.preventDefault()}
-                  // onDrop={handleDropDynamic}
                   >
                     <TopBar {...props} />
 
@@ -229,20 +147,21 @@ function MapFields() {
                       .map((itr) => (
                         <Box {...boxProps} key={itr.id} id={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="right" />
                       ))}
-                    {/* {interfaces
-                      .filter((itr) => itr.type === 'output')
-                      .map((itr) => (
-                        <Box {...boxProps} key={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="right" />
-                      ))} */}
+
                   </div>
                   {/* xarrow connections*/}
+
+                  
+
                   {lines.map((line, i) => (
+                    
                     <Xarrow
                       key={line.props.root + '-' + line.props.end + i}
                       line={line}
                       selected={selected} 
                       setSelected={setSelected}
                     />
+
                   ))}
 
                   {/* boxes menu that may be opened */}
@@ -253,10 +172,13 @@ function MapFields() {
                   )}
                 </div>
               </Xwrapper>
+              
             </div>
           </div>
         </div>
       </div>
+
+      <button onClick={checkstate}> aaa </button>
     </>
   );
 }
