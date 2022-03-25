@@ -1,3 +1,3 @@
 sourceType,sCountry,segment,sFirstName,sLastName,sDOB,sNationality,sIDType,sCountryID,sIDNumber,sCurrency,sAddress,sCity,sAddressCountry,rType,rCountry,rFirstName,rLastName,rMobileNumber,rAccountNumber,rCurrency,amount,sSourceOfFund,remitPurpose
-partner,SGP,individual,Jayden,Ho,10/10/2010,SGP,national,SGP,123,EUR,788 Lower Changi #99-99,Singapore,SGP,bank_account,CHN,Putien,Muhd,98862855,19820546855,CNY,3009,4,008-03
-partner,SGP,individual,Jon,Jones,29/01/2000,MYS,national,MYS,124,EUR,494 Johor Barhu,Johor Barhu,MYS,bank_account,CHN,Ninjiom,Tan,98453688,18956571573,CNY,4009,3,001-01
+partner,SGP,individual,Jayden,Ho,10/10/2010,SGP,national,SGP,123,EUR,788 Lower Changi #99-99,Singapore,SGP,11,1010101010,Putien,Muhd,98862855,19820546855,CNY,3009,4,008-03
+partner,SGP,individual,Jon,Jones,29/01/2000,MYS,national,MYS,124,EUR,494 Johor Barhu,Johor Barhu,MYS,11,1010101010,Ninjiom,Tan,98453688,18956571573,CNY,4009,3,001-01

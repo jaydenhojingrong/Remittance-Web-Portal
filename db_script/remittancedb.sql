@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 18, 2022 at 02:45 PM
+-- Generation Time: Mar 25, 2022 at 03:02 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -34,84 +34,38 @@ CREATE TABLE IF NOT EXISTS `headernames` (
   `current_header` varchar(99) NOT NULL,
   `ssot_header` varchar(99) NOT NULL,
   `company` varchar(99) NOT NULL,
-  `current_headerzzz` varchar(255) NOT NULL,
-  `rowid` int(11) NOT NULL,
-  `amount` varchar(255) DEFAULT NULL,
-  `r_country` varchar(255) DEFAULT NULL,
-  `r_mobile` varchar(255) DEFAULT NULL,
-  `r_type` varchar(255) DEFAULT NULL,
-  `s_city` varchar(255) DEFAULT NULL,
-  `s_country` varchar(255) NOT NULL,
-  `s_country_address` varchar(255) DEFAULT NULL,
-  `s_currency` varchar(255) DEFAULT NULL,
-  `sdob` varchar(255) DEFAULT NULL,
-  `sidcountry` varchar(255) DEFAULT NULL,
-  `segment` varchar(255) DEFAULT NULL,
-  `source_type` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`current_header`)
+  PRIMARY KEY (`current_header`,`company`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `headernames`
 --
 
-INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`, `current_headerzzz`, `rowid`, `amount`, `r_country`, `r_mobile`, `r_type`, `s_city`, `s_country`, `s_country_address`, `s_currency`, `sdob`, `sidcountry`, `segment`, `source_type`) VALUES
-('Address', 'sAddress', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Address City', 'sCity', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Beneficiary Account Number', 'rAccountNumber', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Beneficiary Bank', 'rBank', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Beneficiary Branch', 'rBranch', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Beneficiary Date of Birth', 'rDOB', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Beneficiary First Name', 'rFirstName', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Beneficiary ID Number', 'rIDNumber', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Beneficiary ID Type', 'rIDType', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Beneficiary Last Name', 'rLastName', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Beneficiary Mobile Number', 'rMobileNumber', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Beneficiary Send Currency', 'sCurrency', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Country', 'sCountry', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Country of Address', 'sAddressCountry', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Date of Birth', 'sDOB', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Destination Amount', 'rCurrency', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Ewallet ID', 'rAccountNumber', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('First Name', 'sFirstName', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('ID Number', 'sIDNumber', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('ID Type', 'sIDType', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Last Name', 'sLastName', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Mobile Number', 'rMobileNumber', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Nationality', 'sNationality', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Payment Mode', 'paymentMode', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Purpose Of Remittance', 'remitPurpose', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Receiver account number', 'rAccountNumber', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Receiver Address', 'rAddress', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Receiver City', 'rCity', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Receiver Country', 'rCountry', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Receiver First Name', 'rFirstName', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Receiver ID Number', 'rIDNumber', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Receiver ID Type', 'rIDType', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Receiver Last Name', 'rLastName', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Receiver Nationality', 'rNationality', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('recipient_country', 'rCountry', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('recipient_currency', 'rCurrency', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('recipient_type', 'rType', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Remittance Purpose', 'remitPurpose', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('sCountryID', 'ID Country of Issue', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('segment', 'segment', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender Account Number', 'sAccountNumber', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender Address', 'sAddress', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender City', 'sCity', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender DOB', 'sDOB', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender First Name', 'sFirstName', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender ID Number', 'sIDNumber', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender ID Type', 'sIDType', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender Nationality', 'sNationality', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender Relation', 'relationship', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender Residence Address', 'sAddress', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender source of fund', 'sSourceOfFund', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Sender State/Province', 'sState', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('sender_currency', 'sCurrency', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Source of Fund', 'sSourceOfFund', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('Source of Funds', 'sSourceOfFund', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL),
-('source_type', 'sourceType', '', '', 0, NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`) VALUES
+('recipient_account_number', 'rAccountNumber', 'EverywhereRemit'),
+('recipient_country', 'rCountry', 'EverywhereRemit'),
+('recipient_currency', 'rCurrency', 'EverywhereRemit'),
+('recipient_legal_name_first', 'rFirstName', 'EverywhereRemit'),
+('recipient_legal_name_last', 'rLastName', 'EverywhereRemit'),
+('recipient_mobile_number', 'rMobileNumber', 'EverywhereRemit'),
+('recipient_type', 'rType', 'EverywhereRemit'),
+('remittance_purpose', 'remitPurpose', 'EverywhereRemit'),
+('segment', 'segment', 'EverywhereRemit'),
+('sender_address_city', 'sCity', 'EverywhereRemit'),
+('sender_address_country', 'sAddressCountry', 'EverywhereRemit'),
+('sender_address_line', 'sAddress', 'EverywhereRemit'),
+('sender_country', 'sCountry', 'EverywhereRemit'),
+('sender_currency', 'sCurrency', 'EverywhereRemit'),
+('sender_date_of_birth', 'sDOB', 'EverywhereRemit'),
+('sender_id_country', 'sCountryID', 'EverywhereRemit'),
+('sender_id_number', 'sIDNumber', 'EverywhereRemit'),
+('sender_id_type', 'sIDType', 'EverywhereRemit'),
+('sender_legal_name_first', 'sFirstName', 'EverywhereRemit'),
+('sender_legal_name_last', 'sLastName', 'EverywhereRemit'),
+('sender_nationality', 'sNationality', 'EverywhereRemit'),
+('source_of_funds', 'sSourceOfFund', 'EverywhereRemit'),
+('source_type', 'sourceType', 'EverywhereRemit'),
+('units', 'amount', 'EverywhereRemit');
 
 -- --------------------------------------------------------
 
@@ -135,18 +89,31 @@ CREATE TABLE IF NOT EXISTS `remittancetransaction` (
   `sidtype` varchar(255) DEFAULT NULL,
   `s_last_name` varchar(255) DEFAULT NULL,
   `s_nationality` varchar(255) DEFAULT NULL,
-  `s_source_of_funds` varchar(255) DEFAULT NULL,
+  `s_source_of_fund` varchar(255) DEFAULT NULL,
   `amount` varchar(255) DEFAULT NULL,
-  `r_country` varchar(255) DEFAULT NULL,
-  `r_mobile` varchar(255) DEFAULT NULL,
-  `r_type` varchar(255) DEFAULT NULL,
-  `s_city` varchar(255) DEFAULT NULL,
-  `s_country_address` varchar(255) DEFAULT NULL,
+  `r_country` varchar(50) DEFAULT NULL,
+  `r_mobile_number` varchar(15) DEFAULT NULL,
+  `r_type` varchar(2) DEFAULT NULL,
+  `s_address_country` varchar(50) DEFAULT NULL,
+  `s_city` varchar(50) DEFAULT NULL,
   `s_currency` varchar(255) DEFAULT NULL,
-  `sdob` varchar(255) DEFAULT NULL,
-  `sidcountry` varchar(255) DEFAULT NULL,
+  `sdob` varchar(10) DEFAULT NULL,
+  `sidcountry` varchar(20) DEFAULT NULL,
   `segment` varchar(255) DEFAULT NULL,
-  `source_type` varchar(255) DEFAULT NULL,
+  `source_type` varchar(30) DEFAULT NULL,
+  `payment_mode` varchar(255) DEFAULT NULL,
+  `r_address` varchar(255) DEFAULT NULL,
+  `r_city` varchar(255) DEFAULT NULL,
+  `ridnumber` varchar(255) DEFAULT NULL,
+  `ridtype` varchar(255) DEFAULT NULL,
+  `r_nationality` varchar(255) DEFAULT NULL,
+  `s_relation` varchar(255) DEFAULT NULL,
+  `s_state` varchar(255) DEFAULT NULL,
+  `r_bank` varchar(255) DEFAULT NULL,
+  `r_branch` varchar(255) DEFAULT NULL,
+  `rdob` varchar(255) DEFAULT NULL,
+  `r_mobile_no` varchar(255) DEFAULT NULL,
+  `s_account_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`rowid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
@@ -154,9 +121,9 @@ CREATE TABLE IF NOT EXISTS `remittancetransaction` (
 -- Dumping data for table `remittancetransaction`
 --
 
-INSERT INTO `remittancetransaction` (`dtype`, `rowid`, `r_account_num`, `r_currency`, `r_first_name`, `r_last_name`, `remit_purpose`, `s_address`, `s_country`, `s_first_name`, `sidnumber`, `sidtype`, `s_last_name`, `s_nationality`, `s_source_of_funds`, `amount`, `r_country`, `r_mobile`, `r_type`, `s_city`, `s_country_address`, `s_currency`, `sdob`, `sidcountry`, `segment`, `source_type`) VALUES
-('EverywhereRemit', 1, '19820546855', 'CNY', 'Putien', 'Muhd', '008-03', '788 Lower Changi #99-99', 'SGP', 'Jayden', '123', 'national', 'Ho', 'SGP', '4', '3009', 'CHN', '98862855', 'bank_account', 'Singapore', 'SGP', 'EUR', '10/10/2010', 'SGP', 'individual', 'partner'),
-('EverywhereRemit', 2, '18956571573', 'CNY', 'Ninjiom', 'Tan', '001-01', '494 Johor Barhu', 'SGP', 'Jon', '124', 'national', 'Jones', 'MYS', '3', '4009', 'CHN', '98453688', 'bank_account', 'Johor Barhu', 'MYS', 'EUR', '29/01/2000', 'MYS', 'individual', 'partner');
+INSERT INTO `remittancetransaction` (`dtype`, `rowid`, `r_account_num`, `r_currency`, `r_first_name`, `r_last_name`, `remit_purpose`, `s_address`, `s_country`, `s_first_name`, `sidnumber`, `sidtype`, `s_last_name`, `s_nationality`, `s_source_of_fund`, `amount`, `r_country`, `r_mobile_number`, `r_type`, `s_address_country`, `s_city`, `s_currency`, `sdob`, `sidcountry`, `segment`, `source_type`, `payment_mode`, `r_address`, `r_city`, `ridnumber`, `ridtype`, `r_nationality`, `s_relation`, `s_state`, `r_bank`, `r_branch`, `rdob`, `r_mobile_no`, `s_account_number`) VALUES
+('EverywhereRemit', 1, '19820546855', 'CNY', 'Putien', 'Muhd', '008-03', '788 Lower Changi #99-99', 'SGP', 'Jayden', '123', 'national', 'Ho', 'SGP', '4', '3009', '1010101010', '98862855', '11', 'SGP', 'Singapore', 'EUR', '10/10/2010', 'SGP', 'individual', 'partner', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('EverywhereRemit', 2, '18956571573', 'CNY', 'Ninjiom', 'Tan', '001-01', '494 Johor Barhu', 'SGP', 'Jon', '124', 'national', 'Jones', 'MYS', '3', '4009', '1010101010', '98453688', '11', 'MYS', 'Johor Barhu', 'EUR', '29/01/2000', 'MYS', 'individual', 'partner', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
