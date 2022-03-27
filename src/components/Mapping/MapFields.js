@@ -59,7 +59,7 @@ function MapFields() {
   ]);
 
   const [boxes, setBoxes] = useState([]);
-  const [lines, setLines] = useState([{props:{end:"f name",start:"first name"}}]);
+  const [lines, setLines] = useState([{ props: { start: "first name", end: "f name" } }, { props: { start: "last name", end: "residence" } }]);
 
 
   function checkstate() {
@@ -120,19 +120,24 @@ function MapFields() {
                     // onDrop={handleDropStatic}
                     id="interfacesInputsBar">
                     <i className="interfaceTitleStyle">Your Headers</i>
+                    {/* for reference later */}
+                    {/* {interfaces
+                      .filter((itr) => itr.type === 'input')
+                      .map((itr) => (
+                        <Box {...boxProps} key={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="left" />
+                      ))} */}
                     {inputHeaders
                       .map((itr) => (
                         <Box {...boxProps} key={itr.id} id={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="left" />
                       ))}
-
                   </div>
                   <div
                     id="boxesContainer"
                     className="boxesContainer"
                     onDragOver={(e) => e.preventDefault()}
+                  // onDrop={handleDropDynamic}
                   >
                     <TopBar {...props} />
-
                     {boxes.map((box) => (
                       <Box {...boxProps} key={box.id} box={box} position="absolute" sidePos="middle" />
                     ))}
@@ -147,23 +152,16 @@ function MapFields() {
                       .map((itr) => (
                         <Box {...boxProps} key={itr.id} id={itr.id} box={{ ...itr, id: itr.id }} position="static" sidePos="right" />
                       ))}
-
                   </div>
                   {/* xarrow connections*/}
-
-                  
-
                   {lines.map((line, i) => (
-                    
                     <Xarrow
                       key={line.props.root + '-' + line.props.end + i}
                       line={line}
-                      selected={selected} 
+                      selected={selected}
                       setSelected={setSelected}
                     />
-
                   ))}
-
                   {/* boxes menu that may be opened */}
                   {lines.map((line, i) =>
                     line.menuWindowOpened ? (
@@ -172,7 +170,6 @@ function MapFields() {
                   )}
                 </div>
               </Xwrapper>
-              
             </div>
           </div>
         </div>
