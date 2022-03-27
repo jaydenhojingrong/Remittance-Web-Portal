@@ -1,6 +1,7 @@
 package com.OOP.remittancesystem.entity;
 
 import com.opencsv.bean.CsvBindByName;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

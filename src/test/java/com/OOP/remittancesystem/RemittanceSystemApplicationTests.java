@@ -1,10 +1,11 @@
-package com.OOP.studentsystem;
+package com.OOP.remittancesystem;
 
 import org.junit.jupiter.api.Test;
+
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StudentSystemApplicationTests {
+class RemittanceSystemTests {
 
 	@Test
 	void contextLoads() {

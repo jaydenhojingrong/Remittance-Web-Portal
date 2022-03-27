@@ -1,6 +1,6 @@
 
 package com.OOP.remittancesystem.fileHandling;
-import com.OOP.remittancesystem.entity.EverywhereRemit;
+
 import com.OOP.remittancesystem.entity.Remittance;
 import com.OOP.remittancesystem.service.FileStorageService;
 import com.OOP.remittancesystem.service.HeaderService;
@@ -70,7 +70,6 @@ public class OpenCSVReadAndParseToBean {
     public Class <?> getClassByString(String company) throws ClassNotFoundException{
         return Class.forName("com.OOP.remittancesystem.entity." + company);
     }
-
     
     public void mapKeywords(String fileName, String fileType, String fileDownloadUrl) {
         boolean readHeader = false;
@@ -158,9 +157,6 @@ public class OpenCSVReadAndParseToBean {
             catch(Exception e){
                 System.out.println(e.getMessage());
             }
-            // file.exists();
-            // file.delete();
-            // tempFile.renameTo(file); 
          }
     }
 

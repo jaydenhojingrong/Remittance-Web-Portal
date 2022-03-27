@@ -14,8 +14,6 @@ public class EverywhereRemit extends Remittance{
     //stores only the columns that do not exist in all three companies BUT exist in EverywhereRemit
     //e.g. does not store sender first name since it exist in all three
     // private String company = "EverywhereRemit";
-
-
     @Size(min = 1, max = 30, message = "source_type must be between 1 and 10 characters")
     @CsvBindByName(column = "sourceType", required = true)
     private String sourceType;
