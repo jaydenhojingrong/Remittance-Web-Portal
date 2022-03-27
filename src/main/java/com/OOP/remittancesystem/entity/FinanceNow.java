@@ -12,36 +12,36 @@ public class FinanceNow extends Remittance {
     //stores only the columns that do not exist in all three companies BUT exist in FinanceNow
     //e.g. does not store sender first name since it exist in all three
 
-    @CsvBindByName(column = "Sender DOB", required = true)
+    @CsvBindByName(column = "sDOB", required = true)
     private String sDOB;
 
-    @CsvBindByName(column = "Sender City", required = true)
+    @CsvBindByName(column = "sCity", required = true)
     private String sCity;
 
-    @CsvBindByName(column = "Receiver Country", required = true)
+    @CsvBindByName(column = "rCountry", required = true)
     private String rCountry;
 
-    @CsvBindByName(column = "Payment Mode", required = true)
+    @CsvBindByName(column = "paymentMode", required = true)
     private String paymentMode;
 
-    @CsvBindByName(column = "Receiver Address", required = true)
+    @CsvBindByName(column = "rAddress", required = true)
     private String rAddress;
 
-    @CsvBindByName(column = "Receiver City", required = true)
+    @CsvBindByName(column = "rCity", required = true)
     private String rCity;
 
-    @CsvBindByName(column = "Receiver ID Number", required = true)
+    @CsvBindByName(column = "rIDNumber", required = true)
     private String rIDNumber;
 
-    @CsvBindByName(column = "Receiver ID Type", required = true)
+    @CsvBindByName(column = "rIDType", required = true)
     private String rIDType;
 
-    @CsvBindByName(column = "Sender Relation", required = true)
+    @CsvBindByName(column = "relationship", required = true)
     private String sRelation;
 
-    @CsvBindByName(column = "Sender State/Province", required = true)
+    @CsvBindByName(column = "sState", required = true)
     private String sState;
 
-    @CsvBindByName(column = "Receiver Nationality", required = true)
+    @CsvBindByName(column = "rNationality", required = true)
     private String rNationality;
 }

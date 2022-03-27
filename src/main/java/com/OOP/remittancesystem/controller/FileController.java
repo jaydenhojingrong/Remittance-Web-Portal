@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 
 import com.OOP.remittancesystem.dao.RemittanceDAO;
-import com.OOP.remittancesystem.entity.EverywhereRemit;
 import com.OOP.remittancesystem.entity.Remittance;
 import com.OOP.remittancesystem.fileHandling.FileResponse;
 import com.OOP.remittancesystem.fileHandling.OpenCSVReadAndParseToBean;
@@ -55,13 +54,10 @@ public class FileController {
 
         openCSV.mapKeywords(fileName,  file.getContentType(), fileDownloadUrl);
 
-        System.out.println("filedownloadurl egeehghge: " +fileDownloadUrl);
         List<Remittance> remittanceList = openCSV.mapCSV(fileDownloadUrl, company);
-        System.out.println(remittanceList);
         for (Remittance remittance: remittanceList) {
 
             try {
-                //need to change
                 remittanceDAO.save((Remittance) remittance);
             } catch (javax.validation.ConstraintViolationException e){
                 String message= "";

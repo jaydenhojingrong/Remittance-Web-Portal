@@ -15,14 +15,9 @@ public class RemittanceService {
     
     @Autowired
     private RemittanceDAO remittanceDAO;
-    //need to change
     public List<Remittance> getAllRemittance() {
         return remittanceDAO.findAll();
     }
-
-    // public List<EverywhereRemit> getAllRemittance() {
-    //     return remittanceDAO.findAll();
-    // }
 }
 
 

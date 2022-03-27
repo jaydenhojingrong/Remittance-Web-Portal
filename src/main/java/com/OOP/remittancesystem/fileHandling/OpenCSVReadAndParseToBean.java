@@ -58,7 +58,9 @@ public class OpenCSVReadAndParseToBean {
         }
 
         catch(Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Error msg: " + e.getMessage());
+            System.out.println("Entity name and db name does not match. Check entity.");
+
         }
         
         return remittanceList;
@@ -155,13 +157,13 @@ public class OpenCSVReadAndParseToBean {
                 fileStorageService.storeFile(multipartFile);
             }
             catch(Exception e){
-                System.out.println(e.getMessage());
+                System.out.println("its here!!!!!!" + e.getMessage());
             }
          }
     }
 
     public String renameHeader(String header){
-        System.out.println(headerservice.getHeaderByCurrentHeader(header));
+        System.out.println(headerservice.getHeaderByCurrentHeader(header).getCurrentHeader());
         return headerservice.getHeaderByCurrentHeader(header).getSsotHeader();
     }
 
