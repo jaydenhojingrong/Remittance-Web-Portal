@@ -61,7 +61,8 @@ public class FileController {
         for (Remittance remittance: remittanceList) {
 
             try {
-                remittanceDAO.save((EverywhereRemit) remittance);
+                //need to change
+                remittanceDAO.save((Remittance) remittance);
             } catch (javax.validation.ConstraintViolationException e){
                 String message= "";
                 Set<ConstraintViolation<?>> violations = e.getConstraintViolations();

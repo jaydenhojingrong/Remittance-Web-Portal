@@ -9,12 +9,12 @@
         },
         {
             "type": "java",
-            "name": "Spring Boot-StudentSystemApplication<studentsystem>",
+            "name": "Spring Boot-RemittanceSystemApplication<remittancesystem>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
-            "mainClass": "com.OOP.studentsystem.StudentSystemApplication",
-            "projectName": "studentsystem",
+            "mainClass": "com.OOP.remittancesystem.RemittanceWebPortal",
+            "projectName": "remittancesystem",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
