@@ -11,21 +11,20 @@ import javax.persistence.Table;
 @Table(name = "headernames")
 public class HeaderNames {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "currentHeader", nullable = false)
     private String currentHeader;
 
     @Column(name = "ssotHeader", nullable = false)
     private String ssotHeader;
-
+    
     @Column(name = "company", nullable = true)
     private String company;
 
     public HeaderNames(){
-        
+
     }
+    
     public HeaderNames(String currentHeader, String ssotHeader, String company){
-        super();
         this.currentHeader = currentHeader;
         this.ssotHeader = ssotHeader;
         this.company = company;
@@ -55,6 +54,8 @@ public class HeaderNames {
         this.company = company;
     }
 
-    
+    public String toString(){
+        return (this.currentHeader + " " + this.ssotHeader + " " + this.company);
+    }
 
 }
