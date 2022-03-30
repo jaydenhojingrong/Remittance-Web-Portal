@@ -45,6 +45,10 @@ public class Remittance {
     private String sSourceOfFund;
     @CsvBindByName(column = "remitPurpose", required = true)
     private String remitPurpose;
+
+    @CsvBindByName(column = "amount", required = true)
+    private String amount;
+
     
   
     public Remittance(){

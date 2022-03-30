@@ -15,10 +15,13 @@ public class RemittanceService {
     
     @Autowired
     private RemittanceDAO remittanceDAO;
-    
+
     public List<Remittance> getAllRemittance() {
         return remittanceDAO.findAll();
     }
+
+    //char method
+    
 }
 
 

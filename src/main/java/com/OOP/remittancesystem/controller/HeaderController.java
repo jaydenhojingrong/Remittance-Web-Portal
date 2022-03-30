@@ -46,17 +46,27 @@ public class HeaderController {
 	 * @return HeaderName Entity of the indicated currentHeader
 	 */
     @GetMapping("/headers/{currentHeader}")
-	public HeaderNames getHeaderByCurrentHeader(@PathVariable String currentHeader) {
+	public List <HeaderNames> getHeaderByCurrentHeader(@PathVariable String currentHeader) {
 		return headerService.getHeaderByCurrentHeader(currentHeader);
 	}
 
 	@RequestMapping(value = "/addHeader", method = RequestMethod.POST)
 	@ResponseBody
 	public HeaderNames insertHeaderNames(@RequestParam String currentHeader, @RequestParam String ssotHeader, @RequestParam String company){
-		HeaderNames headername = new HeaderNames(currentHeader,ssotHeader, company);
-		System.out.println("\n\n\n\n"  + "slaladsladsldsaldslaladslsdalsdaldsaldasldsa" +"\n\n\n");
-		System.out.println("\n\n\n\n"  + headername +"\n\n\n");
+		HeaderNames headername = new HeaderNames(currentHeader,ssotHeader, company, "dummyy");
 		return headerDAO.save(headername);
 	}
+
+
+	/**
+	 * Get all Header by SSOT Header
+	 * @param ssotheader of a column of the uploaded csv file
+	 * @return HeaderName Entity of the indicated currentHeader
+	 */
+    @GetMapping("/headers/api/{ssotHeader}/{company}")
+	public HeaderNames getApiHeaderBySSOTHeader(@PathVariable String ssotHeader, @PathVariable String company) {
+		return headerService.getApiHeaderBySSOTHeader(ssotHeader, company);
+	}
+
 
 }

@@ -20,14 +20,18 @@ public class HeaderNames {
     @Column(name = "company", nullable = true)
     private String company;
 
+    @Column(name = "apiHeader", nullable = true)
+    private String apiHeader;
+
     public HeaderNames(){
 
     }
     
-    public HeaderNames(String currentHeader, String ssotHeader, String company){
+    public HeaderNames(String currentHeader, String ssotHeader, String company, String apiHeader){
         this.currentHeader = currentHeader;
         this.ssotHeader = ssotHeader;
         this.company = company;
+        this.apiHeader = apiHeader;
     }
 
     public String getCurrentHeader() {
@@ -54,6 +58,14 @@ public class HeaderNames {
         this.company = company;
     }
 
+    public String getApiHeader() {
+        return apiHeader;
+    }
+
+    public void setApiHeader(String apiHeader) {
+        this.apiHeader = apiHeader;
+    }
+    
     public String toString(){
         return (this.currentHeader + " " + this.ssotHeader + " " + this.company);
     }

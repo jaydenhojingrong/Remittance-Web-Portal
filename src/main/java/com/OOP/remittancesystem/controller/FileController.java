@@ -40,26 +40,48 @@ public class FileController {
     @Autowired
     private OpenCSVReadAndParseToBean openCSV;
 
+    // upload function will take in "multipart files" and "company name" and generate its relative link in the user's system before creating a URI to be downloaded into the system's storage
     @PostMapping
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("company")String company){
+    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file,@RequestParam("company")String company){
 
+        //store csv file in server
         String fileName = fileStorageService.storeFile(file);
+        //get download uri for the uploaded csv
+        //e.g. localhost:8080/files/everywhereDummy.csv
         String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/files/")
                 .path(fileName)
                 .toUriString();
+        //uploaded file success get JSON response object showing file name, size etc....
+        //example of JSON object:
+        // {
+        //     "fileName": "paymentDummy.csv",
+        //     "fileDownloadURL": "http://localhost:8080/files/paymentDummy.csv",
+        //     "fileType": "text/csv",
+        //     "size": 606
+        // }
 
+        // EDIT THIS TO CHANGE THE RESPONSE 
         FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize());
 
+        //rename into CSV into SSOT headers
+        //void method.. but edits the local csv directly
         openCSV.mapKeywords(fileName,  file.getContentType(), fileDownloadUrl);
-
-        List<Remittance> remittanceList = openCSV.mapCSV(fileDownloadUrl, company);
+        
+        //cast the csv data into a list of remittance
+        List<Remittance> remittanceList = openCSV.csvToRemittanceList(fileDownloadUrl, company);
+        //loop the list and...
         for (Remittance remittance: remittanceList) {
 
             try {
+                // insert into db
                 remittanceDAO.save((Remittance) remittance);
             } catch (javax.validation.ConstraintViolationException e){
+                //capture validation errors in print here!
+                //maruni!!!!!!!!!!!!!!!!!
+                //save plz!!!!!!! 
+                //display to frontend or smth
                 String message= "";
                 Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
                 for (ConstraintViolation<?> violation : violations) {
@@ -68,11 +90,13 @@ public class FileController {
                 }
             }
              
-
-            System.out.println("Country : " + remittance.getsCountry());
-            System.out.println("First Name : " + remittance.getsFirstName());
-            System.out.println("Last Name : " + remittance.getsLastName());
-            System.out.println("==========================");
+            //call the method here (pass in the remittanceList)
+                // remittanceList -> loop
+                // check amount to determine the company
+                // rename into api naming covention (using headernames)
+                // hashmap [company: {data}], [company b: {data}],[companya: {data}], [company b: {data}]
+                //pass to yang and char
+    
         }
 
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);

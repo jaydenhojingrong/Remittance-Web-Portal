@@ -57,4 +57,5 @@ public class FinanceNow extends Remittance {
     @Size(min = 3, max = 3, message = "rNationality must be between 3 and 3 characters")
     @CsvBindByName(column = "rNationality", required = true)
     private String rNationality;
+
 }

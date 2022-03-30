@@ -29,16 +29,16 @@ public class OpenCSVReadAndParseToBean {
     @Autowired
     private FileStorageService fileStorageService;
 
-    //responsible for taking in a csv file, parse into a bean and then into a list of remittance
-    public List<Remittance> mapCSV(String fileDownloadUrl, String company) {
+    //responsible for taking in a csv file, parse into a bean and then into a list of remittance object to allow for processing into the DB
+    public List<Remittance> csvToRemittanceList(String fileDownloadUrl, String company) {
         List<Remittance> remittanceList = null;
-        
+            
         try (InputStream input = new URL(fileDownloadUrl).openStream();
             Reader reader = new InputStreamReader(input, "UTF-8");)
             {   
                 Class <?> companyClass = getClassByString(company);
 
-                //convert csv data into rimittance bean
+                //convert csv data into remittance bean
                 CsvToBean<Remittance> csvToBean = new CsvToBeanBuilder(reader)
                         .withType(companyClass)
                         .withIgnoreLeadingWhiteSpace(true)
@@ -60,7 +60,6 @@ public class OpenCSVReadAndParseToBean {
         catch(Exception e){
             System.out.println("Error msg: " + e.getMessage());
             System.out.println("Entity name and db name does not match. Check entity.");
-
         }
         
         return remittanceList;
@@ -73,6 +72,7 @@ public class OpenCSVReadAndParseToBean {
         return Class.forName("com.OOP.remittancesystem.entity." + company);
     }
     
+    //
     public void mapKeywords(String fileName, String fileType, String fileDownloadUrl) {
         boolean readHeader = false;
         String fullFileName = fileName;
@@ -90,9 +90,21 @@ public class OpenCSVReadAndParseToBean {
             IOUtils.copy(input, out);
 
         } catch (FileNotFoundException e) {
+            // link exception to fileController at line 67
             // handle exception here
+            // maruni help plzzzz
+            // set error message and throw upwards so it can be handled as a JSON and parsed to the frontend (idk not sure too up to you how u wanna do it hahaha) 
+            // EG edit json object maybe (FileResponse.java)
+            // {
+            //     "fileName": "paymentDummy.csv",
+            //     "fileDownloadURL": "http://localhost:8080/files/paymentDummy.csv",
+            //     "fileType": "text/csv",
+            //     "size": 606,
+            //     "error": "uwu help"
+            // }
         } catch (IOException e) {
             // handle exception here
+            // maruni help plzzzzz
         }
 
         //create a temp csv file to input value inside
@@ -146,7 +158,7 @@ public class OpenCSVReadAndParseToBean {
          }
          finally{
              //for debugging
-             //delete local file
+             //delete local file - temp.csv
              //rename temp as whatever name local file was 
             System.out.println("Does file exists?: " + file.exists());
             System.out.println("Was file deleted?: " + file.delete());
@@ -157,13 +169,15 @@ public class OpenCSVReadAndParseToBean {
                 fileStorageService.storeFile(multipartFile);
             }
             catch(Exception e){
-                System.out.println("its here!!!!!!" + e.getMessage());
+                System.out.println(e.getMessage());
             }
          }
     }
 
+    // connected to autowired service at line 29
+    // return ssot name by using current_header
     public String renameHeader(String header){
-        System.out.println(headerservice.getHeaderByCurrentHeader(header).getCurrentHeader());
+        // System.out.println(headerservice.getHeaderByCurrentHeader(header).getCurrentHeader());
         return headerservice.getHeaderByCurrentHeader(header).getSsotHeader();
     }
 

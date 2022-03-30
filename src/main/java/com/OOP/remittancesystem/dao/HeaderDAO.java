@@ -13,8 +13,11 @@ public interface HeaderDAO extends JpaRepository<HeaderNames, String> {
 
     public List<HeaderNames> findAll();
 
-    public Optional<HeaderNames> findById(String currentHeader);
+    public List <HeaderNames> findBycurrentHeader(String currentHeader);
+
+    public HeaderNames findByssotHeaderAndCompany(String ssotHeader, String company);
 
     public HeaderNames save(HeaderNames headerNames);
+
     
 }

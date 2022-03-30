@@ -19,8 +19,8 @@ public class PaymentGo extends Remittance{
     @CsvBindByName(column = "rMobileNumber", required = true)
     private String rMobileNo;
 
-    @CsvBindByName(column = "amount", required = true)
-    private String amount;
+    // @CsvBindByName(column = "amount", required = true)
+    // private String amount;
 
     @CsvBindByName(column = "rIDNumber", required = true)
     private String rIDNumber;
