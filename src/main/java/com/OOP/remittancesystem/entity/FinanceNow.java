@@ -35,15 +35,16 @@ public class FinanceNow extends Remittance {
     @CsvBindByName(column = "rAddress", required = true)
     private String rAddress;
 
-     // @Size(min = 3, max = 3, message = "rNationality must be between 3 and 3 characters")
+     @Size(min = 3, max = 3, message = "rNationality must be between 3 and 3 characters")
     @CsvBindByName(column = "rCity", required = true)
     private String rCity;
 
     @CsvBindByName(column = "rIDNumber", required = true)
     private String rIDNumber;
 
-    // @Size(min = 3, max = 3, message = "rNationality must be between 3 and 3 characters")
-    @Pattern(regexp = "/^(passport|national)$/")
+    // it must be passport or nationality 
+
+    @Pattern(regexp = "passport|national")  
     @CsvBindByName(column = "rIDType", required = true)
     private String rIDType;
 
@@ -53,7 +54,7 @@ public class FinanceNow extends Remittance {
     @CsvBindByName(column = "sState", required = true)
     private String sState;
 
-    // @Size(min = 3, max = 3, message = "rNationality must be between 3 and 3 characters")
+    @Size(min = 3, max = 3, message = "rNationality must be between 3 and 3 characters")
     @CsvBindByName(column = "rNationality", required = true)
     private String rNationality;
 }
