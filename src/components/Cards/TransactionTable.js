@@ -1,14 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
+import { useEffect } from "react/cjs/react.production.min";
+
 
 export default function CardTable({ color }) {
+  function transactions() {
+    console.log("IN-----------");
+    var config = {
+      headers: { 'Access-Control-Allow-Origin': '*' }
+    };
+    axios
+      .get(
+        "localhost:8080.com/transactions/" + localStorage.getItem('username'), config 
+      )
+      .then((response) => {
+        console.log(response);
+        // localStorage.bearer_token = response.data.access_token;
+        // localStorage.username = username;
+        // window.location.replace("/admin/dashboard");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  
   return (
     <>
-      <div
+      <div onLoad={transactions()}
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
           (color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")

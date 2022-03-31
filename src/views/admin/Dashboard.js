@@ -10,6 +10,7 @@ export default function Dashboard() {
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
           <CardTable />
+          {localStorage.getItem("username")}
         </div>
       </div>
     </>
