@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RemittanceDAO extends JpaRepository<Remittance, Integer>{
     public Remittance save(Remittance remittance);
+    
     public List<Remittance> findAll();
 }   
 

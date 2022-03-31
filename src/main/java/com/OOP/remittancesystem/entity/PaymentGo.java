@@ -12,6 +12,7 @@ public class PaymentGo extends Remittance{
      //stores only the columns that do not exist in all three companies BUT exist in PaymentGo
     //e.g. does not store sender first name since it exist in all three
 
+    
     @CsvBindByName(column = "sCurrency", required = true)
     private String sCurrency;
 
