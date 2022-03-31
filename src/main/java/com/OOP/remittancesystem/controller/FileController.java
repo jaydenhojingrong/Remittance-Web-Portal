@@ -1,11 +1,13 @@
 package com.OOP.remittancesystem.controller;
 
 import org.springframework.core.io.Resource;
+import org.mockito.internal.stubbing.answers.ThrowsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +44,8 @@ public class FileController {
 
     @PostMapping
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("company")String company){
+    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("company")String company)
+    throws Throwable{
 
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -64,7 +67,15 @@ public class FileController {
                 Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
                 for (ConstraintViolation<?> violation : violations) {
                   message = violation.getMessage() + " ";
-                  System.out.println(message);
+                //   instead of just printing throw the error with column:
+                  System.out.println(message + "throwing the error here now!!!!");
+                //   throw new Throwable("throwing error with column");
+                // return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.BAD_REQUEST);
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
+                // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
+
+
+                  
                 }
             }
              
