@@ -116,6 +116,30 @@ INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transactions`
+--
+
+DROP TABLE IF EXISTS `transactions`;
+CREATE TABLE IF NOT EXISTS `transactions` (
+  `transactionid` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(99) NOT NULL,
+  `filename` varchar(99) NOT NULL,
+  `company` varchar(99) NOT NULL,
+  `transactionstatus` varchar(255) NOT NULL,
+  PRIMARY KEY (`transactionid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`username`, `filename`, `company`, `transactionstatus`) VALUES
+('hyong.2019@scis.smu.edu.sg', 'grock.csv', 'PaymentGo', 'Successful'),
+('jaydenGrock', 'EngLieh.csv', 'EverywhereRemit', 'Pending'),
+('hyong.2019@scis.smu.edu.sg', 'Luffy.csv', 'FinanceNow', 'Rejected');
+
+-- --------------------------------------------------------
+--
 -- Table structure for table `remittancetransaction`
 --
 

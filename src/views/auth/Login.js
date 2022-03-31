@@ -31,6 +31,7 @@ export default function Login() {
       .then((response) => {
         console.log(response);
         localStorage.bearer_token = response.data.access_token;
+        localStorage.username = username;
         window.location.replace("/admin/dashboard");
       })
       .catch((error) => {

@@ -31,8 +31,8 @@ public class FileStorageService {
     public FileStorageService(FileStorageProperties fileStorageProperties) {
         // this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath();
         
-        // String stringPath = "/Users/shawnteo/Documents/GitHub/Remittance-Web-Portal";
-        // this.fileStorageLocation = Paths.get(stringPath);
+        String stringPath = "/Users/shawnteo/Documents/GitHub/Remittance-Web-Portal";
+        this.fileStorageLocation = Paths.get(stringPath);
 
         // String stringPath = "/Users/maarunipandithurai/Documents/GitHub/Remittance-Web-Portal";
         String stringPath = "./";
