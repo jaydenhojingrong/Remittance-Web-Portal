@@ -163,7 +163,7 @@ export default function Sidebar() {
                   <i
                     className={
                       "fas fa-upload mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/mapping") !== -1
+                      (window.location.href.indexOf("/admin/upload") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
