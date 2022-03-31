@@ -112,6 +112,16 @@ public class FileController {
                 .body(resource);
     }
 
+    // public String toJSON(HashMap<String,String> map) {
+    //     String body = "{";
+    //     for(Map.Entry<String,String> e : map.entrySet()) {
+    //         body += e.getKey() + ":" + e.getValue();
+    //     }
+    //     body += "}";
+    //     return body;
+    // }
+    
+
     @PostMapping("/call")
     public ResponseEntity<String> callTest() {
 
@@ -134,6 +144,44 @@ public class FileController {
         map.put("title", "Spring Boot 101");
         map.put("body", "A powerful tool for building web apps.");
 
+// build the request
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
+
+// send POST request
+        ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+
+// check response
+        if (response.getStatusCode() == HttpStatus.CREATED) {
+            System.out.println("Request Successful");
+            System.out.println(response.getBody());
+        } else {
+            System.out.println("Request Failed");
+            System.out.println(response.getStatusCode());
+        }
+        return response;
+    }
+    
+
+    @PostMapping("/send")
+    public ResponseEntity<String> sendTransaction(HashMap<String,String> renamedMap) {
+
+// request url
+        String url = "https://prelive.paywho.com/api/smu_send_transaction";
+
+// create an instance of RestTemplate
+        RestTemplate restTemplate = new RestTemplate();
+
+// create headers
+        HttpHeaders headers = new HttpHeaders();
+// set `content-type` header
+        headers.setContentType(MediaType.APPLICATION_JSON);
+// set `accept` header
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+// request body parameters
+        Map<String, Object> map = new HashMap<>();
+        map.putAll(renamedMap);
+        //add HashMap into arg
 // build the request
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
 
