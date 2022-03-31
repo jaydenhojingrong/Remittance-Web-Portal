@@ -21,10 +21,11 @@ function MapFields() {
         "http://localhost:8080/headers", config
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         // console.log(response.data);
         setAllHeaders(response.data);
         bindToInterface();
+        // findUniqueSSOT()
       })
       .catch((error) => {
         console.log(error);
@@ -40,11 +41,19 @@ function MapFields() {
 
   function bindToInterface() {
     for (let i = 0; i < allHeaders.length; i++) {
-      console.log(allHeaders[i])
+      // console.log(allHeaders[i])
       setInputHeaders(inputHeaders => [...inputHeaders, { id: allHeaders[i].currentHeader, shape: 'interfaceBox' }]);
-      setOuputHeaders(ouputHeaders => [...ouputHeaders, { id: allHeaders[i].ssotHeader, shape: 'interfaceBox' }]);
-      setLines(lines => [...lines, { props: { start: allHeaders[i].currentHeader, end: allHeaders[i].ssotHeader } }]);
+      if(ouputHeaders.filter((header) => header.id == allHeaders[i].ssotHeader) == []){
+        setOuputHeaders(ouputHeaders => [...ouputHeaders, { id: allHeaders[i].ssotHeader, shape: 'interfaceBox' }]);
+      }
+      // setLines(lines => [...lines, { props: { start: allHeaders[i].currentHeader, end: allHeaders[i].ssotHeader } }]);
     }
+    
+  }
+
+  function findUniqueSSOT(){
+    const unique = [...new Set(ouputHeaders.map(item => item.id))]
+    console.log([...new Set(ouputHeaders.map(item => item.id))])
   }
 
   function checkstate() {
