@@ -1,3 +1,0 @@
-sCountry,sFirstName,sLastName,sDOB,sNationality,sIDType,sIDNumber,sAddress,sCity,rCountry,rFirstName,rLastName,rAccountNumber,rCurrency,sSourceOfFund,remitPurpose,paymentMode,rAddress,rCity,rIDNumber,rIDType,relationship,sState,rNationality
-SGP,Yang,Grock,10/10/2010,SGP,3,33333,11 Eunos #99-99,Singapore,EUR,Fred,Ong,123454,SGD,2,12,Cheque,848 Hogo Rd,SGP,123,3009,99,Singapore,AUS
-SGP,Yang,Guo,29/01/2000,MYS,5,44444,19 Woodlands #91-04,Kup Kup,EUR,Muhd ,Hindra,33232453,SGD,7,12,Google Pays,19 Changi Village #02-20,SGP,143,4009,99,Singapore,AUS
