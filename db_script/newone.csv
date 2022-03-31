@@ -11,3 +11,14 @@ SGP,Yang,Guo,29/01/2000,MYS,5,44444,19 Woodlands #91-04,Kup Kup,EUR,Muhd ,Hindra
 source_type,sender_country,segment,sender_legal_name_first,sender_legal_name_last,sender_date_of_birth,sender_nationality,sender_id_type,sender_id_country,sender_id_number,sender_currency,sender_address_line,sender_address_city,sender_address_country,recipient_type,recipient_country,recipient_legal_name_first,recipient_legal_name_last,recipient_mobile_number,recipient_account_number,recipient_currency,units,source_of_funds,remittance_purpose
 partner,SGP,individual,Jayden,Ho,10/10/2010,SGP,national,SGP,123,EUR,788 Lower Changi #99-99,Singapore,SGP,11,1010101010,Putien,Muhd,98862855,19820546855,CNY,3009,4,008-03
 partner,SGP,individual,Jon,Jones,29/01/2000,MYS,national,MYS,124,EUR,494 Johor Barhu,Johor Barhu,MYS,11,1010101010,Ninjiom,Tan,98453688,18956571573,CNY,4009,3,001-01
+
+
+
+
+remitCountryCode,remitGivenName,remitSurname,nationality,remitCaType,remitCaNo,settleCurrency,remitAddress,payeeGivenName,payeeSurname,payeePhone,payeeAccountNo,transCurrency,merTransAmount,sourceOfFunds,remitPurpose,payeeCaNo,payeeCaType,payeeBirthDate,payeeBankName,payeeBranchName,remitAccountNo
+SGP,Kerdad,Tan,SGP,1,333,SGD,Blk 3312 Macperson #02-10,Zhawn,Gan,98342658,345345433,SGD,[9999],99,Washing,464,1,12/21/1995,POSB,Pasir Ris,3333
+SGP,Stonecold,Tan,SGP,2,444,JPY,Blk 4 Tampines Ave 8 #5-55,Zheng,Ge Ping,69545258,577766655,JPY,[888888],2,Eating,555,2,12/21/1995,Stand Charted,Seng Kang Mall,4323
+SGP,Yang,Grock,10/10/2010,SGP,3,33333,11 Eunos #99-99,Singapore,EUR,Fred,Ong,123454,SGD,2,12,Cheque,848 Hogo Rd,SGP,[123],3009,99,Singapore,AUS
+SGP,Yang,Guo,29/01/2000,MYS,5,44444,19 Woodlands #91-04,Kup Kup,EUR,Muhd ,Hindra,33232453,SGD,7,12,Google Pays,19 Changi Village #02-20,SGP,[143],4009,99,Singapore,AUS
+partner,SGP,individual,Jayden,Ho,10/10/2010,SGP,national,SGP,123,EUR,788 Lower Changi #99-99,Singapore,SGP,11,1010101010,Putien,Muhd,98862855,19820546855,CNY,[3009],4,008-03
+partner,SGP,individual,Jon,Jones,29/01/2000,MYS,national,MYS,124,EUR,494 Johor Barhu,Johor Barhu,MYS,11,1010101010,Ninjiom,Tan,98453688,18956571573,CNY,[4009],3,001-01
