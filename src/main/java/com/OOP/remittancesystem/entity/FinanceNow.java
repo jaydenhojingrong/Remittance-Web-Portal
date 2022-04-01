@@ -10,10 +10,6 @@ import javax.validation.constraints.Size;
 @Table(name = "remittancetransaction")
 @Entity
 public class FinanceNow extends Remittance {
-    // FinanceNow(){
-    //     super();
-    // }
-
     
     //stores only the columns that do not exist in all three companies BUT exist in FinanceNow
     //e.g. does not store sender first name since it exist in all three
@@ -43,7 +39,6 @@ public class FinanceNow extends Remittance {
     private String rIDNumber;
 
     // it must be passport or nationality 
-
     @Pattern(regexp = "passport|national")  
     @CsvBindByName(column = "rIDType", required = true)
     private String rIDType;

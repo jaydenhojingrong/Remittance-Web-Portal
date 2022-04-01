@@ -19,8 +19,16 @@ public class HeaderService {
 		return headerDAO.findAll();
 	}
 
-	public HeaderNames getHeaderByCurrentHeader(String currentHeader) {
-		return headerDAO.findById(currentHeader).get();
+	// public HeaderNames getHeaderByCurrentHeader(String currentHeader) {
+	// 	return headerDAO.findById(currentHeader).get();
+	// }
+
+	// public HeaderNames getSsotByCurrentHeader(String currentHeader) {
+	// 	return headerDAO.findByCurrentHeader(currentHeader);
+	// }
+
+	public HeaderNames getSsotByCurrentHeader(String currentHeader) {
+		return headerDAO.findFirstByCurrentHeaderOrderByCompany(currentHeader);
 	}
 
 }

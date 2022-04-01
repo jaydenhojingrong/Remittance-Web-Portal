@@ -102,7 +102,6 @@ public class OpenCSVReadAndParseToBean {
 
         //create new scanner of the local csv file (root folder)
         try (Scanner fIn = new Scanner(file)){
-
             //create a printerstream from temp.csv to write values into it
             PrintStream writer = new PrintStream(new FileOutputStream("./temp.csv", false));
 
@@ -111,7 +110,6 @@ public class OpenCSVReadAndParseToBean {
                String csvLine = fIn.nextLine();
                //readHeader will only be true at the first iteration of loop
                 if (!readHeader){
-
                     //create scanner to delimit all the headers
                     Scanner scHeaders = new Scanner(csvLine);
                     scHeaders.useDelimiter(",|\r\n|\n");
@@ -142,6 +140,7 @@ public class OpenCSVReadAndParseToBean {
 
          } 
          catch(IOException e) {
+            System.out.println("wow9");
              e.printStackTrace();
          }
          finally{
@@ -163,8 +162,17 @@ public class OpenCSVReadAndParseToBean {
     }
 
     public String renameHeader(String header){
-        System.out.println(headerservice.getHeaderByCurrentHeader(header).getCurrentHeader());
-        return headerservice.getHeaderByCurrentHeader(header).getSsotHeader();
+        String renamedHeader;
+        try{
+
+            renamedHeader = headerservice.getSsotByCurrentHeader(header).getSsotHeader();
+            
+        }
+        catch(NullPointerException e){
+            renamedHeader = null;
+        }
+
+        return renamedHeader;
     }
 
 }
