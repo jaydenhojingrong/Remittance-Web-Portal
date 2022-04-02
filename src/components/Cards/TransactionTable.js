@@ -128,17 +128,22 @@ export default function CardTable({ color }) {
                       </td>
                       
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {item.transactionStatus == "Successful" &&
+                      {item.transactionStatus == "Transaction Successful" &&
                       <>
                         <i className="fas fa-circle text-emerald-500 mr-2"></i> {item.transactionStatus}
                         </>
                       }
-                      {item.transactionStatus == "Pending" &&
+                      {item.transactionStatus == "Transaction Pending AML" &&
                       <>
                         <i className="fas fa-circle text-orange-500 mr-2"></i> {item.transactionStatus}
                         </>
                       }
-                      {item.transactionStatus == "Rejected" &&
+                      {item.transactionStatus == "Transaction Pending Compliance Checks" &&
+                      <>
+                        <i className="fas fa-circle text-orange-500 mr-2"></i> {item.transactionStatus}
+                        </>
+                      }
+                      {item.transactionStatus == "Transaction Rejected" &&
                       <>
                         <i className="fas fa-circle text-red-500 mr-2"></i> {item.transactionStatus}
                         </>

@@ -12,7 +12,7 @@ export default function UploadFile() {
     setIsFilePicked(true);
   };
 
-  const sendTransaction = () => {
+  const sendTransaction = () => { 
     axios.post(
       "https://prelive.paywho.com/api/smu_send_transaction",
       {
@@ -57,11 +57,27 @@ export default function UploadFile() {
     )
       .then((response) => {
         console.log(response);
+        console.log(response.data.message);
       })
       .catch((error) => {
         console.log(error);
       });
   }
+
+  // const storeTransaction = () => {
+  //   axios.post(
+  //     "http://localhost:8080/transactions/" + localStorage.getItem('username') + "api name" + ,
+  //     {
+  //       // We will store out transaction status here
+  //     }
+  //   )
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   const submitFile = () => {
     sendTransaction();
