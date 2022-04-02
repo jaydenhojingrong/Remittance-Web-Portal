@@ -57,6 +57,28 @@ export default function UploadFile() {
     )
       .then((response) => {
         console.log(response);
+        // Store the transaction status
+        localStorage.status = response.data.message; 
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  const storeTransaction = () => {
+    var config = {
+      headers: { 'Access-Control-Allow-Origin': '*' }
+    };
+    axios.post(
+      "http://localhost:8080/addTransaction/" + localStorage.getItem('username') 
+      + "/" + "filename.csv" + "/" + "apiName" + "/" + localStorage.getItem('status'), config
+      // todo: replace filename.csv & apiName with variable names
+    )
+      .then((response) => {
+        console.log(response);
+       // set the variable back to false so that the new uploaded transaction will be reflected in dashboard
+        localStorage.loaded = 'false';
+        window.location.replace("/admin/dashboard");
       })
       .catch((error) => {
         console.log(error);
@@ -65,6 +87,7 @@ export default function UploadFile() {
 
   const submitFile = () => {
     sendTransaction();
+    storeTransaction();
     // const formData = new FormData();
     // formData.append("file", selectedFile);
     // const config = {

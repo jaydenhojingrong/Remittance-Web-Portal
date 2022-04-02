@@ -107,9 +107,10 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 --
 
 INSERT INTO `transactions` (`username`, `filename`, `company`, `transactionstatus`) VALUES
-('hyong.2019@scis.smu.edu.sg', 'grock.csv', 'PaymentGo', 'Successful'),
-('jaydenGrock', 'EngLieh.csv', 'EverywhereRemit', 'Pending'),
-('hyong.2019@scis.smu.edu.sg', 'Luffy.csv', 'FinanceNow', 'Rejected');
+('hyong.2019@scis.smu.edu.sg', 'grock.csv', 'PaymentGo', 'Transaction Successful'),
+('znchua.2019@smu.edu.sg', 'EngLieh.csv', 'EverywhereRemit', 'Transaction Pending AML'),
+('hyong.2019@scis.smu.edu.sg', 'Luffy.csv', 'FinanceNow', 'Transaction Rejected'),
+('hyong.2019@scis.smu.edu.sg', 'remit.csv', 'FinanceNow', 'Transaction Pending Compliance Checks');
 
 -- --------------------------------------------------------
 --

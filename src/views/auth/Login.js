@@ -32,6 +32,7 @@ export default function Login() {
         console.log(response);
         localStorage.bearer_token = response.data.access_token;
         localStorage.username = username;
+        localStorage.loaded = 'false'; // created to ensure transactions only load once
         window.location.replace("/admin/dashboard");
       })
       .catch((error) => {
