@@ -140,7 +140,6 @@ public class OpenCSVReadAndParseToBean {
 
          } 
          catch(IOException e) {
-            System.out.println("wow9");
              e.printStackTrace();
          }
          finally{

@@ -63,7 +63,12 @@ public class FileController {
         //here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //spilt into seperate csv files
+
+        // get data for each company from the csv file
         Map <String, ArrayList<String>> dataByCompany = companySorter.sortCompany(fileName, fileDownloadUrl);
+
+        // create and store the company data into csv files
+        Map <String, String> companyPath = companySorter.createCompanyCSV(dataByCompany);
 
         List<Remittance> remittanceList = openCSV.mapCSV(fileDownloadUrl, company);
         for (Remittance remittance: remittanceList) {
