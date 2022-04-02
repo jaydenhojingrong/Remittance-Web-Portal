@@ -12,7 +12,7 @@ export default function UploadFile() {
     setIsFilePicked(true);
   };
 
-  const sendTransaction = () => { 
+  const sendTransaction = () => {
     axios.post(
       "https://prelive.paywho.com/api/smu_send_transaction",
       {
@@ -57,30 +57,37 @@ export default function UploadFile() {
     )
       .then((response) => {
         console.log(response);
-        console.log(response.data.message);
+        // Store the transaction status
+        localStorage.status = response.data.message; 
       })
       .catch((error) => {
         console.log(error);
       });
   }
 
-  // const storeTransaction = () => {
-  //   axios.post(
-  //     "http://localhost:8080/transactions/" + localStorage.getItem('username') + "api name" + ,
-  //     {
-  //       // We will store out transaction status here
-  //     }
-  //   )
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
+  const storeTransaction = () => {
+    var config = {
+      headers: { 'Access-Control-Allow-Origin': '*' }
+    };
+    axios.post(
+      "http://localhost:8080/addTransaction/" + localStorage.getItem('username') 
+      + "/" + "filename.csv" + "/" + "apiName" + "/" + localStorage.getItem('status'), config
+      // todo: replace filename.csv & apiName with variable names
+    )
+      .then((response) => {
+        console.log(response);
+       // set the variable back to false so that the new uploaded transaction will be reflected in dashboard
+        localStorage.loaded = 'false';
+        window.location.replace("/admin/dashboard");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const submitFile = () => {
     sendTransaction();
+    storeTransaction();
     // const formData = new FormData();
     // formData.append("file", selectedFile);
     // const config = {

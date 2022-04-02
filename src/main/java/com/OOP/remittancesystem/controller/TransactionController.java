@@ -35,4 +35,14 @@ public class TransactionController {
 	public List <Transactions> getAllTransactions(@PathVariable String username) {
 		return transactionService.getTransactionsByUsername(username);
 	}
-}
+
+	@RequestMapping(value = "/addTransaction/{username}/{filename}/{company}/{status}", method = RequestMethod.POST)
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public Transactions insertTransactions(@PathVariable String username, @PathVariable String filename, @PathVariable String company, @PathVariable String status){
+		String[] words = status.split("%20");
+		String newStatus = String.join(" ", words);
+		Transactions transaction = new Transactions(username, filename, company, newStatus);
+		return transactionDAO.save(transaction);
+	}
+}	
