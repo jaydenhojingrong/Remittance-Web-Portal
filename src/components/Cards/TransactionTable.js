@@ -1,37 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
-import { useEffect } from "react/cjs/react.production.min";
+// import { useEffect, useState } from "react/cjs/react.production.min";
 
 
 export default function CardTable({ color }) {
+  const [data, setData] = useState([])
+
+  // Ensures that transactions are only loaded once
+  function loadTransactions(){
+    // if the transaction history had yet to be retrieved from database, load it
+    if(localStorage.getItem('loaded') == 'false'){
+      transactions();
+    }
+  }
   function transactions() {
-    console.log("IN-----------");
     var config = {
       headers: { 'Access-Control-Allow-Origin': '*' }
     };
     axios
       .get(
-        "localhost:8080.com/transactions/" + localStorage.getItem('username'), config 
+        "http://localhost:8080/transactions/" + localStorage.getItem('username'), config
       )
       .then((response) => {
-        console.log(response);
-        // localStorage.bearer_token = response.data.access_token;
-        // localStorage.username = username;
-        // window.location.replace("/admin/dashboard");
+        console.log(response.data);
+        setData(response.data)
+        // set the variable back to true to prevent it from loading transaction history again
+        localStorage.loaded = 'true'; 
       })
       .catch((error) => {
         console.log(error);
       });
   };
-  
+
   return (
     <>
-      <div onLoad={transactions()}
+      <div 
+      onLoad={loadTransactions()}
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
           (color === "light" ? "bg-white" : "bg-lightBlue-900 text-white")
@@ -64,7 +73,7 @@ export default function CardTable({ color }) {
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  No.
+                  Transaction ID
                 </th>
 
                 <th
@@ -102,59 +111,44 @@ export default function CardTable({ color }) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  1
-                </th>
+              {data && data.map(item => {
+                return (
+                  <>
+                    <tr>
+                      <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                        {item.transactionId}
+                      </th>
 
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  grock.csv
-                </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {item.filename}
+                      </td>
 
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  paymentgo
-                </td>
-
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                <i className="fas fa-circle text-emerald-500 mr-2"></i> Transaction Successful
-                </td>
-              </tr>
-
-              <tr>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  2
-                </th>
-
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  englieh.csv
-                </td>
-
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  EverywhereRemit
-                </td>
-
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                <i className="fas fa-circle text-orange-500 mr-2"></i> Transaction Pending
-                </td>
-              </tr>
-
-              <tr>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  3
-                </th>
-
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Luffy.csv
-                </td>
-
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Financenow
-                </td>
-
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                <i className="fas fa-circle text-red-500 mr-2"></i> Transaction Unsuccessful
-                </td>
-              </tr>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {item.company}
+                      </td>
+                      
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      {item.transactionStatus == "Successful" &&
+                      <>
+                        <i className="fas fa-circle text-emerald-500 mr-2"></i> {item.transactionStatus}
+                        </>
+                      }
+                      {item.transactionStatus == "Pending" &&
+                      <>
+                        <i className="fas fa-circle text-orange-500 mr-2"></i> {item.transactionStatus}
+                        </>
+                      }
+                      {item.transactionStatus == "Rejected" &&
+                      <>
+                        <i className="fas fa-circle text-red-500 mr-2"></i> {item.transactionStatus}
+                        </>
+                      }
+                      </td>
+                      
+                    </tr>
+                  </>
+                )
+              })}
             </tbody>
           </table>
         </div>
