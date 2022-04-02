@@ -17,9 +17,11 @@ import com.OOP.remittancesystem.dao.RemittanceDAO;
 import com.OOP.remittancesystem.entity.Remittance;
 import com.OOP.remittancesystem.fileHandling.FileResponse;
 import com.OOP.remittancesystem.fileHandling.OpenCSVReadAndParseToBean;
+import com.OOP.remittancesystem.service.CompanySorter;
 import com.OOP.remittancesystem.service.FileStorageService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -33,8 +35,8 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
-//     @Autowired
-//     private RemittanceService remittanceService;
+    @Autowired
+    private CompanySorter companySorter;
     
     @Autowired 
     private RemittanceDAO remittanceDAO;
@@ -56,6 +58,12 @@ public class FileController {
         FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize());
 
         openCSV.mapKeywords(fileName,  file.getContentType(), fileDownloadUrl);
+
+        //here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //spilt into seperate csv files
+        Map <String, ArrayList<String>> dataByCompany = companySorter.sortCompany(fileName, fileDownloadUrl);
 
         List<Remittance> remittanceList = openCSV.mapCSV(fileDownloadUrl, company);
         for (Remittance remittance: remittanceList) {

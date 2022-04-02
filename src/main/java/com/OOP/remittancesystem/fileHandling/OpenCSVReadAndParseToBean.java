@@ -164,14 +164,16 @@ public class OpenCSVReadAndParseToBean {
     public String renameHeader(String header){
         String renamedHeader;
         try{
-
+            
             renamedHeader = headerservice.getSsotByCurrentHeader(header).getSsotHeader();
             
         }
         catch(NullPointerException e){
             renamedHeader = null;
+            
         }
-
+        System.out.println("here: " + header);
+        System.out.println("here: " + renamedHeader);
         return renamedHeader;
     }
 
