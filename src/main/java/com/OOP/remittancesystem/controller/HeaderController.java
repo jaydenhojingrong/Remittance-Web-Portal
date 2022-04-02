@@ -62,10 +62,8 @@ public class HeaderController {
 
 	@RequestMapping(value = "/addHeader", method = RequestMethod.POST)
 	@ResponseBody
-	public HeaderNames insertHeaderNames(@RequestParam String currentHeader, @RequestParam String ssotHeader, @RequestParam String company){
-		HeaderNames headername = new HeaderNames(currentHeader,ssotHeader, company, "lol");
-		System.out.println("\n\n\n\n"  + "slaladsladsldsaldslaladslsdalsdaldsaldasldsa" +"\n\n\n");
-		System.out.println("\n\n\n\n"  + headername +"\n\n\n");
+	public HeaderNames insertHeaderNames(@RequestParam String currentHeader, @RequestParam String ssotHeader, @RequestParam String company, @RequestParam String apiHeader){
+		HeaderNames headername = new HeaderNames(currentHeader,ssotHeader, company, apiHeader);
 		return headerDAO.save(headername);
 	}
 
