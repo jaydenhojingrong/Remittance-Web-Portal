@@ -73,9 +73,9 @@ public class OpenCSVReadAndParseToBean {
         return Class.forName("com.OOP.remittancesystem.entity." + company);
     }
     
-    public void mapKeywords(String fileName, String fileType, String fileDownloadUrl) {
+    public void mapKeywords(String company, String fileDownloadUrl) {
         boolean readHeader = false;
-        String fullFileName = fileName;
+        String fullFileName = company + ".csv";
 
         //create file of the local csv file (in root folder)
         File file = new File(fullFileName);
@@ -115,7 +115,9 @@ public class OpenCSVReadAndParseToBean {
                     scHeaders.useDelimiter(",|\r\n|\n");
                     while (scHeaders.hasNext()){
                         //look up db and rename into SSOT header value 
-                        newHeaderName = renameHeader(scHeaders.next());
+                        String currentHeader = scHeaders.next();
+                        newHeaderName = renameHeader(currentHeader, company);
+                        System.out.println(currentHeader + " CHANGED TOOOOO-----> " + newHeaderName);
                         newHeaders += newHeaderName + ",";
                     }
                     //slice off last "comma" in the string   
@@ -149,8 +151,7 @@ public class OpenCSVReadAndParseToBean {
             System.out.println("Does file exists?: " + file.exists());
             System.out.println("Was file deleted?: " + file.delete());
             System.out.println("Was file renamed?: " + tempFile.renameTo(file));
-            try{
-                FileInputStream input = new FileInputStream(file);
+            try (FileInputStream input = new FileInputStream(file)){
                 MultipartFile multipartFile = new MockMultipartFile("file",file.getName(), "text/csv", IOUtils.toByteArray(input));
                 fileStorageService.storeFile(multipartFile);
             }
@@ -160,19 +161,20 @@ public class OpenCSVReadAndParseToBean {
          }
     }
 
-    public String renameHeader(String header){
+    public String renameHeader(String header, String company){
         String renamedHeader;
         try{
             
-            renamedHeader = headerservice.getSsotByCurrentHeader(header).getSsotHeader();
+            // renamedHeader = headerservice.getSsotByCurrentHeader(header).getSsotHeader();
+            renamedHeader = headerservice.getSsotByCurrentHeaderAndCompany(header, company).getSsotHeader();
             
         }
         catch(NullPointerException e){
             renamedHeader = null;
             
         }
-        System.out.println("here: " + header);
-        System.out.println("here: " + renamedHeader);
+        // System.out.println("here: " + header);
+        // System.out.println("here: " + renamedHeader);
         return renamedHeader;
     }
 

@@ -19,33 +19,35 @@ public class Remittance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int rowID;
 
-    @CsvBindByName(column = "sCountry", required = true)
+    @CsvBindByName(column = "sCountry", required = false)
     private String sCountry;
-    @CsvBindByName(column = "sFirstName", required = true)
+    @CsvBindByName(column = "sFirstName", required = false)
     private String sFirstName;
-    @CsvBindByName(column = "sLastName", required = true)
+    @CsvBindByName(column = "sLastName", required = false)
     private String sLastName;
-    @CsvBindByName(column = "sNationality", required = true)
+    @CsvBindByName(column = "sNationality", required = false)
     private String sNationality;
-    @CsvBindByName(column = "sIDType", required = true)
+    @CsvBindByName(column = "sIDType", required = false)
     private String sIDType;
-    @CsvBindByName(column = "sIDNumber", required = true)
+    @CsvBindByName(column = "sIDNumber", required = false)
     private String sIDNumber;
-    @CsvBindByName(column = "sAddress", required = true)
+    @CsvBindByName(column = "sAddress", required = false)
     private String sAddress;
-    @CsvBindByName(column = "rFirstName", required = true)
+    @CsvBindByName(column = "rFirstName", required = false)
     private String rFirstName;
-    @CsvBindByName(column = "rLastName", required = true)
+    @CsvBindByName(column = "rLastName", required = false)
     private String rLastName;
-    @CsvBindByName(column = "rAccountNumber",required = true)
+    @CsvBindByName(column = "rAccountNumber",required = false)
     private String rAccountNum;
-    @CsvBindByName(column = "rCurrency",required = true)
+    @CsvBindByName(column = "rCurrency",required = false)
     private String rCurrency;
-    @CsvBindByName(column = "sSourceOfFund",required = true)
+    @CsvBindByName(column = "sSourceOfFund",required = false)
     private String sSourceOfFund;
-    @CsvBindByName(column = "remitPurpose", required = true)
+    @CsvBindByName(column = "remitPurpose", required = false)
     private String remitPurpose;
-    
+    @CsvBindByName(column = "amount", required = true)
+    private String amount;
+
   
     public Remittance(){
     }

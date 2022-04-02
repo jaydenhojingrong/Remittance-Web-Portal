@@ -19,6 +19,9 @@ public interface HeaderDAO extends JpaRepository<HeaderNames, String> {
 
     public HeaderNames findFirstByCurrentHeaderOrderByCompany(String currentHeader);
 
+    public HeaderNames findFirstByCurrentHeaderAndCompanyOrderByCompany(String currentHeader, String company);
+
+    public List <HeaderNames> findBySsotHeader(String ssotHeader);
 
     public HeaderNames save(HeaderNames headerNames);
     

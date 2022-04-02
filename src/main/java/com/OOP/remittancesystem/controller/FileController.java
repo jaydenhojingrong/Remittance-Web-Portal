@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class FileController {
 
     @PostMapping
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("company")String company)
+    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file)
     throws Throwable{
 
         String fileName = fileStorageService.storeFile(file);
@@ -57,7 +58,7 @@ public class FileController {
 
         FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize());
 
-        openCSV.mapKeywords(fileName,  file.getContentType(), fileDownloadUrl);
+        // openCSV.mapKeywords(fileName, fileDownloadUrl);
 
         //here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -70,34 +71,38 @@ public class FileController {
         // create and store the company data into csv files
         Map <String, String> companyPath = companySorter.createCompanyCSV(dataByCompany);
 
-        List<Remittance> remittanceList = openCSV.mapCSV(fileDownloadUrl, company);
-        for (Remittance remittance: remittanceList) {
+        Iterator <String> companyIter = companyPath.keySet().iterator();
+        while (companyIter.hasNext()){
+            String company = companyIter.next();
+            System.out.println("here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+companyPath.get(company));
 
-            try {
-                remittanceDAO.save((Remittance) remittance);
-            } catch (javax.validation.ConstraintViolationException e){
-                String message= "";
-                Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-                for (ConstraintViolation<?> violation : violations) {
-                  message = violation.getMessage() + " ";
-                //   instead of just printing throw the error with column:
-                  System.out.println(message + "throwing the error here now!!!!");
-                //   throw new Throwable("throwing error with column");
-                // return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.BAD_REQUEST);
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
-                // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
+            openCSV.mapKeywords(company, companyPath.get(company));
 
+            List<Remittance> remittanceList = openCSV.mapCSV(companyPath.get(company), company);
+            for (Remittance remittance: remittanceList) {
 
-                  
+                try {
+                    remittanceDAO.save((Remittance) remittance);
+                } catch (javax.validation.ConstraintViolationException e){
+                    String message= "";
+                    Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+                    for (ConstraintViolation<?> violation : violations) {
+                    message = violation.getMessage() + " ";
+                    //  instead of just printing throw the error with column:
+                    System.out.println(message + "throwing the error here now!!!!");
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
+                    // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
+                    
+                    }
                 }
+            
+                System.out.println("Country : " + remittance.getsCountry());
+                System.out.println("First Name : " + remittance.getsFirstName());
+                System.out.println("Last Name : " + remittance.getsLastName());
+                System.out.println("==========================");
             }
-             
-
-            System.out.println("Country : " + remittance.getsCountry());
-            System.out.println("First Name : " + remittance.getsFirstName());
-            System.out.println("Last Name : " + remittance.getsLastName());
-            System.out.println("==========================");
         }
+        
 
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
     }

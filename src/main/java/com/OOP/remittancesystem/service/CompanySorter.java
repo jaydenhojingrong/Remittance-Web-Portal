@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -30,15 +31,20 @@ public class CompanySorter {
     @Autowired
     private FileStorageService fileStorageService;
 
+    @Autowired
+    private HeaderService headerService;
+
     public Map <String, ArrayList<String>> sortCompany(String fileName, String fileDownloadUrl){
         // Map <String, String> companyData = new HashMap <String, String>();
         Map <String, ArrayList<String>> companyData = new HashMap <String, ArrayList<String>>();
 
         // map amount to company
         TreeSet<AmountRange> amountSet =  amountMapping();
+        List<String> amountNames = headerService.findBySsotHeader("amount");
 
         boolean readHeader = true;
         String fullFileName = fileName;
+
 
         //create file of the local csv file (in root folder)
         File file = new File(fullFileName);
@@ -70,7 +76,8 @@ public class CompanySorter {
                     while (scHeaders.hasNext()){
                         //find the column named amount!
                         String ssotHeader = scHeaders.next();
-                        if (!ssotHeader.equals("amount")){
+                        // if (!ssotHeader.equals("amount")){
+                        if (!amountNames.contains(ssotHeader)){    
                             amountCol ++;
                         }
                         else {
@@ -141,18 +148,17 @@ public class CompanySorter {
                 System.out.println(e.getMessage());
             }
             
-            try{
-                FileInputStream input = new FileInputStream(tempFile);
+            try (FileInputStream input = new FileInputStream(tempFile)){
                 MultipartFile multipartFile = new MockMultipartFile("file",tempFile.getName(), "text/csv", IOUtils.toByteArray(input));
                 fileStorageService.storeFile(multipartFile);
             }
             catch(Exception e){
-                System.out.println("its here!!!!!!" + e.getMessage());
+                System.out.println(e.getMessage());
             }
 
             String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/files/")
-                .path(company)
+                .path(company+".csv")
                 .toUriString();
 
             companyPath.put(company, fileDownloadUrl);

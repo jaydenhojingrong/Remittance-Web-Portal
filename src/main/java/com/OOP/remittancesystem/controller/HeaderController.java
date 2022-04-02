@@ -50,6 +50,16 @@ public class HeaderController {
 		return headerService.getSsotByCurrentHeader(currentHeader);
 	}
 
+	@GetMapping("/headers/{currentHeader}/{company}")
+	public HeaderNames getHeaderByCurrentHeader(@PathVariable String currentHeader, @PathVariable String company) {
+		return headerService.getSsotByCurrentHeaderAndCompany(currentHeader, company);
+	}
+
+	@GetMapping("/headers/getCurrentHeader/{ssotHeader}")
+	public List <String> getCurrentHeaderBySsot(@PathVariable String ssotHeader) {
+		return headerService.findBySsotHeader(ssotHeader);
+	}
+
 	@RequestMapping(value = "/addHeader", method = RequestMethod.POST)
 	@ResponseBody
 	public HeaderNames insertHeaderNames(@RequestParam String currentHeader, @RequestParam String ssotHeader, @RequestParam String company){

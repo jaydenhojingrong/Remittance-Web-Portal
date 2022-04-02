@@ -14,42 +14,43 @@ public class FinanceNow extends Remittance {
     //stores only the columns that do not exist in all three companies BUT exist in FinanceNow
     //e.g. does not store sender first name since it exist in all three
 
-    @CsvBindByName(column = "sDOB", required = true)
+    @CsvBindByName(column = "sDOB", required = false)
     private String sDOB;
 
-    @CsvBindByName(column = "sCity", required = true)
+    @CsvBindByName(column = "sCity", required = false)
     private String sCity;
     
     // @Size(min = 3, max = 3, message = "country name must be 3 characters")
-    @CsvBindByName(column = "rCountry", required = true)
+    @CsvBindByName(column = "rCountry", required = false)
     private String rCountry;
 
-    @CsvBindByName(column = "paymentMode", required = true)
+    @CsvBindByName(column = "paymentMode", required = false)
     private String paymentMode;
 
     // @Pattern(regexp = "/^[A-Za-z0-9 ,.-]+$/") 
-    @CsvBindByName(column = "rAddress", required = true)
+    @CsvBindByName(column = "rAddress", required = false)
     private String rAddress;
 
-     @Size(min = 3, max = 3, message = "rNationality must be between 3 and 3 characters")
-    @CsvBindByName(column = "rCity", required = true)
+     @Size(min = 1, max = 25, message = "rCity must be between 1 and 25 characters")
+    @CsvBindByName(column = "rCity", required = false)
     private String rCity;
 
-    @CsvBindByName(column = "rIDNumber", required = true)
+    @CsvBindByName(column = "rIDNumber", required = false)
     private String rIDNumber;
 
     // it must be passport or nationality 
-    @Pattern(regexp = "passport|national")  
-    @CsvBindByName(column = "rIDType", required = true)
+    //TODO check if this is correct
+    @Pattern(regexp = "01|02|05|99")  
+    @CsvBindByName(column = "rIDType", required = false)
     private String rIDType;
 
-    @CsvBindByName(column = "relationship", required = true)
+    @CsvBindByName(column = "relationship", required = false)
     private String sRelation;
 
-    @CsvBindByName(column = "sState", required = true)
+    @CsvBindByName(column = "sState", required = false)
     private String sState;
 
     @Size(min = 3, max = 3, message = "rNationality must be between 3 and 3 characters")
-    @CsvBindByName(column = "rNationality", required = true)
+    @CsvBindByName(column = "rNationality", required = false)
     private String rNationality;
 }

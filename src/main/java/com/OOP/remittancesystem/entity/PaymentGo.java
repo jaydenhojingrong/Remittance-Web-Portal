@@ -13,31 +13,31 @@ public class PaymentGo extends Remittance{
     //e.g. does not store sender first name since it exist in all three
 
     
-    @CsvBindByName(column = "sCurrency", required = true)
+    @CsvBindByName(column = "sCurrency", required = false)
     private String sCurrency;
 
-    @CsvBindByName(column = "rMobileNumber", required = true)
+    @CsvBindByName(column = "rMobileNumber", required = false)
     private String rMobileNo;
 
-    @CsvBindByName(column = "amount", required = true)
-    private String amount;
+    // @CsvBindByName(column = "amount", required = false)
+    // private String amount;
 
-    @CsvBindByName(column = "rIDNumber", required = true)
+    @CsvBindByName(column = "rIDNumber", required = false)
     private String rIDNumber;
 
-    @CsvBindByName(column = "rIDType", required = true)
+    @CsvBindByName(column = "rIDType", required = false)
     private String rIDType;
 
-    @CsvBindByName(column = "rDOB", required = true)
+    @CsvBindByName(column = "rDOB", required = false)
     private String rDOB;
 
-    @CsvBindByName(column = "rBank", required = true)
+    @CsvBindByName(column = "rBank", required = false)
     private String rBank;
 
-    @CsvBindByName(column = "rBranch", required = true)
+    @CsvBindByName(column = "rBranch", required = false)
     private String rBranch;
 
-    @CsvBindByName(column = "sAccountNumber", required = true)
+    @CsvBindByName(column = "sAccountNumber", required = false)
     private String sAccountNumber;
 
 }
