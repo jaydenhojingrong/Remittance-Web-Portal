@@ -89,9 +89,14 @@ export default function UploadFile() {
     )
       .then((response) => {
         console.log(response);
-        // Store the transaction status
-        localStorage.status = response.data.message;
-        storeTransaction();
+        // Store the transaction status IF all fields are valid
+        if(response.data.code == 0){
+          alert("You have missing fields, please check your file again!");
+        }
+        else{
+          localStorage.status = response.data.message;
+          storeTransaction();
+        }
       })
       .catch((error) => {
         console.log(error);
