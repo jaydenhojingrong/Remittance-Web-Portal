@@ -66,6 +66,7 @@ public class HeaderController {
 	}
 
 	@RequestMapping(value = "/addHeader", method = RequestMethod.POST)
+	@CrossOrigin(origins = "http://localhost:3000")
 	@ResponseBody
 	public HeaderNames insertHeaderNames(@RequestParam String currentHeader, @RequestParam String ssotHeader, @RequestParam String company, @RequestParam String apiHeader){
 		HeaderNames headername = new HeaderNames(currentHeader,ssotHeader, company, apiHeader);

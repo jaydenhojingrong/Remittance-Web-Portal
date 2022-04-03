@@ -8,7 +8,7 @@ import TableDropdown from "components/Dropdowns/TableDropdown.js";
 // import { useEffect, useState } from "react/cjs/react.production.min";
 
 
-export default function CardTable({ color }) {
+export default function CardTable({ color }) { 
   const [data, setData] = useState([])
 
   // Ensures that transactions are only loaded once
@@ -21,7 +21,7 @@ export default function CardTable({ color }) {
   function transactions() {
     var config = {
       headers: { 'Access-Control-Allow-Origin': '*' }
-    };
+    }; 
     axios
       .get(
         "http://localhost:8080/transactions/" + localStorage.getItem('username'), config
