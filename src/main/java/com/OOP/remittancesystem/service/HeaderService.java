@@ -36,6 +36,10 @@ public class HeaderService {
 		return headerDAO.findFirstByCurrentHeaderAndCompanyOrderByCompany(currentHeader, company);
 	}
 
+	public String getApiHeaderBySsotHeaderAndCompany(String ssotHeader, String company) {
+		return headerDAO.findFirstBySsotHeaderAndCompanyOrderByCompany(ssotHeader, company).getApiHeader();
+	}
+
 	public List <String> findBySsotHeader(String ssotHeader) {
 		// return headerDAO.findBySsotHeader(ssotHeader);
 		List <HeaderNames> headerNames = headerDAO.findBySsotHeader(ssotHeader);
