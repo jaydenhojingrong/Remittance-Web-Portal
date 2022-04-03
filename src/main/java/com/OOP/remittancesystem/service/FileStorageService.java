@@ -37,7 +37,6 @@ public class FileStorageService {
         // String stringPath = "/Users/maarunipandithurai/Documents/GitHub/Remittance-Web-Portal";
         // String stringPath = "./";
         // this.fileStorageLocation = Paths.get(stringPath);
-        
 
         try {
             // create directory if doesnt exist

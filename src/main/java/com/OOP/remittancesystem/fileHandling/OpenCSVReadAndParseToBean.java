@@ -117,7 +117,7 @@ public class OpenCSVReadAndParseToBean {
                         //look up db and rename into SSOT header value 
                         String currentHeader = scHeaders.next();
                         newHeaderName = renameHeader(currentHeader, company);
-                        System.out.println(currentHeader + " CHANGED TOOOOO-----> " + newHeaderName);
+                        // System.out.println(currentHeader + " CHANGED TOOOOO-----> " + newHeaderName);
                         newHeaders += newHeaderName + ",";
                     }
                     //slice off last "comma" in the string   
