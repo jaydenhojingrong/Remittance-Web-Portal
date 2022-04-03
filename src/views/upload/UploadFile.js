@@ -99,7 +99,7 @@ export default function UploadFile() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error); 
       });
   }
 
