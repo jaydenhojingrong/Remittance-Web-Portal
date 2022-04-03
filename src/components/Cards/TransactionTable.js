@@ -21,7 +21,7 @@ export default function CardTable({ color }) {
   function transactions() {
     var config = {
       headers: { 'Access-Control-Allow-Origin': '*' }
-    };
+    }; 
     axios
       .get(
         "http://localhost:8080/transactions/" + localStorage.getItem('username'), config
