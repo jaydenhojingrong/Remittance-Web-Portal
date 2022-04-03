@@ -75,7 +75,7 @@ public class OpenCSVReadAndParseToBean {
     //takes in the uploaded csv file
     //rename its headers to adhere to the SSOT format
     public void mapKeywords(String company, String fileDownloadUrl) {
-        boolean readHeader = false;
+        boolean haveReadHeader = false;
         String fullFileName = company + ".csv";
 
         //create file of the local csv file (in root folder)
@@ -109,8 +109,8 @@ public class OpenCSVReadAndParseToBean {
             //loop scanner till no more lines
             while (fIn.hasNext()) {
                String csvLine = fIn.nextLine();
-               //readHeader will only be true at the first iteration of loop
-                if (!readHeader){
+               //haveReadHeader will only be true at the first iteration of loop
+                if (!haveReadHeader){
                     //create scanner to delimit all the headers
                     Scanner scHeaders = new Scanner(csvLine);
                     scHeaders.useDelimiter(",|\r\n|\n");
@@ -118,13 +118,14 @@ public class OpenCSVReadAndParseToBean {
                         //look up db and rename into SSOT header value 
                         String currentHeader = scHeaders.next();
                         newHeaderName = renameHeader(currentHeader, company);
-                        // System.out.println(currentHeader + " CHANGED TOOOOO-----> " + newHeaderName);
+                        System.out.println(company);
+                        System.out.println("{" +currentHeader + "}  CHANGED TO ----->  {" + newHeaderName + "}");
                         newHeaders += newHeaderName + ",";
                     }
                     //slice off last "comma" in the string   
                     //populate header values from user uploaded csv into temp.csv
                     writer.println(newHeaders.substring(0,newHeaders.length()-1));
-                    readHeader = true;
+                    haveReadHeader = true;
                     scHeaders.close();
 
                }
@@ -160,9 +161,13 @@ public class OpenCSVReadAndParseToBean {
     //looks up for current header in the db and returns the ssot one
     public String renameHeader(String header, String company){
         String renamedHeader;
+        //remove ? that appears in first value in csv
+        if (header.charAt(0) == '?'){
+            header = (header.substring(1, header.length()));
+        }
+
         try{
             
-            // renamedHeader = headerservice.getSsotByCurrentHeader(header).getSsotHeader();
             renamedHeader = headerservice.getSsotByCurrentHeaderAndCompany(header, company).getSsotHeader();
             
         }

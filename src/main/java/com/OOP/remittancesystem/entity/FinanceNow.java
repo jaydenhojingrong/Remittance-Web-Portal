@@ -53,4 +53,94 @@ public class FinanceNow extends Remittance {
     @Size(min = 3, max = 3, message = "rNationality must be between 3 and 3 characters")
     @CsvBindByName(column = "rNationality", required = false)
     private String rNationality;
+
+    public String getsDOB() {
+        return sDOB;
+    }
+
+    public void setsDOB(String sDOB) {
+        this.sDOB = sDOB;
+    }
+
+    public String getsCity() {
+        return sCity;
+    }
+
+    public void setsCity(String sCity) {
+        this.sCity = sCity;
+    }
+
+    public String getrCountry() {
+        return rCountry;
+    }
+
+    public void setrCountry(String rCountry) {
+        this.rCountry = rCountry;
+    }
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
+
+    public String getrAddress() {
+        return rAddress;
+    }
+
+    public void setrAddress(String rAddress) {
+        this.rAddress = rAddress;
+    }
+
+    public String getrCity() {
+        return rCity;
+    }
+
+    public void setrCity(String rCity) {
+        this.rCity = rCity;
+    }
+
+    public String getrIDNumber() {
+        return rIDNumber;
+    }
+
+    public void setrIDNumber(String rIDNumber) {
+        this.rIDNumber = rIDNumber;
+    }
+
+    public String getrIDType() {
+        return rIDType;
+    }
+
+    public void setrIDType(String rIDType) {
+        this.rIDType = rIDType;
+    }
+
+    public String getsRelation() {
+        return sRelation;
+    }
+
+    public void setsRelation(String sRelation) {
+        this.sRelation = sRelation;
+    }
+
+    public String getsState() {
+        return sState;
+    }
+
+    public void setsState(String sState) {
+        this.sState = sState;
+    }
+
+    public String getrNationality() {
+        return rNationality;
+    }
+
+    public void setrNationality(String rNationality) {
+        this.rNationality = rNationality;
+    }
+
+    
 }

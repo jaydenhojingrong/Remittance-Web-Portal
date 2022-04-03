@@ -18,6 +18,7 @@ import com.OOP.remittancesystem.fileHandling.FileResponse;
 import com.OOP.remittancesystem.fileHandling.OpenCSVReadAndParseToBean;
 import com.OOP.remittancesystem.service.CompanySorter;
 import com.OOP.remittancesystem.service.FileStorageService;
+import com.OOP.remittancesystem.service.HeaderService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,6 +44,9 @@ public class FileController {
     
     @Autowired
     private OpenCSVReadAndParseToBean openCSV;
+
+    @Autowired
+    private HeaderService headerService;
 
     @PostMapping
     @CrossOrigin(origins = "http://localhost:3000")
@@ -97,6 +101,12 @@ public class FileController {
                     }
                 }
             }
+
+            //Convert List<Remittance> remittanceList into  Map<String apiHeader, String value> remittanceMap 
+            //call createrequestbody
+            //send to hy api
+            Map<String, String> remittanceMap = headerService.listToMapRemittance(remittanceList);
+            
         }
         
         //return successful upload entity

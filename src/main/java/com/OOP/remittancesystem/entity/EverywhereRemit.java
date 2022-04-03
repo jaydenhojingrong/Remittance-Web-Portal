@@ -53,7 +53,87 @@ public class EverywhereRemit extends Remittance{
     @CsvBindByName(column = "rMobileNumber", required = false)
     private String rMobileNumber;
 
+    public String getSourceType() {
+        return sourceType;
+    }
+
+    public void setSourceType(String sourceType) {
+        this.sourceType = sourceType;
+    }
+
+    public String getSegment() {
+        return segment;
+    }
+
+    public void setSegment(String segment) {
+        this.segment = segment;
+    }
+
+    public String getsDOB() {
+        return sDOB;
+    }
+
+    public void setsDOB(String sDOB) {
+        this.sDOB = sDOB;
+    }
+
+    public String getsIDCountry() {
+        return sIDCountry;
+    }
+
+    public void setsIDCountry(String sIDCountry) {
+        this.sIDCountry = sIDCountry;
+    }
+
+    public String getsCurrency() {
+        return sCurrency;
+    }
+
+    public void setsCurrency(String sCurrency) {
+        this.sCurrency = sCurrency;
+    }
+
+    public String getsCity() {
+        return sCity;
+    }
+
+    public void setsCity(String sCity) {
+        this.sCity = sCity;
+    }
+
+    public String getsAddressCountry() {
+        return sAddressCountry;
+    }
+
+    public void setsAddressCountry(String sAddressCountry) {
+        this.sAddressCountry = sAddressCountry;
+    }
+
+    public String getrType() {
+        return rType;
+    }
+
+    public void setrType(String rType) {
+        this.rType = rType;
+    }
+
+    public String getrCountry() {
+        return rCountry;
+    }
+
+    public void setrCountry(String rCountry) {
+        this.rCountry = rCountry;
+    }
+
+    public String getrMobileNumber() {
+        return rMobileNumber;
+    }
+
+    public void setrMobileNumber(String rMobileNumber) {
+        this.rMobileNumber = rMobileNumber;
+    }
+
     // @CsvBindByName(column = "amount", required = false)
     // private String amount;
-
+    
 }
