@@ -49,16 +49,49 @@ export default function UploadFile() {
           "sourceOfFunds": [
             "02",
             "Business and investment"
-          ],
-
-
+          ]
+        },
+        api_name : "everywhereremit",
+          payload : 
+          {
+            "source_type": "",
+            "sender_country" : "Singapore",
+            "segment" : "",
+            "sender_legal_name_first": "First Name",
+            "sender_legal_name_last" : "Last Name",
+            "sender_date_of_birth": Date.now(),
+            "sender_nationality":["SGP","Singapore"],
+            "sender_id_type": ["national","National"],
+            "sender_id_country":["SGP","Singapore"],
+            "sender_id_number":"",
+            "sender_currency":"SGD",
+            "sender_address_line":"",
+            "sender_address_city":"Singapore",
+            "sender_address_country":["SGP","Singapore"],
+            "recipient_type":"bank_account",
+            "recipient_country":"CHN",
+            "recipient_legal_name_first":"Hi",
+            "recipient_legal_name_last":"hello",
+            "recipient_mobile_number": "12345678",
+            "recipient_account_number":"12345678",
+            "recipient_currency":"SGD",
+            "units": 1,
+            "source_of_funds":[
+              "01",
+              "Bank Deposit"
+              ],
+            "remittance_purpose":[
+              "001-01",
+              "Family/living expense"
+              ]
+          }
         }
-      }
     )
       .then((response) => {
         console.log(response);
         // Store the transaction status
-        localStorage.status = response.data.message; 
+        localStorage.status = response.data.message;
+        storeTransaction();
       })
       .catch((error) => {
         console.log(error);
@@ -78,7 +111,7 @@ export default function UploadFile() {
         console.log(response);
        // set the variable back to false so that the new uploaded transaction will be reflected in dashboard
         localStorage.loaded = 'false';
-        window.location.replace("/admin/dashboard");
+        // window.location.replace("/admin/dashboard");
       })
       .catch((error) => {
         console.log(error);
@@ -87,7 +120,6 @@ export default function UploadFile() {
 
   const submitFile = () => {
     sendTransaction();
-    storeTransaction();
     // const formData = new FormData();
     // formData.append("file", selectedFile);
     // const config = {
