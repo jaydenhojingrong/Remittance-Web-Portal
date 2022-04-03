@@ -47,15 +47,28 @@ public class HeaderController {
 	 */
     @GetMapping("/headers/{currentHeader}")
 	public HeaderNames getHeaderByCurrentHeader(@PathVariable String currentHeader) {
-		return headerService.getHeaderByCurrentHeader(currentHeader);
+		return headerService.getSsotByCurrentHeader(currentHeader);
+	}
+
+	@GetMapping("/headers/{currentHeader}/{company}")
+	public HeaderNames getHeaderByCurrentHeader(@PathVariable String currentHeader, @PathVariable String company) {
+		return headerService.getSsotByCurrentHeaderAndCompany(currentHeader, company);
+	}
+
+	@GetMapping("/headers/getCurrentHeader/{ssotHeader}")
+	public List <String> getCurrentHeaderBySsot(@PathVariable String ssotHeader) {
+		return headerService.findBySsotHeader(ssotHeader);
+	}
+
+	@GetMapping("/headers/getApiHeader/{ssotHeader}/{company}")
+	public String getCurrentHeaderBySsot(@PathVariable String ssotHeader, @PathVariable String company) {
+		return headerService.getApiHeaderBySsotHeaderAndCompany(ssotHeader, company);
 	}
 
 	@RequestMapping(value = "/addHeader", method = RequestMethod.POST)
 	@ResponseBody
-	public HeaderNames insertHeaderNames(@RequestParam String currentHeader, @RequestParam String ssotHeader, @RequestParam String company){
-		HeaderNames headername = new HeaderNames(currentHeader,ssotHeader, company);
-		System.out.println("\n\n\n\n"  + "slaladsladsldsaldslaladslsdalsdaldsaldasldsa" +"\n\n\n");
-		System.out.println("\n\n\n\n"  + headername +"\n\n\n");
+	public HeaderNames insertHeaderNames(@RequestParam String currentHeader, @RequestParam String ssotHeader, @RequestParam String company, @RequestParam String apiHeader){
+		HeaderNames headername = new HeaderNames(currentHeader,ssotHeader, company, apiHeader);
 		return headerDAO.save(headername);
 	}
 

@@ -19,7 +19,6 @@ import java.net.URL;
 import java.util.Scanner;
 import java.util.List;
 
-
 @Component
 public class OpenCSVReadAndParseToBean {
 
@@ -73,9 +72,11 @@ public class OpenCSVReadAndParseToBean {
         return Class.forName("com.OOP.remittancesystem.entity." + company);
     }
     
-    public void mapKeywords(String fileName, String fileType, String fileDownloadUrl) {
-        boolean readHeader = false;
-        String fullFileName = fileName;
+    //takes in the uploaded csv file
+    //rename its headers to adhere to the SSOT format
+    public void mapKeywords(String company, String fileDownloadUrl) {
+        boolean haveReadHeader = false;
+        String fullFileName = company + ".csv";
 
         //create file of the local csv file (in root folder)
         File file = new File(fullFileName);
@@ -101,29 +102,30 @@ public class OpenCSVReadAndParseToBean {
         String newHeaders = "";
 
         //create new scanner of the local csv file (root folder)
-        try (Scanner fIn = new Scanner(file)){
-
+        try (Scanner fIn = new Scanner(file, "UTF-8")){
             //create a printerstream from temp.csv to write values into it
             PrintStream writer = new PrintStream(new FileOutputStream("./temp.csv", false));
 
             //loop scanner till no more lines
             while (fIn.hasNext()) {
                String csvLine = fIn.nextLine();
-               //readHeader will only be true at the first iteration of loop
-                if (!readHeader){
-
+               //haveReadHeader will only be true at the first iteration of loop
+                if (!haveReadHeader){
                     //create scanner to delimit all the headers
                     Scanner scHeaders = new Scanner(csvLine);
                     scHeaders.useDelimiter(",|\r\n|\n");
                     while (scHeaders.hasNext()){
                         //look up db and rename into SSOT header value 
-                        newHeaderName = renameHeader(scHeaders.next());
+                        String currentHeader = scHeaders.next();
+                        newHeaderName = renameHeader(currentHeader, company);
+                        System.out.println(company);
+                        System.out.println("{" +currentHeader + "}  CHANGED TO ----->  {" + newHeaderName + "}");
                         newHeaders += newHeaderName + ",";
                     }
                     //slice off last "comma" in the string   
                     //populate header values from user uploaded csv into temp.csv
                     writer.println(newHeaders.substring(0,newHeaders.length()-1));
-                    readHeader = true;
+                    haveReadHeader = true;
                     scHeaders.close();
 
                }
@@ -135,11 +137,6 @@ public class OpenCSVReadAndParseToBean {
             //    fIn.nextLine();
             }	
             writer.close();
-
-            // Path fileToDeletePath = Paths.get("everywhereDummy.csv");
-            // System.out.println("it here!!!!!!:                    "  +fileToDeletePath);
-            // Files.delete(fileToDeletePath);
-
          } 
          catch(IOException e) {
              e.printStackTrace();
@@ -151,20 +148,35 @@ public class OpenCSVReadAndParseToBean {
             System.out.println("Does file exists?: " + file.exists());
             System.out.println("Was file deleted?: " + file.delete());
             System.out.println("Was file renamed?: " + tempFile.renameTo(file));
-            try{
-                FileInputStream input = new FileInputStream(file);
+            try (FileInputStream input = new FileInputStream(file)){
                 MultipartFile multipartFile = new MockMultipartFile("file",file.getName(), "text/csv", IOUtils.toByteArray(input));
                 fileStorageService.storeFile(multipartFile);
             }
             catch(Exception e){
-                System.out.println("its here!!!!!!" + e.getMessage());
+                System.out.println(e.getMessage());
             }
          }
     }
 
-    public String renameHeader(String header){
-        System.out.println(headerservice.getHeaderByCurrentHeader(header).getCurrentHeader());
-        return headerservice.getHeaderByCurrentHeader(header).getSsotHeader();
+    //looks up for current header in the db and returns the ssot one
+    public String renameHeader(String header, String company){
+        String renamedHeader;
+        //remove ? that appears in first value in csv
+        if (header.charAt(0) == '?'){
+            header = (header.substring(1, header.length()));
+        }
+
+        try{
+            
+            renamedHeader = headerservice.getSsotByCurrentHeaderAndCompany(header, company).getSsotHeader();
+            
+        }
+        //not found? return null
+        catch(NullPointerException e){
+            renamedHeader = null;
+            
+        }
+        return renamedHeader;
     }
 
 }

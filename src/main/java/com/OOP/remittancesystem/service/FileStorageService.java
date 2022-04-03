@@ -37,7 +37,6 @@ public class FileStorageService {
         // String stringPath = "/Users/maarunipandithurai/Documents/GitHub/Remittance-Web-Portal";
         // String stringPath = "./";
         // this.fileStorageLocation = Paths.get(stringPath);
-        
 
         try {
             // create directory if doesnt exist
@@ -51,7 +50,7 @@ public class FileStorageService {
     // returns filename
     public String storeFile(MultipartFile file){
         // normalizes filename
-        System.out.println(file);
+        // TODO Maars help plz - check if file is csv or not. if not throw exception to tell frontend
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try (InputStream inputFile = file.getInputStream();){
 
@@ -60,7 +59,8 @@ public class FileStorageService {
             Files.copy(inputFile, targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
         } catch (IOException ex) {
-            throw new FileStorageException("Could not store file " + fileName + " please try again", ex);
+            throw new FileStorageException("Could not store file " + fileName + ". Please try again", ex);
+            
         }
     }
 

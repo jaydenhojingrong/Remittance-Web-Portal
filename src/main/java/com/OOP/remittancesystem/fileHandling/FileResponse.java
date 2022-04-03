@@ -1,18 +1,23 @@
 package com.OOP.remittancesystem.fileHandling;
 
+import java.util.List;
+
 public class FileResponse {
 
     private String fileName;
     private String fileDownloadURL;
     private String fileType;
     private Long size;
+    private List<String> headers;
+    
 
-    public FileResponse(String fileName, String fileDownloadURL, String fileType, Long size) {
+    public FileResponse(String fileName, String fileDownloadURL, String fileType, Long size, List<String> headers){
         this.fileName = fileName;
         this.fileDownloadURL = fileDownloadURL;
         this.fileType = fileType;
         this.size = size;
-    }
+        this.headers = headers;   
+    } 
 
     public String getFileName() {
         return fileName;
@@ -44,5 +49,13 @@ public class FileResponse {
 
     public void setSize(Long size) {
         this.size = size;
+    }
+    
+    public List<String> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(List<String> headers) {
+        this.headers = headers;
     }
 }

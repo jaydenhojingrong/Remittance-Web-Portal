@@ -18,6 +18,6 @@ public class TransactionService {
     private TransactionDAO transactionDAO;
     
     public List<Transactions> getTransactionsByUsername(String username) {
-        return transactionDAO.findByUsername("hyong.2019@scis.smu.edu.sg");
+        return transactionDAO.findByUsername(username);
     }
 }

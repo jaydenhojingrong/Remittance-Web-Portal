@@ -1,7 +1,6 @@
 package com.OOP.remittancesystem.controller;
 
 import org.springframework.core.io.Resource;
-import org.mockito.internal.stubbing.answers.ThrowsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +16,15 @@ import com.OOP.remittancesystem.dao.RemittanceDAO;
 import com.OOP.remittancesystem.entity.Remittance;
 import com.OOP.remittancesystem.fileHandling.FileResponse;
 import com.OOP.remittancesystem.fileHandling.OpenCSVReadAndParseToBean;
+import com.OOP.remittancesystem.service.CompanySorter;
 import com.OOP.remittancesystem.service.FileStorageService;
+import com.OOP.remittancesystem.service.HeaderService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,8 +36,8 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
-//     @Autowired
-//     private RemittanceService remittanceService;
+    @Autowired
+    private CompanySorter companySorter;
     
     @Autowired 
     private RemittanceDAO remittanceDAO;
@@ -42,50 +45,93 @@ public class FileController {
     @Autowired
     private OpenCSVReadAndParseToBean openCSV;
 
-    @PostMapping
-    @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file, @RequestParam("company")String company)
-    throws Throwable{
+    @Autowired
+    private HeaderService headerService;
 
+    @PostMapping("/extractheaders")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file) {
+
+        //store the file in the server
+        //e.g. localhost:8080/files/dummy.csv
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/files/")
                 .path(fileName)
                 .toUriString();
 
-        FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize());
+        //create a fileResponse for json output at the end
+        ArrayList<String> headers = headerService.extractHeaders(fileDownloadUrl);
+        FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize(), headers);
+                
+        System.out.println(headers);
+        System.out.println("over here");
 
-        openCSV.mapKeywords(fileName,  file.getContentType(), fileDownloadUrl);
+        return new ResponseEntity <FileResponse> (fileResponse, HttpStatus.OK);
+}
 
-        List<Remittance> remittanceList = openCSV.mapCSV(fileDownloadUrl, company);
-        for (Remittance remittance: remittanceList) {
+    @PostMapping        
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<FileResponse> processFile(@RequestParam("file")MultipartFile file)
+    throws Throwable{
 
-            try {
-                remittanceDAO.save((Remittance) remittance);
-            } catch (javax.validation.ConstraintViolationException e){
-                String message= "";
-                Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-                for (ConstraintViolation<?> violation : violations) {
-                  message = violation.getMessage() + " ";
-                //   instead of just printing throw the error with column:
-                  System.out.println(message + "throwing the error here now!!!!");
-                //   throw new Throwable("throwing error with column");
-                // return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.BAD_REQUEST);
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
-                // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
+        //store the file in the server
+        //e.g. localhost:8080/files/dummy.csv
+        String fileName = fileStorageService.storeFile(file);
+        String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/files/")
+                .path(fileName)
+                .toUriString();
+        List<String> test = new ArrayList<>();
+        //create a fileResponse for json output at the end
+        FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize(),test );
 
+        //take in the file which was earlier put in server.. and sort them in an arrayList by company
+        //e.g. <EverywhereRemit: [row1],[row2],[row3], PaymentGo: [row1]...>
+        Map <String, ArrayList<String>> dataByCompany = companySorter.sortCompany(fileName, fileDownloadUrl);
 
-                  
+        // create and store the company data into csv files
+        Map <String, String> companyPath = companySorter.createCompanyCSV(dataByCompany);
+
+        //loop through all identified companies in the csv file
+        Iterator <String> companyIter = companyPath.keySet().iterator();
+        while (companyIter.hasNext()){
+            String company = companyIter.next();
+
+            //for each company csv file.. scan through the headers and rename them into SSOT format
+            openCSV.mapKeywords(company, companyPath.get(company));
+
+            //for each company csv.. cast them into a list of remittance (csv -> list of objects)
+            List<Remittance> remittanceList = openCSV.mapCSV(companyPath.get(company), company);
+            //loop each data (row and insert it to db)
+            for (Remittance remittance: remittanceList) {
+
+                try {
+                    remittanceDAO.save((Remittance) remittance);
+                
+                } 
+                //handles validation error under entity
+                //throws json back to front end
+                catch (javax.validation.ConstraintViolationException e){
+                    String message= "";
+                    Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+                    for (ConstraintViolation<?> violation : violations) {
+                    message = violation.getMessage() + " ";
+                    System.out.println(message + " Throwing the exception.");
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
+                    // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
+                    }
                 }
             }
-             
 
-            System.out.println("Country : " + remittance.getsCountry());
-            System.out.println("First Name : " + remittance.getsFirstName());
-            System.out.println("Last Name : " + remittance.getsLastName());
-            System.out.println("==========================");
+            //Convert List<Remittance> remittanceList into  Map<String apiHeader, String value> remittanceMap 
+            //call createrequestbody
+            //send to hy api
+            Map<String, String> remittanceMap = headerService.listToMapRemittance(remittanceList);
+            
         }
-
+        
+        //return successful upload entity
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
     }
 
@@ -98,7 +144,7 @@ public class FileController {
 
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-            System.out.println(contentType);
+            // System.out.println(contentType);
         }catch (IOException ex){
             System.out.println("count not determine fileType");
         }

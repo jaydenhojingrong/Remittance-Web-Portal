@@ -8,11 +8,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const handleUsernameChange = (e) => {
-    console.log(e.target.value);
     setUsername(e.target.value);
   };
   const handlePasswordChange = (e) => {
-    console.log(e.target.value);
     setPassword(e.target.value);
   };
 
@@ -32,6 +30,7 @@ export default function Login() {
         console.log(response);
         localStorage.bearer_token = response.data.access_token;
         localStorage.username = username;
+        localStorage.loaded = 'false'; // created to ensure transactions only load once
         window.location.replace("/admin/dashboard");
       })
       .catch((error) => {

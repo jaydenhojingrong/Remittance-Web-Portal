@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `remittancedb`
 --
-CREATE DATABASE IF NOT EXISTS `remittancedb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `remittancedb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `remittancedb`;
 
 -- --------------------------------------------------------
@@ -34,84 +34,71 @@ CREATE TABLE IF NOT EXISTS `headernames` (
   `current_header` varchar(99) NOT NULL,
   `ssot_header` varchar(99) NOT NULL,
   `company` varchar(99) NOT NULL,
+  `api_header` varchar(99) NOT NULL,
   PRIMARY KEY (`current_header`,`company`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE `headernames` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 --
 -- Dumping data for table `headernames`
 --
 
-INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`) VALUES
-('BankAccountNumber', 'rAccountNumber', 'FinanceNow'),
-('merTransAmount', 'amount', 'PaymentGo'),
-('nationality', 'sNationality', 'PaymentGo'),
-('payeeAccountNo', 'rAccountNumber', 'PaymentGo'),
-('payeeBankName', 'rBank', 'PaymentGo'),
-('payeeBirthDate', 'rDOB', 'PaymentGo'),
-('payeeBranchName', 'rBranch', 'PaymentGo'),
-('payeeCaNo', 'rIDNumber', 'PaymentGo'),
-('payeeCaType', 'rIDType', 'PaymentGo'),
-('payeeGivenName', 'rFirstName', 'PaymentGo'),
-('payeePhone', 'rMobileNumber', 'PaymentGo'),
-('payeeSurname', 'rLastName', 'PaymentGo'),
-('PaymentMode', 'paymentMode', 'FinanceNow'),
-('PayoutCurrency', 'rCurrency', 'FinanceNow'),
-('PurposeOfRemittance', 'remitPurpose', 'FinanceNow'),
-('ReceiverAddress', 'rAddress', 'FinanceNow'),
-('ReceiverCity', 'rCity', 'FinanceNow'),
-('ReceiverCountry', 'rCountry', 'FinanceNow'),
-('ReceiverFirstName', 'rFirstName', 'FinanceNow'),
-('ReceiverIdNumber', 'rIDNumber', 'FinanceNow'),
-('ReceiverIdType', 'rIDType', 'FinanceNow'),
-('ReceiverLastName', 'rLastName', 'FinanceNow'),
-('ReceiverNationality', 'rNationality', 'FinanceNow'),
-('recipient_account_number', 'rAccountNumber', 'EverywhereRemit'),
-('recipient_country', 'rCountry', 'EverywhereRemit'),
-('recipient_currency', 'rCurrency', 'EverywhereRemit'),
-('recipient_legal_name_first', 'rFirstName', 'EverywhereRemit'),
-('recipient_legal_name_last', 'rLastName', 'EverywhereRemit'),
-('recipient_mobile_number', 'rMobileNumber', 'EverywhereRemit'),
-('recipient_type', 'rType', 'EverywhereRemit'),
-('remitAccountNo', 'sAccountNumber', 'PaymentGo'),
-('remitAddress', 'sAddress', 'PaymentGo'),
-('remitCaNo', 'sIDNumber', 'PaymentGo'),
-('remitCaType', 'sIDType', 'PaymentGo'),
-('remitCountryCode', 'sCountry', 'PaymentGo'),
-('remitGivenName', 'sFirstName', 'PaymentGo'),
-('remitPurpose', 'remitPurpose', 'PaymentGo'),
-('remitSurname', 'sLastName', 'PaymentGo'),
-('remittance_purpose', 'remitPurpose', 'EverywhereRemit'),
-('segment', 'segment', 'EverywhereRemit'),
-('SenderAddress', 'sAddress', 'FinanceNow'),
-('SenderBeneficiaryRelationship', 'relationship', 'FinanceNow'),
-('SenderCity', 'sCity', 'FinanceNow'),
-('SenderCountry', 'sCountry', 'FinanceNow'),
-('SenderDateOfBirth', 'sDOB', 'FinanceNow'),
-('SenderFirstName', 'sFirstName', 'FinanceNow'),
-('SenderIdNumber', 'sIDNumber', 'FinanceNow'),
-('SenderIdType', 'sIDType', 'FinanceNow'),
-('SenderLastName', 'sLastName', 'FinanceNow'),
-('SenderNationality', 'sNationality', 'FinanceNow'),
-('SenderSourceOfFund', 'sSourceOfFund', 'FinanceNow'),
-('SenderState', 'sState', 'FinanceNow'),
-('sender_address_city', 'sCity', 'EverywhereRemit'),
-('sender_address_country', 'sAddressCountry', 'EverywhereRemit'),
-('sender_address_line', 'sAddress', 'EverywhereRemit'),
-('sender_country', 'sCountry', 'EverywhereRemit'),
-('sender_currency', 'sCurrency', 'EverywhereRemit'),
-('sender_date_of_birth', 'sDOB', 'EverywhereRemit'),
-('sender_id_country', 'sCountryID', 'EverywhereRemit'),
-('sender_id_number', 'sIDNumber', 'EverywhereRemit'),
-('sender_id_type', 'sIDType', 'EverywhereRemit'),
-('sender_legal_name_first', 'sFirstName', 'EverywhereRemit'),
-('sender_legal_name_last', 'sLastName', 'EverywhereRemit'),
-('sender_nationality', 'sNationality', 'EverywhereRemit'),
-('settleCurrency', 'sCurrency', 'PaymentGo'),
-('sourceOfFunds', 'sSourceOfFund', 'PaymentGo'),
-('source_of_funds', 'sSourceOfFund', 'EverywhereRemit'),
-('source_type', 'sourceType', 'EverywhereRemit'),
-('transCurrency', 'rCurrency', 'PaymentGo'),
-('units', 'amount', 'EverywhereRemit');
+INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`, `api_header`) VALUES
+('Receiver Account Number', 'rAccountNumber', 'EverywhereRemit', 'recipient_account_number'),
+('Receiver Account Number', 'rAccountNumber', 'FinanceNow', 'BankAccountNumber'),
+('Receiver Account Number', 'rAccountNumber', 'PaymentGo', 'payeeAccountNo'),
+('Receiver Address', 'rAddress', 'FinanceNow', 'ReceiverAddress'),
+('Receiver City', 'rCity', 'FinanceNow', 'ReceiverCity'),
+('Receiver Date of Birth', 'rDOB', 'PaymentGo', 'payeeBirthDate'),
+('Receiver First name', 'rFirstName', 'EverywhereRemit', 'recipient_legal_name_first'),
+('Receiver First Name', 'rFirstName', 'FinanceNow', 'ReceiverFirstName'),
+('Receiver First Name', 'rFirstName', 'PaymentGo', 'payeeGivenName'),
+('Receiver ID Number', 'rIDNumber', 'FinanceNow', 'ReceiverIdNumber'),
+('Receiver ID Number', 'rIDNumber', 'PaymentGo', 'payeeCaNo'),
+('Receiver ID Type', 'rIDType', 'FinanceNow', 'ReceiverIdType'),
+('Receiver ID Type', 'rIDType', 'PaymentGo', 'payeeCaType'),
+('Receiver Last Name', 'rLastName', 'EverywhereRemit', 'recipient_legal_name_last'),
+('Receiver Last Name', 'rLastName', 'FinanceNow', 'ReceiverLastName'),
+('Receiver Last Name', 'rLastName', 'PaymentGo', 'payeeSurname'),
+('Receiver Nationality', 'rNationality', 'FinanceNow', 'ReceiverNationality'),
+('Receiving Amount', 'amount', 'EverywhereRemit', 'units'),
+('Receiving Amount', 'amount', 'FinanceNow', 'TransferAmount'),
+('Receiving Amount', 'amount', 'PaymentGo', 'merTransAmount'),
+('Sender Address', 'sAddress', 'EverywhereRemit', 'sender_address_line'),
+('Sender Address', 'sAddress', 'FinanceNow', 'SenderAddress'),
+('Sender Address', 'sAddress', 'PaymentGo', 'remitAddress'),
+('Sender Address Country', 'sAddressCountry', 'EverywhereRemit', 'sender_address_country'),
+('Sender City', 'sCity', 'EverywhereRemit', 'sender_address_city'),
+('Sender City', 'sCity', 'FinanceNow', 'SenderCity'),
+('Sender Country', 'sCountry', 'EverywhereRemit', 'sender_country'),
+('Sender Country', 'sCountry', 'FinanceNow', 'SenderCountry'),
+('Sender Country', 'sCountry', 'PaymentGo', 'remitCountryCode'),
+('Sender Date of Birth', 'sDOB', 'EverywhereRemit', 'sender_date_of_birth'),
+('Sender Date of Birth', 'sDOB', 'FinanceNow', 'SenderDateOfBirth'),
+('Sender First name', 'sFirstName', 'FinanceNow', 'SenderFirstName'),
+('Sender First name', 'sFirstName', 'PaymentGo', 'remitGivenName'),
+('Sender ID Number', 'sIDNumber', 'EverywhereRemit', 'sender_id_number'),
+('Sender ID Number', 'sIDNumber', 'FinanceNow', 'SenderIdNumber'),
+('Sender ID Number', 'sIDNumber', 'PaymentGo', 'remitCaNo'),
+('Sender ID Type', 'sIDType', 'EverywhereRemit', 'sIDType'),
+('Sender ID Type', 'sIDType', 'FinanceNow', 'SenderIdType'),
+('Sender ID Type', 'sIDType', 'PaymentGo', 'remitCaType'),
+('Sender Last name', 'sLastName', 'EverywhereRemit', 'sender_legal_name_last'),
+('Sender Last name', 'sLastName', 'FinanceNow', 'SenderLastName'),
+('Sender Last name', 'sLastName', 'PaymentGo', 'sender_legal_name_last'),
+('Sender Nationality', 'sNationality', 'EverywhereRemit', 'sender_nationality'),
+('Sender Nationality', 'sNationality', 'FinanceNow', 'SenderNationality'),
+('Sender Nationality', 'sNationality', 'PaymentGo', 'nationality'),
+('Sender Purpose of Remittance', 'remitPurpose', 'EverywhereRemit', 'remittance_purpose'),
+('Sender Purpose of Remittance', 'remitPurpose', 'FinanceNow', 'PurposeOfRemittance'),
+('Sender Purpose of Remittance', 'remitPurpose', 'PaymentGo', 'remitPurpose'),
+('Sender Relationship', 'relationship', 'FinanceNow', 'SenderBeneficiaryRelationship'),
+('Sender Source of Fund', 'sSourceOfFund', 'EverywhereRemit', 'source_of_funds'),
+('Sender Source of Fund', 'sSourceOfFund', 'FinanceNow', 'SenderSourceOfFund'),
+('Sender Source of Fund', 'sSourceOfFund', 'PaymentGo', 'sourceOfFunds'),
+('Source Type', 'sourceType', 'EverywhereRemit', 'source_type');
+
+
 
 -- --------------------------------------------------------
 
@@ -128,15 +115,16 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `transactionstatus` varchar(255) NOT NULL,
   PRIMARY KEY (`transactionid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+ALTER TABLE `transactions` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 --
 -- Dumping data for table `transactions`
 --
 
 INSERT INTO `transactions` (`username`, `filename`, `company`, `transactionstatus`) VALUES
-('hyong.2019@scis.smu.edu.sg', 'grock.csv', 'PaymentGo', 'Successful'),
-('jaydenGrock', 'EngLieh.csv', 'EverywhereRemit', 'Pending'),
-('hyong.2019@scis.smu.edu.sg', 'Luffy.csv', 'FinanceNow', 'Rejected');
+('hyong.2019@scis.smu.edu.sg', 'grock.csv', 'PaymentGo', 'Transaction Successful'),
+('znchua.2019@smu.edu.sg', 'EngLieh.csv', 'EverywhereRemit', 'Transaction Pending AML'),
+('hyong.2019@scis.smu.edu.sg', 'Luffy.csv', 'FinanceNow', 'Transaction Rejected'),
+('hyong.2019@scis.smu.edu.sg', 'remit.csv', 'FinanceNow', 'Transaction Pending Compliance Checks');
 
 -- --------------------------------------------------------
 --
@@ -186,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `remittancetransaction` (
   `s_account_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`rowid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-
+ALTER TABLE `remittancetransaction` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 --
 -- Dumping data for table `remittancetransaction`
 --

@@ -10,6 +10,9 @@ export default function UploadFile() {
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
     setIsFilePicked(true);
+    console.log(selectedFile);
+    console.log(isFilePicked);
+    console.log(event.target.files[0].name);
   };
 
   const sendTransaction = () => {
@@ -49,14 +52,74 @@ export default function UploadFile() {
           "sourceOfFunds": [
             "02",
             "Business and investment"
-          ],
-
-
+          ]
+        },
+        api_name : "everywhereremit",
+          payload : 
+          {
+            "source_type": "",
+            "sender_country" : "Singapore",
+            "segment" : "",
+            "sender_legal_name_first": "First Name",
+            "sender_legal_name_last" : "Last Name",
+            "sender_date_of_birth": Date.now(),
+            "sender_nationality":["SGP","Singapore"],
+            "sender_id_type": ["national","National"],
+            "sender_id_country":["SGP","Singapore"],
+            "sender_id_number":"",
+            "sender_currency":"SGD",
+            "sender_address_line":"",
+            "sender_address_city":"Singapore",
+            "sender_address_country":["SGP","Singapore"],
+            "recipient_type":"bank_account",
+            "recipient_country":"CHN",
+            "recipient_legal_name_first":"Hi",
+            "recipient_legal_name_last":"hello",
+            "recipient_mobile_number": "12345678",
+            "recipient_account_number":"12345678",
+            "recipient_currency":"SGD",
+            "units": 1,
+            "source_of_funds":[
+              "01",
+              "Bank Deposit"
+              ],
+            "remittance_purpose":[
+              "001-01",
+              "Family/living expense"
+              ]
+          }
         }
-      }
     )
       .then((response) => {
         console.log(response);
+        // Store the transaction status IF all fields are valid
+        if(response.data.code == 0){
+          alert("You have missing fields, please check your file again!");
+        }
+        else{
+          localStorage.status = response.data.message;
+          storeTransaction();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  
+  const storeTransaction = () => {
+    var config = {
+      headers: { 'Access-Control-Allow-Origin': '*' }
+    };
+    axios.post(
+      "http://localhost:8080/addTransaction/" + localStorage.getItem('username') 
+      + "/" + selectedFile.name + "/" + "apiName" + "/" + localStorage.getItem('status'), config
+      // todo: replace filename.csv & apiName with variable names
+    )
+      .then((response) => {
+        console.log(response);
+       // set the variable back to false so that the new uploaded transaction will be reflected in dashboard
+        localStorage.loaded = 'false';
+        // window.location.replace("/admin/dashboard");
       })
       .catch((error) => {
         console.log(error);

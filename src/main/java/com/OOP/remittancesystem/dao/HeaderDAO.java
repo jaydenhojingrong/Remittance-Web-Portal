@@ -1,7 +1,6 @@
 package com.OOP.remittancesystem.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.OOP.remittancesystem.entity.HeaderNames;
 
@@ -13,7 +12,17 @@ public interface HeaderDAO extends JpaRepository<HeaderNames, String> {
 
     public List<HeaderNames> findAll();
 
-    public Optional<HeaderNames> findById(String currentHeader);
+    // public Optional<HeaderNames> findById(String currentHeader);
+
+    // public HeaderNames findByCurrentHeader(String currentHeader);
+
+    public HeaderNames findFirstByCurrentHeaderOrderByCompany(String currentHeader);
+
+    public HeaderNames findFirstByCurrentHeaderAndCompanyOrderByCompany(String currentHeader, String company);
+
+    public HeaderNames findFirstBySsotHeaderAndCompanyOrderByCompany(String ssotHeader, String company);
+
+    public List <HeaderNames> findBySsotHeader(String ssotHeader);
 
     public HeaderNames save(HeaderNames headerNames);
     
