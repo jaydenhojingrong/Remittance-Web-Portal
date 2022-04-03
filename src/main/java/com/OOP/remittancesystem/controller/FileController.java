@@ -99,7 +99,7 @@ public class FileController {
             String company = companyIter.next();
 
             //for each company csv file.. scan through the headers and rename them into SSOT format
-            openCSV.mapKeywords(company, companyPath.get(company));
+            openCSV.mapKeywords(company, companyPath.get(company), "ssot");
 
             //for each company csv.. cast them into a list of remittance (csv -> list of objects)
             List<Remittance> remittanceList = openCSV.mapCSV(companyPath.get(company), company);
@@ -127,8 +127,13 @@ public class FileController {
             //Convert List<Remittance> remittanceList into  Map<String apiHeader, String value> remittanceMap 
             //call createrequestbody
             //send to hy api
-            Map<String, String> remittanceMap = headerService.listToMapRemittance(remittanceList);
-            
+            openCSV.mapKeywords(company, companyPath.get(company), "api");
+            Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
+            remittanceMap.entrySet().forEach(entry -> {
+                        System.out.println("\n\n\n\n");
+                        System.out.println(entry.getKey());
+                        System.out.println(entry.getValue());
+            });
         }
         
         //return successful upload entity

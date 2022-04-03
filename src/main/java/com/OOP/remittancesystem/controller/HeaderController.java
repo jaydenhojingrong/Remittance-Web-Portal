@@ -61,11 +61,12 @@ public class HeaderController {
 	}
 
 	@GetMapping("/headers/getApiHeader/{ssotHeader}/{company}")
-	public String getCurrentHeaderBySsot(@PathVariable String ssotHeader, @PathVariable String company) {
+	public HeaderNames getCurrentHeaderBySsot(@PathVariable String ssotHeader, @PathVariable String company) {
 		return headerService.getApiHeaderBySsotHeaderAndCompany(ssotHeader, company);
 	}
 
 	@RequestMapping(value = "/addHeader", method = RequestMethod.POST)
+	@CrossOrigin(origins = "http://localhost:3000")
 	@ResponseBody
 	public HeaderNames insertHeaderNames(@RequestParam String currentHeader, @RequestParam String ssotHeader, @RequestParam String company, @RequestParam String apiHeader){
 		HeaderNames headername = new HeaderNames(currentHeader,ssotHeader, company, apiHeader);

@@ -4,11 +4,11 @@ package com.OOP.remittancesystem.fileHandling;
 import com.OOP.remittancesystem.entity.Remittance;
 import com.OOP.remittancesystem.service.FileStorageService;
 import com.OOP.remittancesystem.service.HeaderService;
-
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import org.apache.commons.compress.utils.IOUtils;
+import org.apache.poi.ss.usermodel.Header;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +17,10 @@ import org.springframework.mock.web.MockMultipartFile;
 import java.io.*;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class OpenCSVReadAndParseToBean {
@@ -74,7 +77,7 @@ public class OpenCSVReadAndParseToBean {
     
     //takes in the uploaded csv file
     //rename its headers to adhere to the SSOT format
-    public void mapKeywords(String company, String fileDownloadUrl) {
+    public void mapKeywords(String company, String fileDownloadUrl, String renameTo) {
         boolean haveReadHeader = false;
         String fullFileName = company + ".csv";
 
@@ -117,9 +120,14 @@ public class OpenCSVReadAndParseToBean {
                     while (scHeaders.hasNext()){
                         //look up db and rename into SSOT header value 
                         String currentHeader = scHeaders.next();
-                        newHeaderName = renameHeader(currentHeader, company);
-                        System.out.println(company);
-                        System.out.println("{" +currentHeader + "}  CHANGED TO ----->  {" + newHeaderName + "}");
+                        if (renameTo.equals("ssot")){
+                            newHeaderName = renameHeaderToSsot(currentHeader, company);
+                        }
+                        else {
+                            newHeaderName = renameHeaderToApi(currentHeader, company);
+                            // System.out.println(company);
+                            // System.out.println("{" +currentHeader + "}  CHANGED TO ----->  {" + newHeaderName + "}");
+                        }
                         newHeaders += newHeaderName + ",";
                     }
                     //slice off last "comma" in the string   
@@ -159,7 +167,7 @@ public class OpenCSVReadAndParseToBean {
     }
 
     //looks up for current header in the db and returns the ssot one
-    public String renameHeader(String header, String company){
+    public String renameHeaderToSsot(String header, String company){
         String renamedHeader;
         //remove ? that appears in first value in csv
         if (header.charAt(0) == '?'){
@@ -167,9 +175,7 @@ public class OpenCSVReadAndParseToBean {
         }
 
         try{
-            
-            renamedHeader = headerservice.getSsotByCurrentHeaderAndCompany(header, company).getSsotHeader();
-            
+            renamedHeader = headerservice.getSsotByCurrentHeaderAndCompany(header, company).getSsotHeader(); 
         }
         //not found? return null
         catch(NullPointerException e){
@@ -178,5 +184,102 @@ public class OpenCSVReadAndParseToBean {
         }
         return renamedHeader;
     }
+
+     //looks up for current header in the db and returns the ssot one
+     public String renameHeaderToApi(String header, String company){
+        String renamedHeader;
+        //remove ? that appears in first value in csv
+        if (header.charAt(0) == '?'){
+            header = (header.substring(1, header.length()));
+        }
+
+        try{
+            renamedHeader = headerservice.getApiHeaderBySsotHeaderAndCompany(header, company).getApiHeader(); 
+        }
+        //not found? return null
+        catch(NullPointerException e){
+            renamedHeader = null;
+            
+        }
+        return renamedHeader;
+    }
+
+
+    public Map <String, List<String>> csvToHashMap(String company, String fileDownloadUrl) {
+        String fullFileName = company + ".csv";
+        Map<String, List<String>> mappedCols = new HashMap<String, List<String>>();
+
+        //create file of the local csv file (in root folder)
+        File file = new File(fullFileName);
+
+        //create new inputstream of the server side csv file
+        //e.g. localhost:8080/files/everywhereRemit.csv
+        //also create outputStream of the local file (in the root folder)
+        try (InputStream input = new URL(fileDownloadUrl).openStream();
+            FileOutputStream out = new FileOutputStream(file);) {
+
+            file.deleteOnExit();
+            IOUtils.copy(input, out);
+
+        } catch (FileNotFoundException e) {
+            // handle exception here
+        } catch (IOException e) {
+            // handle exception here
+        }
+
+        // convert csv file to fileReader
+        try (FileReader fileReader = new FileReader(fullFileName)){
+
+            // to track column headers
+            Map<Integer, String> indexCols = new HashMap<Integer, String>();
+
+            //to read the file
+            try(BufferedReader br = new BufferedReader(fileReader)) {
+                String sCurrentLine;
+                boolean firstLine = true;
+                //read the next line
+                while ((sCurrentLine = br.readLine()) != null) {
+                    //split by comma
+                    String[] fields = sCurrentLine.split(",");
+                    for (int i = 0; i < fields.length; i++) {
+                        //for header row, add into indexCols with its index position
+                        //create new entry in mapcols
+                        if (firstLine) {
+                            indexCols.put(i, fields[i]);
+                            mappedCols.put(fields[i], new ArrayList<String>());
+                        } 
+                        //add in to the respective key
+                        else {
+                            String colName = indexCols.get(i);
+                            if (colName == null) {
+                                break;
+                            }
+                            mappedCols.get(colName).add(fields[i]);
+                        }
+                    }
+                    firstLine = false;
+                }
+            } 
+            catch (IOException e) {
+                e.printStackTrace();
+            } 
+            // finally {
+            //     mappedCols.entrySet().forEach(entry -> {
+            //         System.out.println("\n\n\n\n");
+            //         System.out.println(entry.getKey());
+            //         System.out.println(entry.getValue());
+            //     });
+            // }
+
+        } 
+        catch(Exception e){
+        // log exception
+        }
+       
+        return mappedCols;
+
+    }
+
+    
 
 }
