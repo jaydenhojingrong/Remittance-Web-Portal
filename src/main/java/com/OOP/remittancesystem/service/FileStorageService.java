@@ -50,7 +50,7 @@ public class FileStorageService {
     // returns filename
     public String storeFile(MultipartFile file){
         // normalizes filename
-        System.out.println(file);
+        // System.out.println(file);
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try (InputStream inputFile = file.getInputStream();){
 

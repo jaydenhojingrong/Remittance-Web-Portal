@@ -58,14 +58,6 @@ public class FileController {
 
         FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize());
 
-        // openCSV.mapKeywords(fileName, fileDownloadUrl);
-
-        //here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //spilt into seperate csv files
-
-        // get data for each company from the csv file
         Map <String, ArrayList<String>> dataByCompany = companySorter.sortCompany(fileName, fileDownloadUrl);
 
         // create and store the company data into csv files
@@ -74,7 +66,6 @@ public class FileController {
         Iterator <String> companyIter = companyPath.keySet().iterator();
         while (companyIter.hasNext()){
             String company = companyIter.next();
-            System.out.println("here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+companyPath.get(company));
 
             openCSV.mapKeywords(company, companyPath.get(company));
 
@@ -95,11 +86,6 @@ public class FileController {
                     
                     }
                 }
-            
-                System.out.println("Country : " + remittance.getsCountry());
-                System.out.println("First Name : " + remittance.getsFirstName());
-                System.out.println("Last Name : " + remittance.getsLastName());
-                System.out.println("==========================");
             }
         }
         
@@ -116,7 +102,7 @@ public class FileController {
 
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-            System.out.println(contentType);
+            // System.out.println(contentType);
         }catch (IOException ex){
             System.out.println("count not determine fileType");
         }

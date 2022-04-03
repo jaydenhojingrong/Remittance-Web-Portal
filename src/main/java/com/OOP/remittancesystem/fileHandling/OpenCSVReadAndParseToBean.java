@@ -156,7 +156,7 @@ public class OpenCSVReadAndParseToBean {
                 fileStorageService.storeFile(multipartFile);
             }
             catch(Exception e){
-                System.out.println("its here!!!!!!" + e.getMessage());
+                System.out.println(e.getMessage());
             }
          }
     }
