@@ -19,7 +19,6 @@ import java.net.URL;
 import java.util.Scanner;
 import java.util.List;
 
-
 @Component
 public class OpenCSVReadAndParseToBean {
 

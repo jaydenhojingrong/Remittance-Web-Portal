@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `remittancedb`
 --
-CREATE DATABASE IF NOT EXISTS `remittancedb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `remittancedb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `remittancedb`;
 
 -- --------------------------------------------------------
@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `headernames` (
   PRIMARY KEY (`current_header`,`company`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE `headernames` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 --
 -- Dumping data for table `headernames`
 --
@@ -114,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `transactionstatus` varchar(255) NOT NULL,
   PRIMARY KEY (`transactionid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+ALTER TABLE `transactions` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 --
 -- Dumping data for table `transactions`
 --
@@ -173,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `remittancetransaction` (
   `s_account_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`rowid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-
+ALTER TABLE `remittancetransaction` CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
 --
 -- Dumping data for table `remittancetransaction`
 --
