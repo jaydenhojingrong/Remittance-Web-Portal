@@ -124,26 +124,26 @@ export default function UploadFile() {
   }
 
   const submitFile = () => {
-    sendTransaction();
-    // const formData = new FormData();
-    // formData.append("file", selectedFile);
-    // const config = {
-    //   headers: {
-    //     'content-type': 'multipart/form-data'
-
-    //   }
-    // }
-    // axios.post(
-    //   "http://localhost:8080/files/", formData, config
-    // )
-    //   .then((response) => {
-    //     console.log(response);
-    //     sendTransaction();
-    //     window.location.replace("/admin/mapping");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    // sendTransaction();
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("company", "FinanceNow");
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+    axios.post(
+      "http://localhost:8080/files/", formData, config
+    )
+      .then((response) => {
+        console.log(response);
+        // sendTransaction();
+        // window.location.replace("/admin/mapping");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <>

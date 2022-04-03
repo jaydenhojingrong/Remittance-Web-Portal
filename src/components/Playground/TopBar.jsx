@@ -3,8 +3,10 @@ import '../../assets/styles/TopBar.css';
 // import MaterialIcon from "material-icons-react";
 
 const actions = {
-  box: ['Add Connections', 'Remove Connections', 'Delete'],
-  arrow: ['Edit Properties', 'Remove Connection'],
+  box: ['Add Connections', 
+  // 'Remove Connections', 
+  'Delete'],
+  arrow: ['Remove Connection'],
 };
 
 const TopBar = (props) => {
