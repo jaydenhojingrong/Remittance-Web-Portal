@@ -3,6 +3,7 @@ package com.OOP.remittancesystem.service;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,12 +37,11 @@ public class HeaderService {
 		return headerDAO.findFirstByCurrentHeaderAndCompanyOrderByCompany(currentHeader, company);
 	}
 
-	public String getApiHeaderBySsotHeaderAndCompany(String ssotHeader, String company) {
-		return headerDAO.findFirstBySsotHeaderAndCompanyOrderByCompany(ssotHeader, company).getApiHeader();
+	public HeaderNames getApiHeaderBySsotHeaderAndCompany(String ssotHeader, String company) {
+		return headerDAO.findBySsotHeaderAndCompany(ssotHeader, company);
 	}
 
 	public List <String> findBySsotHeader(String ssotHeader) {
-		// return headerDAO.findBySsotHeader(ssotHeader);
 		List <HeaderNames> headerNames = headerDAO.findBySsotHeader(ssotHeader);
 		List <String> output = new ArrayList<String>();
 		for (HeaderNames headerName:headerNames){
@@ -49,33 +49,4 @@ public class HeaderService {
 		}
 		return output;
 	}
-
-	public Map<String, String> listToMapRemittance(List<Remittance> remittanceList){
-		System.out.println("\n\n\n\n\n\n");
-		Map<String, String> remittanceMap = new HashMap<String, String>();
-		// System.out.println(Arrays.deepToString(remittanceList.toArray()));
-		for (Remittance remittance:remittanceList){
-			if (remittance instanceof EverywhereRemit){
-				System.out.println("everywhere here");
-				EverywhereRemit currentRemit = (EverywhereRemit) remittance;
-				System.out.println(currentRemit.getrMobileNumber());
-				System.out.println(currentRemit.getsFirstName());
-			}
-			else if (remittance instanceof FinanceNow){
-				System.out.println("finance here");
-				FinanceNow currentRemit = (FinanceNow) remittance;
-				System.out.println(currentRemit.getrNationality());
-				System.out.println(currentRemit.getsFirstName());
-			}
-			else if (remittance instanceof PaymentGo){
-				System.out.println("payment here");
-				PaymentGo currentRemit = (PaymentGo) remittance;
-				System.out.println(currentRemit.getsAccountNumber());
-				System.out.println(currentRemit.getsFirstName());
-			}
-		
-		}
-		return remittanceMap;
-	}
-	
 }

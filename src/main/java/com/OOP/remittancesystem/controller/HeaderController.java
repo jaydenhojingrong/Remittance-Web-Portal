@@ -61,7 +61,7 @@ public class HeaderController {
 	}
 
 	@GetMapping("/headers/getApiHeader/{ssotHeader}/{company}")
-	public String getCurrentHeaderBySsot(@PathVariable String ssotHeader, @PathVariable String company) {
+	public HeaderNames getCurrentHeaderBySsot(@PathVariable String ssotHeader, @PathVariable String company) {
 		return headerService.getApiHeaderBySsotHeaderAndCompany(ssotHeader, company);
 	}
 

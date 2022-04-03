@@ -1,25 +1,27 @@
 package com.OOP.remittancesystem.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Column;
 import javax.persistence.Table;
 
 @Entity
+@IdClass(headerNamesKey.class)
+
 @Table(name = "headernames")
 public class HeaderNames {
     @Id
     @Column(name = "currentHeader", nullable = false)
     private String currentHeader;
 
-    @Column(name = "ssotHeader", nullable = false)
-    private String ssotHeader;
-    
+    @Id
     @Column(name = "company", nullable = true)
     private String company;
 
+    @Column(name = "ssotHeader", nullable = false)
+    private String ssotHeader;
+    
     @Column(name = "apiHeader", nullable = false)
     private String apiHeader;
 
