@@ -1,7 +1,6 @@
 package com.OOP.remittancesystem.controller;
 
 import org.springframework.core.io.Resource;
-import org.mockito.internal.stubbing.answers.ThrowsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -50,46 +49,57 @@ public class FileController {
     public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file)
     throws Throwable{
 
+        //store the file in the server
+        //e.g. localhost:8080/files/dummy.csv
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/files/")
                 .path(fileName)
                 .toUriString();
 
+        //create a fileResponse for json output at the end
         FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize());
 
+        //take in the file which was earlier put in server.. and sort them in an arrayList by company
+        //e.g. <EverywhereRemit: [row1],[row2],[row3], PaymentGo: [row1]...>
         Map <String, ArrayList<String>> dataByCompany = companySorter.sortCompany(fileName, fileDownloadUrl);
 
         // create and store the company data into csv files
         Map <String, String> companyPath = companySorter.createCompanyCSV(dataByCompany);
 
+        //loop through all identified companies in the csv file
         Iterator <String> companyIter = companyPath.keySet().iterator();
         while (companyIter.hasNext()){
             String company = companyIter.next();
 
+            //for each company csv file.. scan through the headers and rename them into SSOT format
             openCSV.mapKeywords(company, companyPath.get(company));
 
+            //for each company csv.. cast them into a list of remittance (csv -> list of objects)
             List<Remittance> remittanceList = openCSV.mapCSV(companyPath.get(company), company);
+            //loop each data (row and insert it to db)
             for (Remittance remittance: remittanceList) {
 
                 try {
                     remittanceDAO.save((Remittance) remittance);
-                } catch (javax.validation.ConstraintViolationException e){
+                
+                } 
+                //handles validation error under entity
+                //throws json back to front end
+                catch (javax.validation.ConstraintViolationException e){
                     String message= "";
                     Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
                     for (ConstraintViolation<?> violation : violations) {
                     message = violation.getMessage() + " ";
-                    //  instead of just printing throw the error with column:
-                    System.out.println(message + "throwing the error here now!!!!");
+                    System.out.println(message + " Throwing the exception.");
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
                     // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
-                    
                     }
                 }
             }
         }
         
-
+        //return successful upload entity
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
     }
 

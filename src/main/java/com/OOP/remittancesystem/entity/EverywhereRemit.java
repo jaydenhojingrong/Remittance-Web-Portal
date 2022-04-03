@@ -57,13 +57,3 @@ public class EverywhereRemit extends Remittance{
     // private String amount;
 
 }
-
-
-
-
-
-// ReceiverCountry -- > recipient_country
-// ReceiverContactNumber --> Mobile Number
-// SenderDateOfBirth --> Date of Birth
-// ReceiverIdType --> recipient_type
-// ReceiverCountry ---> Country of Address

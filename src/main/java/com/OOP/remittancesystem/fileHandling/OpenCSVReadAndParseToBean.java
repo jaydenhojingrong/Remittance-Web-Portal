@@ -73,6 +73,8 @@ public class OpenCSVReadAndParseToBean {
         return Class.forName("com.OOP.remittancesystem.entity." + company);
     }
     
+    //takes in the uploaded csv file
+    //rename its headers to adhere to the SSOT format
     public void mapKeywords(String company, String fileDownloadUrl) {
         boolean readHeader = false;
         String fullFileName = company + ".csv";
@@ -101,7 +103,7 @@ public class OpenCSVReadAndParseToBean {
         String newHeaders = "";
 
         //create new scanner of the local csv file (root folder)
-        try (Scanner fIn = new Scanner(file)){
+        try (Scanner fIn = new Scanner(file, "UTF-8")){
             //create a printerstream from temp.csv to write values into it
             PrintStream writer = new PrintStream(new FileOutputStream("./temp.csv", false));
 
@@ -135,11 +137,6 @@ public class OpenCSVReadAndParseToBean {
             //    fIn.nextLine();
             }	
             writer.close();
-
-            // Path fileToDeletePath = Paths.get("everywhereDummy.csv");
-            // System.out.println("it here!!!!!!:                    "  +fileToDeletePath);
-            // Files.delete(fileToDeletePath);
-
          } 
          catch(IOException e) {
              e.printStackTrace();
@@ -161,6 +158,7 @@ public class OpenCSVReadAndParseToBean {
          }
     }
 
+    //looks up for current header in the db and returns the ssot one
     public String renameHeader(String header, String company){
         String renamedHeader;
         try{
@@ -169,12 +167,11 @@ public class OpenCSVReadAndParseToBean {
             renamedHeader = headerservice.getSsotByCurrentHeaderAndCompany(header, company).getSsotHeader();
             
         }
+        //not found? return null
         catch(NullPointerException e){
             renamedHeader = null;
             
         }
-        // System.out.println("here: " + header);
-        // System.out.println("here: " + renamedHeader);
         return renamedHeader;
     }
 

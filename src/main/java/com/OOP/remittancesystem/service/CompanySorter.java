@@ -34,17 +34,19 @@ public class CompanySorter {
     @Autowired
     private HeaderService headerService;
 
+    //takes in the uploaded file and sort them by companies
+    //each map entry contains one company with all the csv rows (String) as values
     public Map <String, ArrayList<String>> sortCompany(String fileName, String fileDownloadUrl){
         // Map <String, String> companyData = new HashMap <String, String>();
         Map <String, ArrayList<String>> companyData = new HashMap <String, ArrayList<String>>();
 
-        // map amount to company
+        // map amount to company using a treeset
         TreeSet<AmountRange> amountSet =  amountMapping();
+        //get all possible current headers for the SSOT amount
         List<String> amountNames = headerService.findBySsotHeader("amount");
 
         boolean readHeader = true;
         String fullFileName = fileName;
-
 
         //create file of the local csv file (in root folder)
         File file = new File(fullFileName);
@@ -65,7 +67,7 @@ public class CompanySorter {
         }
 
         //open scanner to read the copied csv server file
-        try (Scanner fIn = new Scanner(file)){
+        try (Scanner fIn = new Scanner(file, "UTF-8")){
             String header = null;
             int amountCol = 0;
             while (fIn.hasNext()){
@@ -74,13 +76,14 @@ public class CompanySorter {
                     Scanner scHeaders = new Scanner(csvRow);
                     scHeaders.useDelimiter(",");
                     while (scHeaders.hasNext()){
-                        //find the column named amount!
+                        //find the column amount in various naming conventions
                         String ssotHeader = scHeaders.next();
-                        // if (!ssotHeader.equals("amount")){
                         if (!amountNames.contains(ssotHeader)){    
+                            //searching for the amount column
                             amountCol ++;
                         }
                         else {
+                            //break and stop counting once found
                             break;
                         }
                     }
@@ -90,34 +93,33 @@ public class CompanySorter {
                 }
 
                 else{
-                    //outside the header
-                    //check the length of csvCols
-                    //if length == amount
-                    //throw exception
                     String[] csvCols = csvRow.split(",");
                     //check whether amount col exist
                     if (csvCols.length == amountCol){
-                        //TODO: throw and handle exception
+                        //TODO: Maars help plz. If the amount column is not found need to throw exception to frontend. cannot process the file
                         System.out.println("Amount column not found");
                         break;
                     }
 
+                    //identify the company name by checking its amount
                     String currentCompany = (amountSet.floor(new AmountRange(Long.parseLong(csvCols[amountCol]))).getCompany());
+                    //does company exist in the companyData? if not then add in a new map entry
                     if(!companyData.containsKey(currentCompany)){
-                        //create add new hashmap entry
-                        //put in current row of data
+                        //key = company name, value = row of headers with the next row of data
                         companyData.put(currentCompany, new ArrayList<String>(Arrays.asList(header, csvRow)));
                     }
+                    //already exist? get the arraylist and add the next row
                     else{
                         companyData.get(currentCompany).add(csvRow);
                     }
                 }
 
             }
-
+            // printing a hashmap (for debugging)
             // companyData.entrySet().forEach(entry -> {
             //     System.out.println(entry.getKey() + " " + entry.getValue());
             // });
+
         }
         catch(FileNotFoundException e){
             System.out.println(e.getMessage());
