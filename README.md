@@ -10,12 +10,14 @@ Sample Description text
 - Ensure that ;atest version of node.js is installed: https://nodejs.org/en/
 - Unzip the downloaded file to a folder in your computer
 - Open Terminal
-- FRONTEND: Go to your file project (where you’ve unzipped the product)
+  **FRONTEND**: 
+- Go to your file project (where you’ve unzipped the product)
 - (If you are on a linux based terminal) run `npm run install:clean`
 - (If not) Run in terminal `npm install`
 - (If not) Run in terminal `npm start`
 - Navigate to https://localhost:3000
-- BACKEND: Go to your file project (where you’ve unzipped the product)
+  **BACKEND**:
+- Go to your file project (where you’ve unzipped the product)
 - Run in terminal mvn spring-boot:run
 
 ### Pages
