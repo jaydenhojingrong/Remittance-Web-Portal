@@ -1,6 +1,8 @@
 # Tech-G Remittance Web Portal 
 
 <!-- ![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true) -->
+A minimalistic web page constructed using React, Springboot and SQL that automatically map fields to one another based on a Single Source of Truth that is fully customizable and easy to use. 
+
 
 ## Table of Contents
 
@@ -19,9 +21,6 @@
 <br/>
 ### Mapping page
 ![Mapping](https://github.com/jaydenhojingrong/Remittance-Web-Portal/blob/main/public/mapping.PNG)
-
-
-A minimalistic web page constructed using React, Springboot and SQL that automatically map fields to one another based on a Single Source of Truth that is fully customizable and easy to use. 
 
 
 ## Documentation and Slides
