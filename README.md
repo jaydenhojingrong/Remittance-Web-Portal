@@ -10,7 +10,7 @@ A minimalistic web page constructed using React, Springboot and SQL that automat
 * [Documentation and Slides](#documentation-and-slides)
 * [How to start up the system](#how-to-start-up-the-system)
 * [Pages and routes](#pages-and-routes)
-* [Files and folders](#files-and-folders)
+* [Files and Folders](#files-and-folders)
 * [References](#references)
 
 
@@ -54,14 +54,6 @@ Here are all the page route from the project:
   - Login: http://localhost:3000/auth/login
   - Register: http://localhost:3000/auth/register
 
-
-## CSS Components
-
-Notus React comes with 120 Fully Coded CSS elements, such as [Alerts](https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-github-readme), [Buttons](https://www.creative-tim.com/learning-lab/tailwind/react/buttons/notus?ref=nr-github-readme), [Inputs](https://www.creative-tim.com/learning-lab/tailwind/react/inputs/notus?ref=nr-github-readme) and many more.
-
-Please [check all of them here](https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-github-readme).
-
-## React Components
 
 ## Files and Folder
 
