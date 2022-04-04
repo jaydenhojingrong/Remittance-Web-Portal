@@ -92,7 +92,7 @@ public class HeaderService {
 	}
 
 	public HeaderNames getApiHeaderBySsotHeaderAndCompany(String ssotHeader, String company) {
-		return headerDAO.findBySsotHeaderAndCompany(ssotHeader, company);
+		return headerDAO.findFirstBySsotHeaderAndCompanyOrderByCompany(ssotHeader, company);
 	}
 
 	public List <String> findBySsotHeader(String ssotHeader) {

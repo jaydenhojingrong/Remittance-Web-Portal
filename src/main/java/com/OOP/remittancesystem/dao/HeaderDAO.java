@@ -20,7 +20,7 @@ public interface HeaderDAO extends JpaRepository<HeaderNames, String> {
 
     public HeaderNames findFirstByCurrentHeaderAndCompanyOrderByCompany(String currentHeader, String company);
 
-    public HeaderNames findBySsotHeaderAndCompany(String ssotHeader, String company);
+    public HeaderNames findFirstBySsotHeaderAndCompanyOrderByCompany(String ssotHeader, String company);
 
     public List <HeaderNames> findBySsotHeader(String ssotHeader);
 
