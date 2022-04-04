@@ -53,87 +53,11 @@ public class EverywhereRemit extends Remittance{
     @CsvBindByName(column = "rMobileNumber", required = false)
     private String rMobileNumber;
 
-    // NEW FIELD ADDED: -- will it conflict with sql columns???
-    @Size(min = 1, max = 25, message = "rAddress must be between 1 and 25 characters")
-    @CsvBindByName(column = "rAddress", required = false)
-    private String rAddress;
 
-    // NEW FIELD ADDED: -- will it conflict with sql columns???
-    @Size(min = 0, max = 50, message = "paymentMode must be between 0 and 50 characters")
-    @CsvBindByName(column = "paymentMode", required = false)
-    private String paymentMode;
 
-    // NEW FIELD ADDED: -- will it conflict with sql columns???
-    @Size(min = 1, max = 50, message = "rCity must be between 1 and 50 characters")
-    @CsvBindByName(column = "rCity", required = false)
-    private String rCity;
 
-     // NEW FIELD ADDED: -- will it conflict with sql columns???
-     @Size(min = 1, max = 30, message = "rIdNumber must be between 1 and 30 characters")
-     @CsvBindByName(column = "rIdNumber", required = false)
-     private String rIdNumber;
 
-     // NEW FIELD ADDED: -- will it conflict with sql columns???
-     @Size(min = 2, max = 2, message = "rIdType must be between 2 and 2 characters")
-     @CsvBindByName(column = "rIdType", required = false)
-     private String rIdType;
 
-      // NEW FIELD ADDED: -- will it conflict with sql columns???
-      @Size(min = 1, max = 25, message = "rState must be between 1 and 25 characters")
-      @CsvBindByName(column = "rState", required = false)
-      private String rState;
-
-      // NEW FIELD ADDED: -- will it conflict with sql columns???
-      @Size(min = 1, max = 8, message = "rZipCode must be between 1 and 8 characters")
-      @CsvBindByName(column = "rZipCode", required = false)
-      private String rZipCode;
-
-      // NEW FIELD ADDED: -- will it conflict with sql columns???
-      @Size(min = 3, max = 3, message = "Receiver Nationality must be between 3 and 3 characters")
-      @CsvBindByName(column = "rNationality", required = false)
-      private String rNationality;
-
-      // NEW FIELD ADDED: -- will it conflict with sql columns???
-      @Size(min = 1, max = 15, message = "senderBeneficiaryRelationship must be between 1 and 15 characters")
-      @CsvBindByName(column = "senderBeneficiaryRelationship", required = false)
-      private String senderBeneficiaryRelationship;
-
-      // NEW FIELD ADDED: -- will it conflict with sql columns???
-      @Size(min = 1, max = 10, message = "sIdExpireDate must be between 1 and 10 characters")
-      @CsvBindByName(column = "sIdExpireDate", required = false)
-      private String sIdExpireDate;
-
-      // NEW FIELD ADDED: -- will it conflict with sql columns???
-      @Size(min = 1, max = 10, message = "sIdIssueDate must be between 1 and 10 characters")
-      @CsvBindByName(column = "sIdIssueDate", required = false)
-      private String sIdIssueDate;
-
-      // NEW FIELD ADDED: -- will it conflict with sql columns???
-      @Size(min = 1, max = 10, message = "sIdType must be between 1 and 10 characters")
-      @CsvBindByName(column = "sIdType", required = false)
-      private String sIdType;
-
-      // NEW FIELD ADDED: -- will it conflict with sql columns???
-      @Size(min = 8, max = 15, message = "Sender Mobile Number must be between 8 and 15 characters")
-      @CsvBindByName(column = "sMobileNumber", required = false)
-      private String sMobileNumber;
-
-      // NEW FIELD ADDED: -- will it conflict with sql columns???
-      @Size(min = 1, max = 25, message = "Sender Mobile Number must be between 1 and 25 characters")
-      @CsvBindByName(column = "sOccupation", required = false)
-      private String sOccupation;
-
-       // NEW FIELD ADDED: -- will it conflict with sql columns???
-       @Size(min = 1, max = 20, message = "Sender Mobile Number must be between 1 and 20 characters")
-       @CsvBindByName(column = "sState", required = false)
-       private String sState;
-
-       // NEW FIELD ADDED: -- will it conflict with sql columns???
-       @Size(min = 3, max = 8, message = "Sender Zip Code must be between 3 and 8 characters")
-       @CsvBindByName(column = "sZipCode", required = false)
-       private String sZipCode;
-
-       
 
 
     public String getSourceType() {
