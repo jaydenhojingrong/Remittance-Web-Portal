@@ -4,7 +4,19 @@
 
 Sample Description text
 
-### Get Started
+## Table of Contents
+
+* [Documentation](#documentation)
+* [Get Started](#get-started)
+* [Quick Start](#quick-start)
+* [Files and folders](#files-and-folders)
+* [Browser Support](#browser-support)
+* [Reporting Issues](#reporting-issues)
+* [Licensing](#licensing)
+* [Useful Links](#useful-links)
+* [Resources](#resources)
+
+## Get Started
 
 - Ensure that mavan is installed and put in environment PATH: https://www.tutorialspoint.com/maven/maven_environment_setup.html
 - Ensure that ;atest version of node.js is installed: https://nodejs.org/en/
@@ -20,7 +32,7 @@ Sample Description text
 - Go to your file project (where you’ve unzipped the product)
 - Run in terminal mvn spring-boot:run
 
-### Pages
+## Pages
 
 Here are all the page from the project:
 - [Presentation](https://demos.creative-tim.com/notus-react/?ref=nr-github-readme)
@@ -37,13 +49,13 @@ Here are all the page from the project:
   - [Profile](https://demos.creative-tim.com/notus-react/profile?ref=nr-github-readme)
 
 
-### CSS Components
+## CSS Components
 
 Notus React comes with 120 Fully Coded CSS elements, such as [Alerts](https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-github-readme), [Buttons](https://www.creative-tim.com/learning-lab/tailwind/react/buttons/notus?ref=nr-github-readme), [Inputs](https://www.creative-tim.com/learning-lab/tailwind/react/inputs/notus?ref=nr-github-readme) and many more.
 
 Please [check all of them here](https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-github-readme).
 
-### React Components
+## React Components
 
 We also feature the following 18 dynamic components:
 - [Alerts](https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-github-readme)
@@ -54,21 +66,6 @@ We also feature the following 18 dynamic components:
 - [Popper for popover content](https://www.creative-tim.com/learning-lab/tailwind/react/popovers/notus?ref=nr-github-readme)
 - [Tabs](https://www.creative-tim.com/learning-lab/tailwind/react/tabs/notus?ref=nr-github-readme)
 - [Popper for tooltips content](https://www.creative-tim.com/learning-lab/tailwind/react/tooltips/notus?ref=nr-github-readme)
-
-
-## Table of Contents
-
-* [Versions](#versions)
-* [Documentation](#documentation)
-* [Quick Start](#quick-start)
-* [Files and folders](#files-and-folders)
-* [Browser Support](#browser-support)
-* [Reporting Issues](#reporting-issues)
-* [Licensing](#licensing)
-* [Useful Links](#useful-links)
-* [Resources](#resources)
-
-
 
 ## Documentation
 The documentation for the Notus React is hosted at our <a href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-readme" target="_blank">website</a>.
@@ -130,27 +127,6 @@ Remittance-Web-Portal
 
 ```
 
-## Browser Support
-
-At present, we officially aim to support the last two versions of the following browsers:
-
-| Chrome | Firefox | Edge | Safari | Opera |
-|:---:|:---:|:---:|:---:|:---:|
-| <img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/chrome-logo.png?raw=true" width="64" height="64"> | <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/firefox-logo.png" width="64" height="64"> | <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/edge-logo.png" width="64" height="64"> | <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/safari-logo.png" width="64" height="64"> | <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/opera-logo.png" width="64" height="64"> |
-
-## Reporting Issues
-
-We use GitHub Issues as the official bug tracker for the Notus React. Here are some advices for our users that want to report an issue:
-
-1. Make sure that you are using the latest version of the Notus React. Check the CHANGELOG from your dashboard on our <a href="https://www.creative-tim.com/?ref=nr-readme" target="_blank">website</a>.
-2. Providing us reproducible steps for the issue will shorten the time it takes for it to be fixed.
-3. Some issues may be browser specific, so specifying in what browser you encountered the issue might help.
-
-## Licensing
-
-- Copyright 2021 <a href="https://www.creative-tim.com/?ref=nr-readme" target="_blank">Creative Tim</a>
-
-- Licensed under <a href="https://github.com/creativetimofficial/notus-react/blob/main/LICENSE.md" target="_blank">MIT</a>
 
 ## Useful Links
 
