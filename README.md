@@ -4,7 +4,7 @@
 
 Sample image?
 
-Sample Description text
+A minimalistic web page constructed using React, Springboot and SQL that automatically map fields to one another based on a Single Source of Truth that is fully customizable and easy to use. 
 
 ## Table of Contents
 
