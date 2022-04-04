@@ -3,7 +3,8 @@
 <!-- ![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true) -->
 
 Screenshots:
-![Dashboard](https://github.com/jaydenhojingrong/public-assets/blob/main/Remittance-Web-Portal/public/dashboard.PNG?raw=true)
+
+![Dashboard](https://github.com/jaydenhojingrong/Remittance-Web-Portal/blob/main/public/dashboard.PNG)
 [Mapping](https://github.com/jaydenhojingrong/Remittance-Web-Portal/public/mapping.PNG)
 
 
