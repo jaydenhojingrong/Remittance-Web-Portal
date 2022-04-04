@@ -2,6 +2,16 @@
 
 <!-- ![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true) -->
 
+## Table of Contents
+
+* [Screenshots](#screenshots)
+* [Documentation and Slides](#documentation-and-slides)
+* [How to start up the system](#how-to-start-up-the-system)
+* [Pages and routes](#pages-and-routes)
+* [Files and folders](#files-and-folders)
+* [References](#references)
+
+
 ## Screenshots:
 
 ### Dashboard
@@ -12,16 +22,6 @@
 
 
 A minimalistic web page constructed using React, Springboot and SQL that automatically map fields to one another based on a Single Source of Truth that is fully customizable and easy to use. 
-
-## Table of Contents
-
-* [Documentation and Slides](#documentation-and-slides)
-* [How to start up the system](#how-to-start-up-the-system)
-* [Pages and routes](#pages-and-routes)
-* [Files and folders](#files-and-folders)
-* [Browser Support](#browser-support)
-* [Reporting Issues](#reporting-issues)
-* [References](#references)
 
 
 ## Documentation and Slides
