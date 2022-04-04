@@ -1,5 +1,6 @@
 package com.OOP.remittancesystem.fileHandling;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileResponse {
@@ -9,6 +10,7 @@ public class FileResponse {
     private String fileType;
     private Long size;
     private List<String> headers;
+    private ArrayList<String> spoil;
     
 
     public FileResponse(String fileName, String fileDownloadURL, String fileType, Long size, List<String> headers){
@@ -18,6 +20,10 @@ public class FileResponse {
         this.size = size;
         this.headers = headers;   
     } 
+
+    public FileResponse(ArrayList<String> spoil){
+        this.spoil = spoil;
+    }
 
     public String getFileName() {
         return fileName;
@@ -58,4 +64,13 @@ public class FileResponse {
     public void setHeaders(List<String> headers) {
         this.headers = headers;
     }
+
+    public ArrayList<String> getSpoil() {
+        return spoil;
+    }
+
+    public void setSpoil(ArrayList<String> spoil) {
+        this.spoil = spoil;
+    }
+
 }

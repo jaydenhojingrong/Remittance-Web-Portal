@@ -19,6 +19,7 @@ import com.OOP.remittancesystem.fileHandling.OpenCSVReadAndParseToBean;
 import com.OOP.remittancesystem.service.CompanySorter;
 import com.OOP.remittancesystem.service.FileStorageService;
 import com.OOP.remittancesystem.service.HeaderService;
+import com.OOP.remittancesystem.service.ValidationService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,6 +48,9 @@ public class FileController {
 
     @Autowired
     private HeaderService headerService;
+
+    @Autowired
+    private ValidationService validationService;
 
     @PostMapping("/extractheaders")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -95,6 +99,8 @@ public class FileController {
 
         //loop through all identified companies in the csv file
         Iterator <String> companyIter = companyPath.keySet().iterator();
+
+
         while (companyIter.hasNext()){
             String company = companyIter.next();
 
@@ -106,12 +112,45 @@ public class FileController {
             //loop each data (row and insert it to db)
             openCSV.mapKeywords(company, companyPath.get(company), "api");
             Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
+            
             remittanceMap.entrySet().forEach(entry -> {
-                        System.out.println(company+"\n");
-                        System.out.println(entry.getKey());
-                        System.out.println(entry.getValue());
-            });
+                        try {
+                                System.out.println(company+"\n");
+                                System.out.println(entry.getKey());
+                                System.out.println(entry.getValue());
 
+
+                                for (int i = 0; i <= entry.getValue().size()-1; i++){
+                                        String value = entry.getValue().get(i);
+                                        String ssotHeader = validationService.getSsotHeader("FinanceNow", value);
+
+                                        // System.out.println(ssotHeader);
+                                        boolean sizeBool = validationService.sizeValidation(value,ssotHeader);
+                                        boolean regexBool = validationService.regexValidation(value,ssotHeader);
+
+                                        // System.out.print("sizebool");
+                                        // System.out.println(sizeBool);
+                                        // System.out.print("regexbool");
+                                        // System.out.println(regexBool);
+                                        // System.out.println("");
+
+                                }
+
+                        } catch (Exception e){
+                                System.out.println(e);
+                                
+                        }
+                        
+                
+            });
+            if (validationService.getSpoil()){
+
+                ArrayList<String> spoilStore = validationService.getWhatSpoil();
+                FileResponse spoilResponse = new FileResponse(spoilStore);
+                return new ResponseEntity<FileResponse>(spoilResponse, HttpStatus.OK);
+
+            }
+            
             for (Remittance remittance: remittanceList) {
 
                 try {
