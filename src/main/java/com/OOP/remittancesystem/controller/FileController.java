@@ -108,7 +108,6 @@ public class FileController {
 
                 try {
                     remittanceDAO.save((Remittance) remittance);
-                
                 } 
                 //handles validation error under entity
                 //throws json back to front end
