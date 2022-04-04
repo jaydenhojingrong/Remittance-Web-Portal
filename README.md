@@ -8,13 +8,19 @@ Sample Description text
 
 ## Table of Contents
 
-* [Documentation](#documentation)
+* [Documentation and Slides](#documentation-and-slides)
 * [Get Started](#get-started)
+* [Pages](#pages)
 * [Files and folders](#files-and-folders)
 * [Browser Support](#browser-support)
 * [Reporting Issues](#reporting-issues)
 * [Useful Links](#useful-links)
 * [Resources](#resources)
+
+
+## Documentation and Slides
+- The documentation for the Website is listed in this [Google Docs] )https://docs.google.com/document/d/1TH-2T7WjOwWoIifjMQuwx-XUwoR1D0_0xwM2nWQGlFM/edit?usp=sharing)
+- The presentation slides for the Website is listed in this [Google Slides](https://docs.google.com/presentation/d/1cmd2PcAx-LY5UmClwsrdcRgjJUuaU0WDT5JM4I3Yky4/edit?usp=sharing)
 
 ## Get Started
 
@@ -34,17 +40,14 @@ Sample Description text
 
 ## Pages
 
-Here are all the page route and slides from the project:
-- [Presentation](https://docs.google.com/presentation/d/1cmd2PcAx-LY5UmClwsrdcRgjJUuaU0WDT5JM4I3Yky4/edit?usp=sharing)
-- Dashboard and functions
-  - [Dashboard] http://localhost:3000/admin/dashboard
-  - [Upload] http://localhost:3000/upload/uploadfile
-  - [Tables](https://demos.creative-tim.com/notus-react/admin/tables?ref=nr-github-readme)
-  - [Mapping] http://localhost:3000/admin/mapping
-- Authentication 
-  - [Login] http://localhost:3000/auth/login
-  - [Register] http://localhost:3000/auth/register
-
+Here are all the page route from the project:
+- Routes for Dashboard and functions
+  - Dashboard http://localhost:3000/admin/dashboard
+  - Upload http://localhost:3000/upload/uploadfile
+  - Mapping http://localhost:3000/admin/mapping
+- Routes for Authentication 
+  - Login: http://localhost:3000/auth/login
+  - Register: http://localhost:3000/auth/register
 
 
 ## CSS Components
@@ -54,11 +57,6 @@ Notus React comes with 120 Fully Coded CSS elements, such as [Alerts](https://ww
 Please [check all of them here](https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-github-readme).
 
 ## React Components
-
-
-## Documentation
-The documentation for the Website is listed in this google docs: https://docs.google.com/document/d/1TH-2T7WjOwWoIifjMQuwx-XUwoR1D0_0xwM2nWQGlFM/edit?usp=sharing
-
 
 ## Files and Folder
 
