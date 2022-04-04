@@ -4,7 +4,10 @@
 
 Screenshots:
 
+## Dashboard
 ![Dashboard](https://github.com/jaydenhojingrong/Remittance-Web-Portal/blob/main/public/dashboard.PNG)
+<br/>
+## Mapping page
 ![Mapping](https://github.com/jaydenhojingrong/Remittance-Web-Portal/blob/main/public/mapping.PNG)
 
 
