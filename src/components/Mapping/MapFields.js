@@ -27,34 +27,25 @@ function MapFields() {
       )
       .then((response) => {
         // console.log(response);
-        // console.log([...new Set(response.data.map(item => item.ssotHeader))]);
         setAllHeaders(response.data);
-        setAllCsvHeaders(localStorage.getItem("headers"));
-        console.log(localStorage.getItem("headers").split(","));
-        console.log(localStorage.getItem("fileName"));
-        console.log(localStorage.getItem("fileDownloadURL"));
-        // findUniqueSSOT()
-        // bindToInterface();
-
+        setAllCsvHeaders(localStorage.getItem("headers").split(","));
         setAllSsotHeaders([...new Set(response.data.map(item => item.ssotHeader))])
-        // bindOutputHeader();
-        // csvHeaders();
+        bindHeaders();
         setCounter(true)
-        
+
       })
       .catch((error) => {
         console.log(error);
       });
   }, [counter]);
 
-  function addHeaders(current, ssot) {
-    var company = "a"
+  function callBackend() {
     var config = {
       headers: { 'Access-Control-Allow-Origin': '*' }
     };
     axios
       .post(
-        "http://localhost:8080/addHeader?currentHeader=" + current + "&ssotHeader=" + ssot + "&company=" + company,
+        "http://localhost:8080/processFile?fileName=" + localStorage.getItem("fileName") + "&fileDownloadURL=" + localStorage.getItem("fileDownloadURL"),
         config
       )
       .then((response) => {
@@ -65,41 +56,78 @@ function MapFields() {
       });
   }
 
-  const [interfaces, setInterfaces] = useState([]);
+  function addHeaders(current, ssot, company, api) {
+    var config = {
+      headers: { 'Access-Control-Allow-Origin': '*' }
+    };
+    axios
+      .post(
+        "http://localhost:8080/addHeader?currentHeader=" + current + "&ssotHeader=" + ssot + "&company=" + company +"&apiHeader=" +api,
+        config
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
+  function getApiHeader(current, ssot, company) {
+    var config = {
+      headers: { 'Access-Control-Allow-Origin': '*' }
+    };
+    axios
+      .get(
+        "http://localhost:8080/headers/getApiHeader/" + ssot + "/" + company,
+        config
+      )
+      .then((response) => {
+        console.log(response.data);
+        if(response.data.apiHeader!=undefined){
+          addHeaders(current, ssot, company, response.data.apiHeader)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function findSsot(current) {
+    var config = {
+      headers: { 'Access-Control-Allow-Origin': '*' }
+    };
+    axios
+      .get(
+        "http://localhost:8080/headers/" + current,
+        config
+      )
+      .then((response) => {
+        // console.log(response.data);
+        if (response.data.ssotHeader != undefined) {
+          setLines(lines => [...lines, { props: { start: current, end: response.data.ssotHeader } }]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  const [interfaces, setInterfaces] = useState([]);
 
   const [boxes, setBoxes] = useState([]);
   const [lines, setLines] = useState([]);
   const [changedConnection, setChangedConnection] = useState([]);
   const [display, setDisplay] = useState(false);
 
-  // function bindToInterface() {
-  //   for (let i = 0; i < allHeaders.length; i++) {
-  //     // console.log(allHeaders[i])
-  //     // setInputHeaders(inputHeaders => [...inputHeaders, { id: allHeaders[i].currentHeader, shape: 'interfaceBox' }]);
-  //     // if(ouputHeaders.filter((header) => header.id == allHeaders[i].ssotHeader) == []){
-  //       setOuputHeaders(ouputHeaders => [...ouputHeaders, { id: allHeaders[i].ssotHeader, shape: 'interfaceBox' }]);
-  //     // }
-  //     // setLines(lines => [...lines, { props: { start: allHeaders[i].currentHeader, end: allHeaders[i].ssotHeader } }]);
-  //   }
-  // }
-
-  function bindOutputHeader() {
-    for (let i = 0; i < allCsvHeaders.length; i++) {
-      console.log(allCsvHeaders[i]);
-      setInputHeaders(inputHeaders => [...inputHeaders, { id: allCsvHeaders[i], shape: 'interfaceBox' }]);
-    }
+  function bindHeaders() {
     for (let i = 0; i < allSsotHeaders.length; i++) {
-      
       setOuputHeaders(ouputHeaders => [...ouputHeaders, { id: allSsotHeaders[i], shape: 'interfaceBox' }]);
-      // setInitialLines(initialLines => [...initialLines, { props: { start: i+"a", end: allSsotHeaders[i] }}])
-      // setLines(lines => [...lines, { props: { start: i + "a", end: allSsotHeaders[i] } }]);
     }
-  }
-
-  function findUniqueSSOT() {
-    const unique = [...new Set(ouputHeaders.map(item => item.id))]
-    console.log([...new Set(ouputHeaders.map(item => item.id))])
+    for (let i = 0; i < allCsvHeaders.length; i++) {
+      setInputHeaders(inputHeaders => [...inputHeaders, { id: allCsvHeaders[i], shape: 'interfaceBox' }]);
+      findSsot(allCsvHeaders[i]);
+    }
   }
 
   const [noError, setNoError] = useState(false);
@@ -108,8 +136,6 @@ function MapFields() {
     for (let i = 0; i < lines.length; i++) {
       if (lines[i].menuWindowOpened == false) {
         setNoError(true);
-        console.log(lines[i].props.start);
-        console.log(lines[i].props.end);
         setChangedConnection(changedConnection => [...changedConnection, { start: lines[i].props.start, end: lines[i].props.end }])
         setDisplay(true);
       }
@@ -120,10 +146,17 @@ function MapFields() {
   }
 
   function submit() {
-    // addHeaders(lines[i].props.start, lines[i].props.end)
+    for(let i = 0; i < changedConnection.length; i++){
+      let checkboxes = document.getElementsByName(changedConnection[i].start);
+      for (let j = 0; j < checkboxes.length; j++) {
+        if (checkboxes[j].checked) {
+            getApiHeader(changedConnection[i].start, changedConnection[i].end, checkboxes[j].value);
+        }
+      }
+    }
+    callBackend();
   }
 
-  // selected:{id:string,type:"arrow"|"box"}
   const [selected, setSelected] = useState(null);
   const [actionState, setActionState] = useState('Normal');
 
@@ -160,15 +193,6 @@ function MapFields() {
     lines,
   };
 
-  function ValidatePetSelection(start) {
-    var checkboxes = document.getElementsByName(start);
-    for (var i = 0; i < checkboxes.length; i++) {
-      if (checkboxes[i].checked) {
-        console.log(start + "-" + checkboxes[i].value)
-      }
-    }
-
-  }
   return (
     <>
       <div className="relative w-full rounded">
@@ -236,7 +260,6 @@ function MapFields() {
           </div>
         </div>
       </div>
-      {/* <button onClick={checkstate}> test </button> */}
       <div className="flex justify-center p-4">
         <button className="w-full px-4 py-2 text-white bg-teal-500 rounded shadow-xl" onClick={checkState}>Save Changes</button>
       </div>
@@ -315,11 +338,11 @@ function MapFields() {
 
                           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             <div className="flex items-center">
-                              <input type="checkbox" id={"EverywhereRemit" + index} name={item.start} value="EverywhereRemit" onClick={() => ValidatePetSelection(item.start)} />
+                              <input type="checkbox" id={"EverywhereRemit" + index} name={item.start} value="EverywhereRemit" />
                               <label for={"EverywhereRemit" + index}> EverywhereRemit</label>
-                              <input type="checkbox" id={"PaymentGo" + index} name={item.start} value="PaymentGo" onClick={() => ValidatePetSelection(item.start)} />
+                              <input type="checkbox" id={"PaymentGo" + index} name={item.start} value="PaymentGo" />
                               <label for={"PaymentGo" + index}> PaymentGo </label>
-                              <input type="checkbox" id={"FinanceNow" + index} name={item.start} value="FinanceNow" onClick={() => ValidatePetSelection(item.start)} />
+                              <input type="checkbox" id={"FinanceNow" + index} name={item.start} value="FinanceNow" />
                               <label for={"FinanceNow" + index}> FinanceNow</label>
                             </div>
                           </td>

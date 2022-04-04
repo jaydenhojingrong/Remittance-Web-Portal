@@ -145,7 +145,7 @@ export default function UploadFile() {
         localStorage.setItem("fileName", response.data.fileName);
         localStorage.setItem("headers", response.data.headers);
         // sendTransaction();
-        // window.location.replace("/admin/mapping");
+        window.location.replace("/admin/mapping");
       })
       .catch((error) => {
         console.log(error);
