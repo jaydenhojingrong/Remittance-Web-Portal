@@ -22,23 +22,20 @@ public class ValidationService {
     private boolean spoil = false;
     private ArrayList<String> whatSpoilList = new ArrayList<String>();
 
-
+    // calls headerservice get size criteria saved in DB
     public String getSize(String apiHeader, String company){
         
         String sizeReq;
 
         try{
             sizeReq = headerService.getSizeByApiHeaderAndCompany(apiHeader,  company);
-
         } catch (Exception e){
             return null;
         }
-
-
         return sizeReq;
-
     }
 
+    // calls headerservice get regex criteria saved in DB
     public String getValidation(String apiHeader, String company ){
 
         // System.out.println("CURRENT COMP"+ company);
@@ -51,14 +48,13 @@ public class ValidationService {
             return null;
         }
 
-
         return validationReq;
     }
 
+    // executes the actual size validation 
     public boolean sizeValidation(String value, String apiHeader, String company){
 
         String size = getSize(apiHeader, company);
-
 
         if (size == null){
             return true;
@@ -85,8 +81,6 @@ public class ValidationService {
 
             return true;
         } else {
-            System.out.println("real size");
-            System.out.println(size);
             setSpoil();
             setWhatSpoil(apiHeader);
             return false;
