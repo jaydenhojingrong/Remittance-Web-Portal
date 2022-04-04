@@ -24,6 +24,7 @@ import com.OOP.remittancesystem.service.ValidationService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -59,6 +60,9 @@ public class FileController {
     @PostMapping("/extractheaders")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file) {
+
+        // ----todo call clearSpoil
+        validationService.clearWhatSpoil();
 
         //store the file in the server
         //e.g. localhost:8080/files/dummy.csv
@@ -104,10 +108,16 @@ public class FileController {
         //loop through all identified companies in the csv file
         Iterator <String> companyIter = companyPath.keySet().iterator();
 
+        Collection<String> cache = new ArrayList<>();
+
 
         while (companyIter.hasNext()){
+        
             String company = companyIter.next();
 
+            System.out.println(company);
+
+            cache.add(company);
             //for each company csv file.. scan through the headers and rename them into SSOT format
             openCSV.mapKeywords(company, companyPath.get(company), "ssot");
 
@@ -117,27 +127,29 @@ public class FileController {
             openCSV.mapKeywords(company, companyPath.get(company), "api");
             Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
 
-            System.out.print(remittanceService.toJSON(remittanceMap));
+        //     System.out.print(remittanceService.toJSON(remittanceMap));
             remittanceMap.entrySet().forEach(entry -> {
                         try {
-                                System.out.println(company+"\n");
-                                System.out.println(entry.getKey());
-                                System.out.println(entry.getValue());
+                                // System.out.println(company+"\n");
+                                // System.out.println(entry.getKey());
+                                // System.out.println(entry.getValue());
+                                // System.out.println("-----------------------------");
 
 
                                 for (int i = 0; i <= entry.getValue().size()-1; i++){
                                         String value = entry.getValue().get(i);
-                                        String ssotHeader = validationService.getSsotHeader(company, value);
 
-                                        // System.out.println(ssotHeader);
-                                        boolean sizeBool = validationService.sizeValidation(value,ssotHeader, company);
-                                        boolean regexBool = validationService.regexValidation(value,ssotHeader, company);
+                                        boolean sizeBool = validationService.sizeValidation(value,entry.getKey(), company);
+                                        boolean regexBool = validationService.regexValidation(value,entry.getKey(), company);
 
+                                        // System.out.println(entry.getKey());
                                         // System.out.print("sizebool");
                                         // System.out.println(sizeBool);
                                         // System.out.print("regexbool");
                                         // System.out.println(regexBool);
-                                        // System.out.println("");
+                                        // System.out.println(value);
+                                        // System.out.println("-----------------------------");
+                                        // System.out.println("\n\n\n\n\n");
 
                                 }
 
@@ -148,40 +160,48 @@ public class FileController {
                         
                 
             });
-            if (validationService.getSpoil()){
 
-                ArrayList<String> spoilStore = validationService.getWhatSpoil();
-                FileResponse spoilResponse = new FileResponse(spoilStore);
-                return new ResponseEntity<FileResponse>(spoilResponse, HttpStatus.OK);
 
-            }
-            
-            for (Remittance remittance: remittanceList) {
+            // todo put the .save in another for loop
 
-                try {
-                    remittanceDAO.save((Remittance) remittance);
-                } 
-                //handles validation error under entity
-                //throws json back to front end
-                catch (javax.validation.ConstraintViolationException e){
-                    String message= "";
-                    Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-                    for (ConstraintViolation<?> violation : violations) {
-                    message = violation.getMessage() + " ";
-                    System.out.println(message + " Throwing the exception.");
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
-                    // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
-                    }
-                }
-            }
+        // -----
+        //     for (Remittance remittance: remittanceList) {
+
+        //         try {
+        //             remittanceDAO.save((Remittance) remittance);
+        //         } 
+        //         //handles validation error under entity
+        //         //throws json back to front end
+        //         catch (javax.validation.ConstraintViolationException e){
+        //             String message= "";
+        //             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+        //             for (ConstraintViolation<?> violation : violations) {
+        //             message = violation.getMessage() + " ";
+        //             System.out.println(message + " Throwing the exception.");
+        //             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
+        //             // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
+        //             }
+        //         }
+        //     }
 
             //Convert List<Remittance> remittanceList into  Map<String apiHeader, String value> remittanceMap 
             //call createrequestbody
             //send to hy api
             
         }
+
+        if (validationService.getSpoil()){
+                ArrayList<String> spoilStore = validationService.getWhatSpoil();
+                FileResponse spoilResponse = new FileResponse(spoilStore);
+                return new ResponseEntity<FileResponse>(spoilResponse, HttpStatus.OK);
+        } else {
+
+        }
         
+        // new for loop todo
+
         //return successful upload entity
+        
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
     }
 

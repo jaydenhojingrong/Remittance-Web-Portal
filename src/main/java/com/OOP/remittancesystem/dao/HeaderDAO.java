@@ -12,10 +12,6 @@ public interface HeaderDAO extends JpaRepository<HeaderNames, String> {
 
     public List<HeaderNames> findAll();
 
-    // public Optional<HeaderNames> findById(String currentHeader);
-
-    // public HeaderNames findByCurrentHeader(String currentHeader);
-
     public HeaderNames findFirstByCurrentHeaderOrderByCompany(String currentHeader);
 
     public HeaderNames findFirstByCurrentHeaderAndCompanyOrderByCompany(String currentHeader, String company);
@@ -24,7 +20,7 @@ public interface HeaderDAO extends JpaRepository<HeaderNames, String> {
 
     public List <HeaderNames> findBySsotHeader(String ssotHeader);
 
-    public HeaderNames findFirstByApiHeaderAndCompany(String apiHeader, String company);
+    public HeaderNames findFirstByApiHeaderAndCompanyOrderByCompany(String apiHeader, String company);
 
     public HeaderNames save(HeaderNames headerNames);
     

@@ -44,7 +44,7 @@ public class FinanceNow extends Remittance {
 
     // it must be passport or nationality 
     //TODO check if this is correct
-    @Pattern(regexp = "01|02|05|99")  
+    // @Pattern(regexp = "01|02|05|99")  
     @CsvBindByName(column = "rIDType", required = false)
     private String rIDType;
 

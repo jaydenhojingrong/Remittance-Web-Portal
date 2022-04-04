@@ -2,8 +2,8 @@ package com.OOP.remittancesystem.service;
 
 import com.OOP.remittancesystem.entity.EverywhereRemit;
 import com.OOP.remittancesystem.entity.Remittance;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+// import com.google.gson.JsonArray;
+// import com.google.gson.JsonObject;
 import com.OOP.remittancesystem.dao.RemittanceDAO;
 
 import org.springframework.stereotype.Service;

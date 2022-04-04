@@ -8,7 +8,6 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import org.apache.commons.compress.utils.IOUtils;
-import org.apache.poi.ss.usermodel.Header;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -205,6 +204,8 @@ public class OpenCSVReadAndParseToBean {
     }
 
 
+    //takes in the stored csv file and convert them to hashmap
+    //{fieldName: [row1] [row2]}
     public Map <String, List<String>> csvToHashMap(String company, String fileDownloadUrl) {
         String fullFileName = company + ".csv";
         Map<String, List<String>> mappedCols = new HashMap<String, List<String>>();

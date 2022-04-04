@@ -105,10 +105,10 @@ public class HeaderService {
 	}
 
 	public String getSizeByApiHeaderAndCompany(String apiHeader, String company){
-		return headerDAO.findFirstByApiHeaderAndCompany(apiHeader, company).getSize();
+		return headerDAO.findFirstByApiHeaderAndCompanyOrderByCompany(apiHeader, company).getSize();
 	}
 
 	public String getRegexByApiHeaderAndCompany(String apiHeader, String company){
-		return headerDAO.findFirstByApiHeaderAndCompany(apiHeader, company).getRegex();
+		return headerDAO.findFirstByApiHeaderAndCompanyOrderByCompany(apiHeader, company).getRegex();
 	}
 }
