@@ -1,6 +1,0 @@
-SenderFirstName,SenderLastName,SenderIdNumber,SenderIdType,SenderDateOfBirth,SenderNationality,SenderCountry,SenderCity,SenderAddress,PurposeOfRemittance,SenderBeneficiaryRelationship,null,SenderSourceOfFund,ReceiverFirstName,ReceiverLastName,ReceiverIdNumber,ReceiverIdType,null,BankAccountNumber,ReceiverNationality,ReceiverCity,ReceiverAddress,null,TransferAmount
-XIAO MING,PENG,S9575000J,2,16/8/95,SGP,SGP,Singapore,4 Sago Lane Singapore,1,2,1,1,Max,Chua,231236199995056X,02,2/1/96,6.22203E+11,CHN,BEIJING,Liaoning Province,SMUPWTRX1,1000
-ANG KOK LIONG,ROBIN,S7607000O,2,12/2/76,SGP,SGP,Singapore,BLK 204B COMPASSVALE DR,99,99,23,1,John,Tan,3.50521E+15,02,25/1/88,6.22203E+95,CHN,NA,福建省仙游县园庄镇土楼村溪,SMUPWTRX2,200
-GEK LENG,SIM,S1294000H,2,22/9/58,SGP,SGP,Singapore,BLK 203 SERANGOON CENTRAL,99,99,15,1,Alan,Lim,4.12922E+15,02,20/5/74,6.22203E+11,CHN,NA,河南省方城县券桥乡王台村窦店,SMUPWTRX3,300
-HUAY SHING,SIA,S0180000B,2,3/4/53,SGP,SGP,Singapore,BLK500 SERANGOON NORTH AVE4,99,99,5,1,Ximu,Sima,2.20421E+17,02,6/12/89,6.22203E+11,CHN,NA,吉林省东丰县沙河镇新开村六组,SMUPWTRX6,1800
-QI CHAO,XIE,G2840000P,2,2/2/90,SGP,SGP,Singapore,180ORCHARDROAD,99,99,23,1,Yang,Guo,4.10901E+17,02,3/8/92,6.22203E+11,CHN,NA,河南省濮阳市华龙区王助乡斬赵寨村,SMUPWTRX9,1000

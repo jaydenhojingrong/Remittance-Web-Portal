@@ -24,6 +24,7 @@ import com.OOP.remittancesystem.service.ValidationService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -107,10 +108,16 @@ public class FileController {
         //loop through all identified companies in the csv file
         Iterator <String> companyIter = companyPath.keySet().iterator();
 
+        Collection<String> cache = new ArrayList<>();
+
 
         while (companyIter.hasNext()){
+        
             String company = companyIter.next();
 
+            System.out.println(company);
+
+            cache.add(company);
             //for each company csv file.. scan through the headers and rename them into SSOT format
             openCSV.mapKeywords(company, companyPath.get(company), "ssot");
 
@@ -123,26 +130,26 @@ public class FileController {
         //     System.out.print(remittanceService.toJSON(remittanceMap));
             remittanceMap.entrySet().forEach(entry -> {
                         try {
-                                System.out.println(company+"\n");
-                                System.out.println(entry.getKey());
-                                System.out.println(entry.getValue());
-                                System.out.println("-----------------------------");
+                                // System.out.println(company+"\n");
+                                // System.out.println(entry.getKey());
+                                // System.out.println(entry.getValue());
+                                // System.out.println("-----------------------------");
 
 
                                 for (int i = 0; i <= entry.getValue().size()-1; i++){
                                         String value = entry.getValue().get(i);
 
-
                                         boolean sizeBool = validationService.sizeValidation(value,entry.getKey(), company);
                                         boolean regexBool = validationService.regexValidation(value,entry.getKey(), company);
 
-                                        System.out.print("sizebool");
-                                        System.out.println(sizeBool);
-                                        System.out.print("regexbool");
-                                        System.out.println(regexBool);
-                                        System.out.println(value);
-                                        System.out.println("-----------------------------");
-                                        System.out.println("\n\n\n\n\n");
+                                        // System.out.println(entry.getKey());
+                                        // System.out.print("sizebool");
+                                        // System.out.println(sizeBool);
+                                        // System.out.print("regexbool");
+                                        // System.out.println(regexBool);
+                                        // System.out.println(value);
+                                        // System.out.println("-----------------------------");
+                                        // System.out.println("\n\n\n\n\n");
 
                                 }
 
@@ -153,7 +160,7 @@ public class FileController {
                         
                 
             });
-            // todo put the if outside 
+
 
             // todo put the .save in another for loop
 
@@ -184,14 +191,17 @@ public class FileController {
         }
 
         if (validationService.getSpoil()){
-
                 ArrayList<String> spoilStore = validationService.getWhatSpoil();
                 FileResponse spoilResponse = new FileResponse(spoilStore);
                 return new ResponseEntity<FileResponse>(spoilResponse, HttpStatus.OK);
+        } else {
 
-            }
+        }
         
+        // new for loop todo
+
         //return successful upload entity
+        
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
     }
 

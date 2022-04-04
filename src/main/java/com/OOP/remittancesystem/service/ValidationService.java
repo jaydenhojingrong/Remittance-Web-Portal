@@ -97,7 +97,9 @@ public class ValidationService {
 
         String validation = getValidation(apiHeader, company);
         
-        System.out.println(validation);
+        if (validation.equals("\\\\d{4}-\\\\d{1,2}-\\\\d{1,2}") ){
+            validation = "\\d{4}-\\d{1,2}-\\d{1,2}";
+        }
 
         if (validation == null || validation.isEmpty()){
             return true;
@@ -106,9 +108,12 @@ public class ValidationService {
             // System.out.println(value);
             return true;
         } else {
+            System.out.println(company);
             System.out.println("real validation");
+            System.out.println(Pattern.matches(validation,value));
             System.out.println(validation);
-            System.out.println("---------");
+            System.out.println(value);
+            System.out.println("fuck");
             setSpoil();
             setWhatSpoil(apiHeader);
             return false;
