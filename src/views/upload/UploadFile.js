@@ -138,20 +138,43 @@ export default function UploadFile() {
       }
     }
     axios.post(
+      "http://localhost:8080/files/", formData, config
+    )
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.spoil == null) {
+          extractHeaders();
+          // sendTransaction();
+        } else {
+          setSpoil(response.data.spoil);
+          setError(true);
+        }
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const extractHeaders = () => {
+    // sendTransaction();
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+    axios.post(
       "http://localhost:8080/files/extractheaders", formData, config
     )
       .then((response) => {
-        console.log(response.data.spoil);
-        if (response.data.spoil == null) {
+        console.log(response.data);
           localStorage.setItem("fileDownloadURL", response.data.fileDownloadURL);
           localStorage.setItem("fileName", response.data.fileName);
           localStorage.setItem("headers", response.data.headers);
-          setSpoil(response.data.spoil);
           // sendTransaction();
           window.location.replace("/admin/mapping");
-        } else {
-          setError(true);
-        }
 
       })
       .catch((error) => {
@@ -172,7 +195,7 @@ export default function UploadFile() {
                       <p class="font-bold text-white">Error encountered, please reupload file</p>
                       {spoil && spoil.map(item => {
                         return (
-                          <p class="text-sm text-white">{item}</p>
+                          <p class="text-sm text-white">{item} column is invalid (check size/regex).</p>
                         )
                       })}
                     </div>
