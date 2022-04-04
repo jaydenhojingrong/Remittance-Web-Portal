@@ -25,7 +25,7 @@ Sample Description text
 
 - import the [SQL script](https://github.com/jaydenhojingrong/Remittance-Web-Portal/blob/main/db_script/remittancedb.sql) into your localhost / server 
 - Ensure that mavan is installed and put in environment PATH: https://www.tutorialspoint.com/maven/maven_environment_setup.html
-- Ensure that ;atest version of node.js is installed: https://nodejs.org/en/
+- Ensure that latest version of node.js is installed: https://nodejs.org/en/
 - Unzip the downloaded file to a folder in your computer
 - Open Terminal <br /> <br />
   **FRONTEND**: 
