@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.regex.*;
 
 import com.OOP.remittancesystem.entity.HeaderNames;
-import com.OOP.remittancesystem.service.HeaderService;
+import com.OOP.remittancesystem.service.HeaderService;  
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,63 +22,100 @@ public class ValidationService {
     private boolean spoil = false;
     private ArrayList<String> whatSpoilList = new ArrayList<String>();
 
-    public String getSsotHeader(String company,String columnName){
+
+    public String getSize(String apiHeader, String company){
         
-        HeaderNames ssotHeaderEntity = headerService.getSsotByCurrentHeaderAndCompany(columnName,  company);
-        String ssotHeader = ssotHeaderEntity.getSsotHeader();
-        return ssotHeader;
-    }
+        String sizeReq;
 
-    public String getSize(String ssotHeader, String company){
-        String sizeReq = headerService.getSizeByApiHeaderAndCompany(ssotHeader,  company);
+        try{
+            sizeReq = headerService.getSizeByApiHeaderAndCompany(apiHeader,  company);
+
+        } catch (Exception e){
+            return null;
+        }
+
+
         return sizeReq;
-        // return "0|20";
+
     }
 
-    public String getValidation(String ssotHeader, String company ){
-        String sizeReq = headerService.getSizeByApiHeaderAndCompany(ssotHeader,  company);
-        return sizeReq;
+    public String getValidation(String apiHeader, String company ){
+
+        // System.out.println("CURRENT COMP"+ company);
+        String validationReq;
+
+        try{
+            validationReq = headerService.getRegexByApiHeaderAndCompany(apiHeader,  company);
+            // System.out.println("HERE"+ validationReq + "    "+ company);
+        } catch (Exception e){
+            return null;
+        }
+
+
+        return validationReq;
     }
 
-    public boolean sizeValidation(String value, String ssotHeader, String company){
+    public boolean sizeValidation(String value, String apiHeader, String company){
 
-        String size = getSize(ssotHeader, company);
+        String size = getSize(apiHeader, company);
+
 
         if (size == null){
             return true;
         }
 
+        if (size == ""){
+            return true;
+        }
+
+
         String[] sizeArray = size.split("\\|");
+        int min;
+        int max;
+        try{
+            min = Integer.parseInt(sizeArray[0]);
 
-        int min = Integer.parseInt(sizeArray[0]);
+            max = Integer.parseInt(sizeArray[1]);
+        } catch (Exception e) {
+            return true;
+        }
 
-        int max = Integer.parseInt(sizeArray[1]);
 
-        
-        System.out.println(value);
         if (value.length() >= min & value.length() <= max){
-            System.out.println(max);
+
             return true;
         } else {
+            System.out.println("real size");
+            System.out.println(size);
             setSpoil();
-            setWhatSpoil(ssotHeader);
+            setWhatSpoil(apiHeader);
             return false;
         }
     }
     
-    public boolean regexValidation(String value, String ssotHeader, String company)  {
+    public boolean regexValidation(String value, String apiHeader, String company)  {
 
-        String validation = getValidation(ssotHeader, company);
+        String validation = getValidation(apiHeader, company);
         
-        if (validation == null){
+        if (validation.equals("\\\\d{4}-\\\\d{1,2}-\\\\d{1,2}") ){
+            validation = "\\d{4}-\\d{1,2}-\\d{1,2}";
+        }
+
+        if (validation == null || validation.isEmpty()){
             return true;
         }
         if (Pattern.matches(validation, value)){
-            System.out.println(value);
+            // System.out.println(value);
             return true;
         } else {
+            System.out.println(company);
+            System.out.println("real validation");
+            System.out.println(Pattern.matches(validation,value));
+            System.out.println(validation);
+            System.out.println(value);
+            System.out.println("fuck");
             setSpoil();
-            setWhatSpoil(ssotHeader);
+            setWhatSpoil(apiHeader);
             return false;
         }
     }
@@ -97,6 +134,11 @@ public class ValidationService {
 
     public ArrayList<String> getWhatSpoil(){
         return this.whatSpoilList;
+    }
+
+    // todo clear cache of object
+    public void clearWhatSpoil(){
+        this.whatSpoilList = new ArrayList<String>();
     }
 
 }
