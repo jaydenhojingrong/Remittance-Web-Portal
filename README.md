@@ -9,13 +9,13 @@ Sample Description text
 - Ensure that mavan is installed and put in environment PATH: https://www.tutorialspoint.com/maven/maven_environment_setup.html
 - Ensure that ;atest version of node.js is installed: https://nodejs.org/en/
 - Unzip the downloaded file to a folder in your computer
-- Open Terminal <br />
+- Open Terminal <br /> <br />
   **FRONTEND**: 
 - Go to your file project (where you’ve unzipped the product)
 - (If you are on a linux based terminal) run `npm run install:clean`
 - (If not) Run in terminal `npm install`
 - (If not) Run in terminal `npm start`
-- Navigate to https://localhost:3000 <br />
+- Navigate to https://localhost:3000 <br /> <br />
   **BACKEND**:
 - Go to your file project (where you’ve unzipped the product)
 - Run in terminal mvn spring-boot:run
