@@ -2,7 +2,7 @@
 
 <!-- ![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true) -->
 
-##Screenshots:
+## Screenshots:
 
 ### Dashboard
 ![Dashboard](https://github.com/jaydenhojingrong/Remittance-Web-Portal/blob/main/public/dashboard.PNG)
