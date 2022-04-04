@@ -1,6 +1,8 @@
 # Tech-G Remittance Web Portal 
 
-![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true)
+<!-- ![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true) -->
+
+Sample image?
 
 Sample Description text
 
