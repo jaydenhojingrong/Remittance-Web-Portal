@@ -60,6 +60,9 @@ public class FileController {
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file) {
 
+        // ----todo call clearSpoil
+        validationService.clearWhatSpoil();
+
         //store the file in the server
         //e.g. localhost:8080/files/dummy.csv
         String fileName = fileStorageService.storeFile(file);
@@ -117,27 +120,29 @@ public class FileController {
             openCSV.mapKeywords(company, companyPath.get(company), "api");
             Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
 
-            System.out.print(remittanceService.toJSON(remittanceMap));
+        //     System.out.print(remittanceService.toJSON(remittanceMap));
             remittanceMap.entrySet().forEach(entry -> {
                         try {
                                 System.out.println(company+"\n");
                                 System.out.println(entry.getKey());
                                 System.out.println(entry.getValue());
+                                System.out.println("-----------------------------");
 
 
                                 for (int i = 0; i <= entry.getValue().size()-1; i++){
                                         String value = entry.getValue().get(i);
-                                        String ssotHeader = validationService.getSsotHeader(company, value);
 
-                                        // System.out.println(ssotHeader);
-                                        boolean sizeBool = validationService.sizeValidation(value,ssotHeader, company);
-                                        boolean regexBool = validationService.regexValidation(value,ssotHeader, company);
 
-                                        // System.out.print("sizebool");
-                                        // System.out.println(sizeBool);
-                                        // System.out.print("regexbool");
-                                        // System.out.println(regexBool);
-                                        // System.out.println("");
+                                        boolean sizeBool = validationService.sizeValidation(value,entry.getKey(), company);
+                                        boolean regexBool = validationService.regexValidation(value,entry.getKey(), company);
+
+                                        System.out.print("sizebool");
+                                        System.out.println(sizeBool);
+                                        System.out.print("regexbool");
+                                        System.out.println(regexBool);
+                                        System.out.println(value);
+                                        System.out.println("-----------------------------");
+                                        System.out.println("\n\n\n\n\n");
 
                                 }
 
@@ -148,38 +153,43 @@ public class FileController {
                         
                 
             });
-            if (validationService.getSpoil()){
+            // todo put the if outside 
 
-                ArrayList<String> spoilStore = validationService.getWhatSpoil();
-                FileResponse spoilResponse = new FileResponse(spoilStore);
-                return new ResponseEntity<FileResponse>(spoilResponse, HttpStatus.OK);
+            // todo put the .save in another for loop
 
-            }
-            
-            for (Remittance remittance: remittanceList) {
+        // -----
+        //     for (Remittance remittance: remittanceList) {
 
-                try {
-                    remittanceDAO.save((Remittance) remittance);
-                } 
-                //handles validation error under entity
-                //throws json back to front end
-                catch (javax.validation.ConstraintViolationException e){
-                    String message= "";
-                    Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-                    for (ConstraintViolation<?> violation : violations) {
-                    message = violation.getMessage() + " ";
-                    System.out.println(message + " Throwing the exception.");
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
-                    // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
-                    }
-                }
-            }
+        //         try {
+        //             remittanceDAO.save((Remittance) remittance);
+        //         } 
+        //         //handles validation error under entity
+        //         //throws json back to front end
+        //         catch (javax.validation.ConstraintViolationException e){
+        //             String message= "";
+        //             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+        //             for (ConstraintViolation<?> violation : violations) {
+        //             message = violation.getMessage() + " ";
+        //             System.out.println(message + " Throwing the exception.");
+        //             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
+        //             // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
+        //             }
+        //         }
+        //     }
 
             //Convert List<Remittance> remittanceList into  Map<String apiHeader, String value> remittanceMap 
             //call createrequestbody
             //send to hy api
             
         }
+
+        if (validationService.getSpoil()){
+
+                ArrayList<String> spoilStore = validationService.getWhatSpoil();
+                FileResponse spoilResponse = new FileResponse(spoilStore);
+                return new ResponseEntity<FileResponse>(spoilResponse, HttpStatus.OK);
+
+            }
         
         //return successful upload entity
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
