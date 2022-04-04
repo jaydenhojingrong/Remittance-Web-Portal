@@ -46,6 +46,7 @@ public class HeaderController {
 	 * @return HeaderName Entity of the indicated currentHeader
 	 */
     @GetMapping("/headers/{currentHeader}")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public HeaderNames getHeaderByCurrentHeader(@PathVariable String currentHeader) {
 		return headerService.getSsotByCurrentHeader(currentHeader);
 	}
@@ -61,6 +62,7 @@ public class HeaderController {
 	}
 
 	@GetMapping("/headers/getApiHeader/{ssotHeader}/{company}")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public HeaderNames getCurrentHeaderBySsot(@PathVariable String ssotHeader, @PathVariable String company) {
 		return headerService.getApiHeaderBySsotHeaderAndCompany(ssotHeader, company);
 	}
