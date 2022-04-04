@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Apr 04, 2022 at 08:27 PM
--- Server version: 5.7.34
--- PHP Version: 7.4.21
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 04, 2022 at 10:50 PM
+-- Server version: 8.0.21
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,13 +29,15 @@ USE `remittancedb`;
 -- Table structure for table `headernames`
 --
 
-CREATE TABLE `headernames` (
+DROP TABLE IF EXISTS `headernames`;
+CREATE TABLE IF NOT EXISTS `headernames` (
   `current_header` varchar(99) NOT NULL,
   `ssot_header` varchar(99) NOT NULL,
   `company` varchar(99) NOT NULL,
   `api_header` varchar(99) NOT NULL,
   `size` varchar(99) NOT NULL,
-  `regex` varchar(99) NOT NULL
+  `regex` varchar(99) NOT NULL,
+  PRIMARY KEY (`current_header`,`company`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -66,6 +68,7 @@ INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`, `api_head
 ('Receiver Last Name', 'rLastName', 'FinanceNow', 'ReceiverLastName', '1|30', ''),
 ('Receiver Last Name', 'rLastName', 'PaymentGo', 'payeeSurname', '', ''),
 ('Receiver Nationality', 'rNationality', 'FinanceNow', 'ReceiverNationality', '1|3', ''),
+('ReceiverCountry', 'rCountry', 'FinanceNow', 'ReceiverCountry', '1|3', ''),
 ('Receiving Amount', 'amount', 'EverywhereRemit', 'units', '', ''),
 ('Receiving Amount', 'amount', 'FinanceNow', 'TransferAmount', '', ''),
 ('Receiving Amount', 'amount', 'PaymentGo', 'merTransAmount', '', ''),
@@ -116,9 +119,10 @@ INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`, `api_head
 -- Table structure for table `remittancetransaction`
 --
 
-CREATE TABLE `remittancetransaction` (
+DROP TABLE IF EXISTS `remittancetransaction`;
+CREATE TABLE IF NOT EXISTS `remittancetransaction` (
   `dtype` varchar(31) NOT NULL,
-  `rowid` int(11) NOT NULL,
+  `rowid` int NOT NULL AUTO_INCREMENT,
   `amount` varchar(255) DEFAULT NULL,
   `r_account_num` varchar(255) DEFAULT NULL,
   `r_currency` varchar(255) DEFAULT NULL,
@@ -155,8 +159,9 @@ CREATE TABLE `remittancetransaction` (
   `r_branch` varchar(255) DEFAULT NULL,
   `rdob` varchar(255) DEFAULT NULL,
   `r_mobile_no` varchar(255) DEFAULT NULL,
-  `s_account_number` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `s_account_number` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`rowid`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `remittancetransaction`
@@ -168,7 +173,11 @@ INSERT INTO `remittancetransaction` (`dtype`, `rowid`, `amount`, `r_account_num`
 ('PaymentGo', 3, '600000', '6.22E+11', NULL, 'De', 'Lin', '99', 'BLK 656B JURONG WEST STREET 61 ', 'SGP', 'PEI WAH', 'S1100000C', '2', 'PERLIN THOR', 'SGP', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2.11E+17', '2', NULL, NULL, NULL, NULL, NULL, '1994-2-2', NULL, NULL),
 ('FinanceNow', 4, '1000', '6.22E+11', NULL, 'Max', 'Chua', '1', '4 Sago Lane Singapore', 'SGP', 'XIAO MING', 'S9575000J', '12', 'PENG', 'SGP', '1', NULL, NULL, NULL, NULL, 'Singapore', NULL, '1994-2-2', NULL, NULL, NULL, NULL, 'Liaoning Province', 'BEIJING', '231236199995056X', '12', 'CHN', '02', NULL, NULL, NULL, NULL, NULL, NULL),
 ('EverywhereRemit', 5, '5000', '6.22E+11', NULL, 'Liang', 'Wang', '99', '319 UPPER EAST COAST RD SINGAPORE ', 'CHN', 'XIA LIN', 'G5110000M', 'passport', 'ZHAO', 'SGP', '1', NULL, NULL, NULL, NULL, 'Singapore', NULL, '1994-2-2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('PaymentGo', 6, '600000', '6.22E+11', NULL, 'De', 'Lin', '99', 'BLK 656B JURONG WEST STREET 61 ', 'SGP', 'PEI WAH', 'S1100000C', '2', 'PERLIN THOR', 'SGP', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2.11E+17', '2', NULL, NULL, NULL, NULL, NULL, '1994-2-2', NULL, NULL);
+('PaymentGo', 6, '600000', '6.22E+11', NULL, 'De', 'Lin', '99', 'BLK 656B JURONG WEST STREET 61 ', 'SGP', 'PEI WAH', 'S1100000C', '2', 'PERLIN THOR', 'SGP', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2.11E+17', '2', NULL, NULL, NULL, NULL, NULL, '1994-2-2', NULL, NULL),
+('FinanceNow', 7, '1000', '6.22E+11', 'USD', 'Max', 'Chua', '1', '4 Sago Lane Singapore', 'SGP', 'XIAO MING', 'S9575000J', '12', 'PENG', 'SGP', '1', NULL, NULL, NULL, NULL, 'Singapore', NULL, '1994-2-2', NULL, NULL, NULL, 'visa', 'Liaoning Province', 'BEIJING', '231236199995056X', '12', 'CHN', '2', 'Missipip', NULL, NULL, NULL, NULL, NULL),
+('FinanceNow', 8, '1000', '6.22E+11', 'USD', 'Max', 'Chua', '1', '4 Sago Lane Singapore', 'SGP', 'XIAO MING', 'S9575000J', '12', 'PENG', 'SGP', '1', NULL, NULL, NULL, NULL, 'Singapore', NULL, '1994-2-2', NULL, NULL, NULL, 'visa', 'Liaoning Province', 'BEIJING', '231236199995056X', '12', 'CHN', '2', 'Missipip', NULL, NULL, NULL, NULL, NULL),
+('FinanceNow', 9, '1000', '6.22E+11', 'USD', 'Max', 'Chua', '1', '4 Sago Lane Singapore', 'SGP', 'XIAO MING', 'S9575000J', '12', 'PENG', 'SGP', '1', 'USD', NULL, NULL, NULL, 'Singapore', NULL, '1994-2-2', NULL, NULL, NULL, 'visa', 'Liaoning Province', 'BEIJING', '231236199995056X', '12', 'CHN', '2', 'Missipip', NULL, NULL, NULL, NULL, NULL),
+('FinanceNow', 10, '1000', '6.22E+11', 'USD', 'Max', 'Chua', '1', '4 Sago Lane Singapore', 'SGP', 'XIAO MING', 'S9575000J', '12', 'PENG', 'SGP', '1', 'USD', NULL, NULL, NULL, 'Singapore', NULL, '1994-2-2', NULL, NULL, NULL, 'visa', 'Liaoning Province', 'BEIJING', '231236199995056X', '12', 'CHN', '2', 'Missipip', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -176,13 +185,15 @@ INSERT INTO `remittancetransaction` (`dtype`, `rowid`, `amount`, `r_account_num`
 -- Table structure for table `transactions`
 --
 
-CREATE TABLE `transactions` (
-  `transactionid` int(11) NOT NULL,
+DROP TABLE IF EXISTS `transactions`;
+CREATE TABLE IF NOT EXISTS `transactions` (
+  `transactionid` int NOT NULL AUTO_INCREMENT,
   `username` varchar(99) NOT NULL,
   `filename` varchar(99) NOT NULL,
   `company` varchar(99) NOT NULL,
-  `transactionstatus` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `transactionstatus` varchar(255) NOT NULL,
+  PRIMARY KEY (`transactionid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transactions`
@@ -193,44 +204,6 @@ INSERT INTO `transactions` (`transactionid`, `username`, `filename`, `company`, 
 (2, 'znchua.2019@smu.edu.sg', 'EngLieh.csv', 'EverywhereRemit', 'Transaction Pending AML'),
 (3, 'hyong.2019@scis.smu.edu.sg', 'Luffy.csv', 'FinanceNow', 'Transaction Rejected'),
 (4, 'hyong.2019@scis.smu.edu.sg', 'remit.csv', 'FinanceNow', 'Transaction Pending Compliance Checks');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `headernames`
---
-ALTER TABLE `headernames`
-  ADD PRIMARY KEY (`current_header`,`company`);
-
---
--- Indexes for table `remittancetransaction`
---
-ALTER TABLE `remittancetransaction`
-  ADD PRIMARY KEY (`rowid`);
-
---
--- Indexes for table `transactions`
---
-ALTER TABLE `transactions`
-  ADD PRIMARY KEY (`transactionid`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `remittancetransaction`
---
-ALTER TABLE `remittancetransaction`
-  MODIFY `rowid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `transactions`
---
-ALTER TABLE `transactions`
-  MODIFY `transactionid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,6 +1,8 @@
 package com.OOP.remittancesystem.controller;
 
 import org.springframework.core.io.Resource;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -206,7 +208,17 @@ public class FileController {
         //  Map <String, List<Remittance>> kensen = new HashMap<String, List<Remittance>>();
         companyIter = companyPath.keySet().iterator();
         while(companyIter.hasNext()){
-                List<Remittance> remittanceList = kensen.get(companyIter.next());
+                String company = companyIter.next();
+                List<Remittance> remittanceList = kensen.get(company);
+                Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
+                ArrayList<String> jsonBody = remittanceService.toJSON(remittanceMap);
+                
+                
+
+                for(int i = 0; i < jsonBody.size(); i++){
+                        ResponseEntity<String> response = sendTransaction(company,jsonBody.get(i));
+                }  
+
                 for (Remittance remittance: remittanceList) {
                         remittanceDAO.save((Remittance) remittance);
                     } 
@@ -293,42 +305,81 @@ public class FileController {
     
 
     @PostMapping("/send")
-    public ResponseEntity<String> sendTransaction(HashMap<String,String> renamedMap) {
+    public ResponseEntity<String> sendTransaction(String company, String jsonbody) {
 
-// request url
+        // request url
         String url = "https://prelive.paywho.com/api/smu_send_transaction";
 
-// create an instance of RestTemplate
+        // create an instance of RestTemplate
         RestTemplate restTemplate = new RestTemplate();
 
-// create headers
+        // create headers
         HttpHeaders headers = new HttpHeaders();
-// set `content-type` header
+        // set `content-type` header
         headers.setContentType(MediaType.APPLICATION_JSON);
-// set `accept` header
+        // set `accept` header
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
-// request body parameters
-        Map<String, Object> map = new HashMap<>();
-        map.putAll(renamedMap);
+        // request body parameters
+        // Map<String, Object> map = new HashMap<>();
+        // map.putAll(renamedMap);
         //add HashMap into arg
-// build the request
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
+        // build the request
+        try {
+                // Map<String, Object> map = new HashMap<>();
+                // map.put("access_token","C9zC7BaCBZPpXbBnMJHX14XeWKsCHg");
+                // map.put("api_name",company.toLowerCase());
+                // JSONObject json = new JSONObject(jsonbody.get(0).toString());
+                
+                // map.put("payload", json.toString());
 
-// send POST request
-        ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+                // HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
 
-// check response
-        if (response.getStatusCode() == HttpStatus.CREATED) {
-            System.out.println("Request Successful");
-            System.out.println(response.getBody());
-        } else {
-            System.out.println("Request Failed");
-            System.out.println(response.getStatusCode());
+                // ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+
+                // if (response.getStatusCode() == HttpStatus.CREATED) {
+                //         System.out.println("Request Successful");
+                //         System.out.println(response.getBody());
+                // } else {
+                //         System.out.println("Request Failed");
+                //         System.out.println(response.getStatusCode());
+                // }
+                JSONObject obj = new JSONObject();
+                obj.put("access_token","C9zC7BaCBZPpXbBnMJHX14XeWKsCHg");
+                obj.put("api_name",company.toLowerCase());
+                System.out.println("Here!!" + jsonbody);
+                JSONObject json = new JSONObject(jsonbody.toString());
+                
+                obj.put("payload", json);
+                // add HashMap into arg
+                // build the request
+                HttpEntity<String> entity = new HttpEntity<String>(obj.toString(), headers);
+                System.out.print("passed me");
+                System.out.print(entity);
+                // send POST request
+                // String response = restTemplate.postForObject(url, entity, String.class);
+                // check response
+                ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+                System.out.println("Response below");
+                System.out.println(response);
+                if (response.getStatusCode() == HttpStatus.CREATED) {
+                        System.out.println("Request Successful");
+                        System.out.println(response.getBody());
+                } else {
+                        System.out.println("Request Failed");
+                        System.out.println(response.getStatusCode());
+                }
+
+                // ResponseEntity<String> output = new ResponseEntity<String>(response.data);
+                // System.out.println(response1);
+                // return null;
+                return response;
+        } 
+        catch (JSONException e) {
+                //TODO: handle exception
+                System.out.println("wrong la");
+                System.out.println(e.getMessage());
+                return null;                       
         }
-        return response;
-
     }
-
-
 }
