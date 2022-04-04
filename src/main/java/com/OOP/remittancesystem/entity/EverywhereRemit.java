@@ -53,17 +53,10 @@ public class EverywhereRemit extends Remittance{
     @CsvBindByName(column = "rMobileNumber", required = false)
     private String rMobileNumber;
 
-
-
-
-
-
-
-
     public String getSourceType() {
         return sourceType;
     }
-
+    
     public void setSourceType(String sourceType) {
         this.sourceType = sourceType;
     }

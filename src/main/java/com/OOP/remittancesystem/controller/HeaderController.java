@@ -46,6 +46,7 @@ public class HeaderController {
 	 * @return HeaderName Entity of the indicated currentHeader
 	 */
     @GetMapping("/headers/{currentHeader}")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public HeaderNames getHeaderByCurrentHeader(@PathVariable String currentHeader) {
 		return headerService.getSsotByCurrentHeader(currentHeader);
 	}
@@ -61,6 +62,7 @@ public class HeaderController {
 	}
 
 	@GetMapping("/headers/getApiHeader/{ssotHeader}/{company}")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public HeaderNames getCurrentHeaderBySsot(@PathVariable String ssotHeader, @PathVariable String company) {
 		return headerService.getApiHeaderBySsotHeaderAndCompany(ssotHeader, company);
 	}
@@ -69,8 +71,18 @@ public class HeaderController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@ResponseBody
 	public HeaderNames insertHeaderNames(@RequestParam String currentHeader, @RequestParam String ssotHeader, @RequestParam String company, @RequestParam String apiHeader){
-		HeaderNames headername = new HeaderNames(currentHeader,ssotHeader, company, apiHeader);
+		HeaderNames headername = new HeaderNames(currentHeader,ssotHeader, company, apiHeader, "", "");
 		return headerDAO.save(headername);
 	}
 
+	
+	@GetMapping("/headers/getSize/{apiHeader}/{company}")
+	public String getSizeByApiHeaderAndCompany(@PathVariable String apiHeader, @PathVariable String company) {
+		return headerService.getSizeByApiHeaderAndCompany(apiHeader, company);
+	}
+
+	@GetMapping("/headers/getRegex/{apiHeader}/{company}")
+	public String getRegexByApiHeaderAndCompany(@PathVariable String apiHeader, @PathVariable String company) {
+		return headerService.getRegexByApiHeaderAndCompany(apiHeader, company);
+	}
 }

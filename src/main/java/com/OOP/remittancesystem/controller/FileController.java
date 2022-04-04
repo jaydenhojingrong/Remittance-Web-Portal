@@ -19,6 +19,7 @@ import com.OOP.remittancesystem.fileHandling.OpenCSVReadAndParseToBean;
 import com.OOP.remittancesystem.service.CompanySorter;
 import com.OOP.remittancesystem.service.FileStorageService;
 import com.OOP.remittancesystem.service.HeaderService;
+import com.OOP.remittancesystem.service.RemittanceService;
 import com.OOP.remittancesystem.service.ValidationService;
 
 import java.io.IOException;
@@ -48,6 +49,9 @@ public class FileController {
 
     @Autowired
     private HeaderService headerService;
+
+    @Autowired
+    private RemittanceService remittanceService;
 
     @Autowired
     private ValidationService validationService;
@@ -112,7 +116,8 @@ public class FileController {
             //loop each data (row and insert it to db)
             openCSV.mapKeywords(company, companyPath.get(company), "api");
             Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
-            
+
+            System.out.print(remittanceService.toJSON(remittanceMap));
             remittanceMap.entrySet().forEach(entry -> {
                         try {
                                 System.out.println(company+"\n");
@@ -203,14 +208,7 @@ public class FileController {
                 .body(resource);
     }
 
-    // public String toJSON(HashMap<String,String> map) {
-    //     String body = "{";
-    //     for(Map.Entry<String,String> e : map.entrySet()) {
-    //         body += e.getKey() + ":" + e.getValue();
-    //     }
-    //     body += "}";
-    //     return body;
-    // }
+
     
 
     @PostMapping("/call")

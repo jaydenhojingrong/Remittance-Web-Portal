@@ -25,15 +25,23 @@ public class HeaderNames {
     @Column(name = "apiHeader", nullable = false)
     private String apiHeader;
 
+    @Column(name = "size", nullable = false)
+    private String size;
+    
+    @Column(name = "regex", nullable = false)
+    private String regex;
+
     public HeaderNames(){
 
     }
     
-    public HeaderNames(String currentHeader, String ssotHeader, String company, String apiHeader){
+    public HeaderNames(String currentHeader, String ssotHeader, String company, String apiHeader, String size, String regex){
         this.currentHeader = currentHeader;
         this.ssotHeader = ssotHeader;
         this.company = company;
         this.apiHeader = apiHeader;
+        this.size = size;
+        this.regex = regex;
     }
 
     public String getCurrentHeader() {
@@ -67,6 +75,22 @@ public class HeaderNames {
 
     public void setApiHeader(String apiHeader) {
         this.apiHeader = apiHeader;
+    }
+    
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getRegex() {
+        return regex;
+    }
+
+    public void setRegex(String regex) {
+        this.regex = regex;
     }
 
     public String toString(){

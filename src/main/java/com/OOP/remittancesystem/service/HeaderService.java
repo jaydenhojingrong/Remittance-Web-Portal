@@ -103,4 +103,12 @@ public class HeaderService {
 		}
 		return output;
 	}
+
+	public String getSizeByApiHeaderAndCompany(String apiHeader, String company){
+		return headerDAO.findFirstByApiHeaderAndCompany(apiHeader, company).getSize();
+	}
+
+	public String getRegexByApiHeaderAndCompany(String apiHeader, String company){
+		return headerDAO.findFirstByApiHeaderAndCompany(apiHeader, company).getRegex();
+	}
 }
