@@ -10,11 +10,9 @@ Sample Description text
 
 * [Documentation](#documentation)
 * [Get Started](#get-started)
-* [Quick Start](#quick-start)
 * [Files and folders](#files-and-folders)
 * [Browser Support](#browser-support)
 * [Reporting Issues](#reporting-issues)
-* [Licensing](#licensing)
 * [Useful Links](#useful-links)
 * [Resources](#resources)
 
@@ -36,19 +34,17 @@ Sample Description text
 
 ## Pages
 
-Here are all the page from the project:
-- [Presentation](https://demos.creative-tim.com/notus-react/?ref=nr-github-readme)
-- Admin Samples
-  - [Dashboard](https://demos.creative-tim.com/notus-react/admin/dashboard?ref=nr-github-readme)
-  - [Settings](https://demos.creative-tim.com/notus-react/admin/settings?ref=nr-github-readme)
+Here are all the page route and slides from the project:
+- [Presentation](https://docs.google.com/presentation/d/1cmd2PcAx-LY5UmClwsrdcRgjJUuaU0WDT5JM4I3Yky4/edit?usp=sharing)
+- Dashboard and functions
+  - [Dashboard] http://localhost:3000/admin/dashboard
+  - [Upload] http://localhost:3000/upload/uploadfile
   - [Tables](https://demos.creative-tim.com/notus-react/admin/tables?ref=nr-github-readme)
-  - [Maps](https://demos.creative-tim.com/notus-react/admin/maps?ref=nr-github-readme)
-- Authentication Samples
-  - [Login](https://demos.creative-tim.com/notus-react/auth/login?ref=nr-github-readme)
-  - [Register](https://demos.creative-tim.com/notus-react/auth/register?ref=nr-github-readme)
-- Presentation Samples
-  - [Landing](https://demos.creative-tim.com/notus-react/landing?ref=nr-github-readme)
-  - [Profile](https://demos.creative-tim.com/notus-react/profile?ref=nr-github-readme)
+  - [Mapping] http://localhost:3000/admin/mapping
+- Authentication 
+  - [Login] http://localhost:3000/auth/login
+  - [Register] http://localhost:3000/auth/register
+
 
 
 ## CSS Components
@@ -59,23 +55,10 @@ Please [check all of them here](https://www.creative-tim.com/learning-lab/tailwi
 
 ## React Components
 
-We also feature the following 18 dynamic components:
-- [Alerts](https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-github-readme)
-- [Popper for Menus](https://www.creative-tim.com/learning-lab/tailwind/react/dropdowns/notus?ref=nr-github-readme)
-- [Menus](https://www.creative-tim.com/learning-lab/tailwind/react/menus/notus?ref=nr-github-readme)
-- [Modals](https://www.creative-tim.com/learning-lab/tailwind/react/modals/notus?ref=nr-github-readme)
-- [Navbars](https://www.creative-tim.com/learning-lab/tailwind/react/navbar/notus?ref=nr-github-readme)
-- [Popper for popover content](https://www.creative-tim.com/learning-lab/tailwind/react/popovers/notus?ref=nr-github-readme)
-- [Tabs](https://www.creative-tim.com/learning-lab/tailwind/react/tabs/notus?ref=nr-github-readme)
-- [Popper for tooltips content](https://www.creative-tim.com/learning-lab/tailwind/react/tooltips/notus?ref=nr-github-readme)
 
 ## Documentation
-The documentation for the Notus React is hosted at our <a href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-readme" target="_blank">website</a>.
+The documentation for the Website is listed in this google docs: https://docs.google.com/document/d/1TH-2T7WjOwWoIifjMQuwx-XUwoR1D0_0xwM2nWQGlFM/edit?usp=sharing
 
-## Quick start
-
-- <a href="https://www.creative-tim.com/product/notus-react?ref=nr-github-readme" target="_blank">Download from Creative Tim</a>.
-- <a href="https://github.com/creativetimofficial/notus-react" target="_blank">Check it on Github</a>.
 
 ## Files and Folder
 
@@ -144,7 +127,7 @@ Remittance-Web-Portal
 - Check our Bundles <a href="https://www.creative-tim.com/bundles?ref=nr-readme" target="_blank">here</a>
 - Check our awesome builder <a href="https://www.creative-tim.com/builder/argon?ref=nr-readme" target="_blank">here</a>
 - Check Tailwind Starter Kit, the project behind this product <a href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/presentation?ref=nr-readme" target="_blank">here</a>
-
+<!-- 
 ### Social Media
 
 Twitter: <a href="https://twitter.com/CreativeTim" target="_blank">https://twitter.com/CreativeTim</a>
@@ -153,7 +136,7 @@ Facebook: <a href="https://www.facebook.com/CreativeTim" target="_blank">https:/
 
 Dribbble: <a href="https://dribbble.com/creativetim" target="_blank">https://dribbble.com/creativetim</a>
 
-Instagram: <a href="https://www.instagram.com/creativetimofficial/" target="_blank">https://www.instagram.com/creativetimofficial/</a>
+Instagram: <a href="https://www.instagram.com/creativetimofficial/" target="_blank">https://www.instagram.com/creativetimofficial/</a> -->
 
 
 ## Resources
