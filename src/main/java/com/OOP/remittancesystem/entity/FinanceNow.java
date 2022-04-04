@@ -58,38 +58,7 @@ public class FinanceNow extends Remittance {
     @CsvBindByName(column = "rNationality", required = false)
     private String rNationality;
 
-    // NEW FIELD ADDED: -- will it conflict with sql columns???
-    @Size(min = 3, max = 3, message = "Sender Id Country must be between 3 and 3 characters")
-    @CsvBindByName(column = "sIdCountry", required = false)
-    private String sIdCountry;
 
-    // NEW FIELD ADDED: -- will it conflict with sql columns???
-    @Pattern(regexp = "EUR|SGD|USD")  
-    @CsvBindByName(column = "sCurrency", required = false)
-    private String sCurrency;
-
-    // NEW FIELD ADDED: -- will it conflict with sql columns??? required|in:individual
-    @Pattern(regexp = "individual")  
-    @CsvBindByName(column = "sSegment", required = true)
-    private String sSegment;
-
-    // NEW FIELD ADDED: -- will it conflict with sql columns??? required|in:PHP
-    @Pattern(regexp = "PHP")  
-    @CsvBindByName(column = "dCurrency", required = true)
-    private String dCurrency;
-
-    // NEW FIELD ADDED: -- will it conflict with sql columns??? required|in:individual and field type is number
-    @CsvBindByName(column = "sUnits", required = true)
-    private String sUnits;
-
-    // NEW FIELD ADDED: -- will it conflict with sql columns??? 
-    @Pattern(regexp = "bank_account")  
-    @CsvBindByName(column = "rType", required = true)
-    private String rType;
-
-    // NEW FIELD ADDED: -- will it conflict with sql columns???  whats select type
-    @CsvBindByName(column = "rbank", required = true)
-    private String rbank;
 
     public String getsDOB() {
         return sDOB;
