@@ -10,7 +10,7 @@ A minimalistic web page constructed using React, Springboot and SQL that automat
 * [Documentation and Slides](#documentation-and-slides)
 * [How to start up the system](#how-to-start-up-the-system)
 * [Pages and routes](#pages-and-routes)
-* [Files and Folder](#files-and-folders)
+* [Files and Folder](#files-and-folder)
 * [References](#references)
 
 
