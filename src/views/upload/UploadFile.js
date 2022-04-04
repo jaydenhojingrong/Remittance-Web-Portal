@@ -6,6 +6,8 @@ export default function UploadFile() {
 
   const [selectedFile, setSelectedFile] = useState(undefined);
   const [isFilePicked, setIsFilePicked] = useState(false);
+  const [error, setError] = useState(false);
+  const [spoil, setSpoil] = useState([]);
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -54,49 +56,49 @@ export default function UploadFile() {
             "Business and investment"
           ]
         },
-        api_name : "everywhereremit",
-          payload : 
-          {
-            "source_type": "",
-            "sender_country" : "Singapore",
-            "segment" : "",
-            "sender_legal_name_first": "First Name",
-            "sender_legal_name_last" : "Last Name",
-            "sender_date_of_birth": Date.now(),
-            "sender_nationality":["SGP","Singapore"],
-            "sender_id_type": ["national","National"],
-            "sender_id_country":["SGP","Singapore"],
-            "sender_id_number":"",
-            "sender_currency":"SGD",
-            "sender_address_line":"",
-            "sender_address_city":"Singapore",
-            "sender_address_country":["SGP","Singapore"],
-            "recipient_type":"bank_account",
-            "recipient_country":"CHN",
-            "recipient_legal_name_first":"Hi",
-            "recipient_legal_name_last":"hello",
-            "recipient_mobile_number": "12345678",
-            "recipient_account_number":"12345678",
-            "recipient_currency":"SGD",
-            "units": 1,
-            "source_of_funds":[
-              "01",
-              "Bank Deposit"
-              ],
-            "remittance_purpose":[
-              "001-01",
-              "Family/living expense"
-              ]
-          }
+        api_name: "everywhereremit",
+        payload:
+        {
+          "source_type": "",
+          "sender_country": "Singapore",
+          "segment": "",
+          "sender_legal_name_first": "First Name",
+          "sender_legal_name_last": "Last Name",
+          "sender_date_of_birth": Date.now(),
+          "sender_nationality": ["SGP", "Singapore"],
+          "sender_id_type": ["national", "National"],
+          "sender_id_country": ["SGP", "Singapore"],
+          "sender_id_number": "",
+          "sender_currency": "SGD",
+          "sender_address_line": "",
+          "sender_address_city": "Singapore",
+          "sender_address_country": ["SGP", "Singapore"],
+          "recipient_type": "bank_account",
+          "recipient_country": "CHN",
+          "recipient_legal_name_first": "Hi",
+          "recipient_legal_name_last": "hello",
+          "recipient_mobile_number": "12345678",
+          "recipient_account_number": "12345678",
+          "recipient_currency": "SGD",
+          "units": 1,
+          "source_of_funds": [
+            "01",
+            "Bank Deposit"
+          ],
+          "remittance_purpose": [
+            "001-01",
+            "Family/living expense"
+          ]
         }
+      }
     )
       .then((response) => {
         console.log(response);
         // Store the transaction status IF all fields are valid
-        if(response.data.code == 0){
+        if (response.data.code == 0) {
           alert("You have missing fields, please check your file again!");
         }
-        else{
+        else {
           localStorage.status = response.data.message;
           storeTransaction();
         }
@@ -105,19 +107,19 @@ export default function UploadFile() {
         console.log(error);
       });
   }
-  
+
   const storeTransaction = () => {
     var config = {
       headers: { 'Access-Control-Allow-Origin': '*' }
     };
     axios.post(
-      "http://localhost:8080/addTransaction/" + localStorage.getItem('username') 
+      "http://localhost:8080/addTransaction/" + localStorage.getItem('username')
       + "/" + selectedFile.name + "/" + "apiName" + "/" + localStorage.getItem('status'), config
       // todo: replace filename.csv & apiName with variable names
     )
       .then((response) => {
         console.log(response);
-       // set the variable back to false so that the new uploaded transaction will be reflected in dashboard
+        // set the variable back to false so that the new uploaded transaction will be reflected in dashboard
         localStorage.loaded = 'false';
         // window.location.replace("/admin/dashboard");
       })
@@ -133,19 +135,24 @@ export default function UploadFile() {
     const config = {
       headers: {
         'content-type': 'multipart/form-data'
-
       }
     }
     axios.post(
       "http://localhost:8080/files/extractheaders", formData, config
     )
       .then((response) => {
-        console.log(response.data.headers);
-        localStorage.setItem("fileDownloadURL", response.data.fileDownloadURL);
-        localStorage.setItem("fileName", response.data.fileName);
-        localStorage.setItem("headers", response.data.headers);
-        // sendTransaction();
-        window.location.replace("/admin/mapping");
+        console.log(response.data.spoil);
+        if (response.data.spoil == null) {
+          localStorage.setItem("fileDownloadURL", response.data.fileDownloadURL);
+          localStorage.setItem("fileName", response.data.fileName);
+          localStorage.setItem("headers", response.data.headers);
+          setSpoil(response.data.spoil);
+          // sendTransaction();
+          window.location.replace("/admin/mapping");
+        } else {
+          setError(true);
+        }
+
       })
       .catch((error) => {
         console.log(error);
@@ -156,6 +163,23 @@ export default function UploadFile() {
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-6/12 px-4">
+            {error &&
+              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-red-500 border-0">
+                <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+                  <div class="flex">
+                    <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg></div>
+                    <div>
+                      <p class="font-bold text-white">Error encountered, please reupload file</p>
+                      {spoil && spoil.map(item => {
+                        return (
+                          <p class="text-sm text-white">{item}</p>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
               <div className="flex-auto px-4 lg:px-10 py-10 pt-3">
                 <h6 className="text-blueGray-500 my-auto text-center font-bold">Upload CSV</h6>

@@ -50,6 +50,7 @@ function MapFields() {
       )
       .then((response) => {
         console.log(response.data);
+        window.location.replace("/admin/dashboard");
       })
       .catch((error) => {
         console.log(error);
@@ -141,7 +142,8 @@ function MapFields() {
       }
     }
     if (noError == false) {
-      console.log("redirect to success page");
+      // console.log("redirect to success page");
+      callBackend();
     }
   }
 

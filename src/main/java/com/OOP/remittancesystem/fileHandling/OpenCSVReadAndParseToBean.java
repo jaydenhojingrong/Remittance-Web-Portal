@@ -204,6 +204,8 @@ public class OpenCSVReadAndParseToBean {
     }
 
 
+    //takes in the stored csv file and convert them to hashmap
+    //{fieldName: [row1] [row2]}
     public Map <String, List<String>> csvToHashMap(String company, String fileDownloadUrl) {
         String fullFileName = company + ".csv";
         Map<String, List<String>> mappedCols = new HashMap<String, List<String>>();
