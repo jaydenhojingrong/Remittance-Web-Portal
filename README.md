@@ -80,36 +80,54 @@ The documentation for the Notus React is hosted at our <a href="https://www.crea
 
 ## Files and Folder
 
-This is the project structure that you will get upon the download:
+This is the project structure: (dependencies excluded)
 ```
-Backend 
-├───controller
-├───dao
-├───entity
-├───exception
-├───fileHandling
-└───service
+Remittance-Web-Portal
+├───src
+│    ├───assets
+│    │   ├───img
+│    │   └───styles
+│    ├───components (react frontend components)
+│    │   ├───Cards
+│    │   ├───Dropdowns
+│    │   ├───Footers
+│    │   ├───Headers
+│    │   ├───Mapping
+│    │   ├───Navbars
+│    │   ├───Playground
+│    │   └───Sidebar
+│    ├───layouts
+│    ├───main (backend main server)
+│    │   ├───java
+│    │   │   └───com
+│    │   │       └───OOP
+│    │   │           └───remittancesystem
+│    │   │               ├───controller
+│    │   │               ├───dao
+│    │   │               ├───entity
+│    │   │               ├───exception
+│    │   │               ├───fileHandling
+│    │   │               └───service
+│    │   └───resources
+│    │       └───service
+│    │───test (backend test server)
+│    │   └───java
+│    └───views  (react frontend pages )
+│        ├───admin
+│        ├───auth
+│        └───upload
+└───target (backend compiled java files)
+    └───classes
+        └───com
+            └───OOP
+                └───remittancesystem
+                    ├───controller
+                    ├───dao
+                    ├───entity
+                    ├───exception
+                    ├───fileHandling
+                    └───service    
 
-Frontend
-├───assets
-│   ├───img
-│   └───styles
-├───components
-│   ├───Cards
-│   ├───Dropdowns
-│   ├───Footers
-│   ├───Headers
-│   ├───Mapping
-│   ├───Navbars
-│   ├───Playground
-│   └───Sidebar
-├───layouts
-├───main (backend
-│   └───java
-└───views
-    ├───admin
-    ├───auth
-    └───upload
 ```
 
 ## Browser Support
