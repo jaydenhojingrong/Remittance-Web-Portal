@@ -1,16 +1,8 @@
-# Tech G Remittance Web Portal 
+# Tech-G Remittance Web Portal 
 
 ![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true)
 
-
-Start your development with a Free Tailwind CSS and React UI Kit and Admin. Let Notus React amaze you with its cool features and build tools and get your project to a whole new level.
-
-Notus React is Free and Open Source. It features multiple HTML and React elements and it comes with dynamic components for React.
-
-It is based on [Tailwind Starter Kit](https://www.creative-tim.com/learning-lab/tailwind-starter-kit/presentation?ref=nr-github-readme) by Creative Tim, and it is build with both presentation pages, and pages for an admin dashboard.
-
-Speed up your web development with a beautiful product made by <a href="https://creative-tim.com/" target="_blank">Creative Tim </a>.
-If you like bright and fresh colors, you will love this Free Tailwind CSS Template! It features a huge number of components that can help you create amazing websites.
+Sample Description text
 
 ### Get Started
 
@@ -18,19 +10,15 @@ If you like bright and fresh colors, you will love this Free Tailwind CSS Templa
 - Ensure that ;atest version of node.js is installed: https://nodejs.org/en/
 - Unzip the downloaded file to a folder in your computer
 - Open Terminal
-
-- Go to your file project (where you’ve unzipped the product)
-- (If you are on a linux based terminal) Simply run `npm run install:clean`
+- FRONTEND: Go to your file project (where you’ve unzipped the product)
+- (If you are on a linux based terminal) run `npm run install:clean`
 - (If not) Run in terminal `npm install`
 - (If not) Run in terminal `npm start`
 - Navigate to https://localhost:3000
-- Check more about [Tailwind CSS](https://tailwindcss.com/?ref=creativetim)
+- BACKEND: Go to your file project (where you’ve unzipped the product)
+- Run in terminal mvn spring-boot:run
 
 ### Pages
-
-If you want to get inspiration or just show something directly to your clients,
-you can jump start your development with our pre-built example pages. You will be able
-to quickly set up the basic structure for your web project.
 
 Here are all the page from the project:
 - [Presentation](https://demos.creative-tim.com/notus-react/?ref=nr-github-readme)
@@ -45,16 +33,6 @@ Here are all the page from the project:
 - Presentation Samples
   - [Landing](https://demos.creative-tim.com/notus-react/landing?ref=nr-github-readme)
   - [Profile](https://demos.creative-tim.com/notus-react/profile?ref=nr-github-readme)
-
-
-### Fully Coded Components
-
-Notus React is built with over frontend 120 components, giving you the freedom of choosing and combining. All components can take variations in colors, that you can easily modify using Tailwind CSS classes (NOTE: each time you add a new class, a class that does not exist in `src/assets/styles/tailwind.css`, you will need to compile again tailwind).
-
-You will save a lot of time going from prototyping to full-functional code, because all elements are implemented.
-This Free Tailwind CSS Template is coming with prebuilt examples, so the development process is seamless, switching from our pages to the real website is very easy to be done.
-
-Every element has multiple states for colors, styles, hover, focus, that you can easily access and use.
 
 
 ### CSS Components
@@ -88,14 +66,7 @@ We also feature the following 18 dynamic components:
 * [Useful Links](#useful-links)
 * [Resources](#resources)
 
-## Versions
 
-[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/angular.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-angular?ref=nr-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/js.png?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-js?ref=nr-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/nextjs.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-nextjs?ref=nr-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/react.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-react?ref=nr-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/svelte.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/notus-svelte?ref=nr-github-readme)[<img src="https://github.com/creativetimofficial/public-assets/blob/master/logos/vue.jpg?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/vue-notus?ref=nr-github-readme)
-
-
-| Angular | JavaScript / HTML | NextJS | React | Svelte | VueJS |
-| :---: | :---: | :---: | :---: | :---: | :---: |
-| [![Notus Angular](https://github.com/creativetimofficial/public-assets/blob/master/notus-angular/notus-angular.jpg?raw=true)](https://www.creative-tim.com/product/notus-angular?ref=nr-github-readme)  | [![Notus JS](https://github.com/creativetimofficial/public-assets/blob/master/notus-js/notus-js.jpg?raw=true)](https://www.creative-tim.com/product/notus-js?ref=nr-github-readme)  | [![Notus NextJS](https://github.com/creativetimofficial/public-assets/blob/master/notus-nextjs/notus-nextjs.jpg?raw=true)](https://www.creative-tim.com/product/notus-nextjs?ref=nr-github-readme)  | [![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true)](https://www.creative-tim.com/product/notus-react?ref=nr-github-readme)  | [![Notus Svelte](https://github.com/creativetimofficial/public-assets/blob/master/notus-svelte/notus-svelte.jpg?raw=true)](https://www.creative-tim.com/product/notus-svelte?ref=nr-github-readme)  | [![Vue Notus](https://github.com/creativetimofficial/public-assets/blob/master/vue-notus/vue-notus.jpg?raw=true)](https://www.creative-tim.com/product/vue-notus?ref=nr-github-readme)
 
 ## Documentation
 The documentation for the Notus React is hosted at our <a href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-readme" target="_blank">website</a>.
@@ -109,75 +80,34 @@ The documentation for the Notus React is hosted at our <a href="https://www.crea
 
 This is the project structure that you will get upon the download:
 ```
-notus-react
-.
-├── CHANGELOG.md
-├── ISSUE_TEMPLATE.md
-├── LICENSE.md
-├── README.md
-├── gulpfile.js
-├── jsconfig.json
-├── package.json
-├── public
-│   ├── favicon.ico
-│   ├── index.html
-│   ├── manifest.json
-│   └── robots.txt
-├── src
-│   ├── assets
-│   │   ├── img
-│   │   │   ├── github.svg
-│   │   │   └── google.svg
-│   │   └── styles
-│   │       ├── index.css
-│   │       └── tailwind.css
-│   ├── components
-│   │   ├── Cards
-│   │   │   ├── CardBarChart.js
-│   │   │   ├── CardLineChart.js
-│   │   │   ├── CardPageVisits.js
-│   │   │   ├── CardProfile.js
-│   │   │   ├── CardSettings.js
-│   │   │   ├── CardSocialTraffic.js
-│   │   │   ├── CardStats.js
-│   │   │   └── CardTable.js
-│   │   ├── Dropdowns
-│   │   │   ├── IndexDropdown.js
-│   │   │   ├── NotificationDropdown.js
-│   │   │   ├── PagesDropdown.js
-│   │   │   ├── TableDropdown.js
-│   │   │   └── UserDropdown.js
-│   │   ├── Footers
-│   │   │   ├── Footer.js
-│   │   │   ├── FooterAdmin.js
-│   │   │   └── FooterSmall.js
-│   │   ├── Headers
-│   │   │   └── HeaderStats.js
-│   │   ├── Maps
-│   │   │   └── MapExample.js
-│   │   ├── Navbars
-│   │   │   ├── AdminNavbar.js
-│   │   │   ├── AuthNavbar.js
-│   │   │   └── IndexNavbar.js
-│   │   └── Sidebar
-│   │       └── Sidebar.js
-│   ├── index.js
-│   ├── layouts
-│   │   ├── Admin.js
-│   │   └── Auth.js
-│   └── views
-│       ├── Index.js
-│       ├── Landing.js
-│       ├── Profile.js
-│       ├── admin
-│       │   ├── Dashboard.js
-│       │   ├── Maps.js
-│       │   ├── Settings.js
-│       │   └── Tables.js
-│       └── auth
-│           ├── Login.js
-│           └── Register.js
-└── tailwind.config.js
+Backend 
+├───controller
+├───dao
+├───entity
+├───exception
+├───fileHandling
+└───service
+
+Frontend
+├───assets
+│   ├───img
+│   └───styles
+├───components
+│   ├───Cards
+│   ├───Dropdowns
+│   ├───Footers
+│   ├───Headers
+│   ├───Mapping
+│   ├───Navbars
+│   ├───Playground
+│   └───Sidebar
+├───layouts
+├───main (backend
+│   └───java
+└───views
+    ├───admin
+    ├───auth
+    └───upload
 ```
 
 ## Browser Support
