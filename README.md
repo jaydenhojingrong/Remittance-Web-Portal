@@ -2,12 +2,12 @@
 
 <!-- ![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true) -->
 
-Screenshots:
+##Screenshots:
 
-## Dashboard
+### Dashboard
 ![Dashboard](https://github.com/jaydenhojingrong/Remittance-Web-Portal/blob/main/public/dashboard.PNG)
 <br/>
-## Mapping page
+### Mapping page
 ![Mapping](https://github.com/jaydenhojingrong/Remittance-Web-Portal/blob/main/public/mapping.PNG)
 
 
