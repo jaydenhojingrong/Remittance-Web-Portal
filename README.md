@@ -3,8 +3,8 @@
 <!-- ![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true) -->
 
 Screenshots:
-[Dashboard](https://github.com/jaydenhojingrong/Remittance-Web-Portal/public/dashboard.png)
-[Mapping](https://github.com/jaydenhojingrong/Remittance-Web-Portal/public/mapping.png)
+[Dashboard](https://github.com/jaydenhojingrong/Remittance-Web-Portal/public/dashboard.PNG)
+[Mapping](https://github.com/jaydenhojingrong/Remittance-Web-Portal/public/mapping.PNG)
 
 
 A minimalistic web page constructed using React, Springboot and SQL that automatically map fields to one another based on a Single Source of Truth that is fully customizable and easy to use. 
