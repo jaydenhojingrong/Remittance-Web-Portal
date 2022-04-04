@@ -24,7 +24,6 @@ A minimalistic web page constructed using React, Springboot and SQL that automat
 
 
 ## Documentation and Slides
-- The documentation for the Website is listed in this [Google Document](https://docs.google.com/document/d/1TH-2T7WjOwWoIifjMQuwx-XUwoR1D0_0xwM2nWQGlFM/edit?usp=sharing)
 - The presentation slides for the Website is listed in this [Google Slide](https://docs.google.com/presentation/d/1TeKF7JN_-i3zOv3ahheOMmAOA_8OY6CHfI-vNN4A_ug/edit?usp=sharing)
 
 ## How to start up the system
