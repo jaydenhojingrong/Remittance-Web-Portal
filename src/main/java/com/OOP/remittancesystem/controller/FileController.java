@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 @RestController
 @RequestMapping("files")
@@ -108,7 +109,9 @@ public class FileController {
         //loop through all identified companies in the csv file
         Iterator <String> companyIter = companyPath.keySet().iterator();
 
-        Collection<String> cache = new ArrayList<>();
+        Map <String, List<Remittance>> kensen = new HashMap<String, List<Remittance>>();
+
+       
 
 
         while (companyIter.hasNext()){
@@ -117,12 +120,13 @@ public class FileController {
 
             System.out.println(company);
 
-            cache.add(company);
             //for each company csv file.. scan through the headers and rename them into SSOT format
             openCSV.mapKeywords(company, companyPath.get(company), "ssot");
 
             //for each company csv.. cast them into a list of remittance (csv -> list of objects)
             List<Remittance> remittanceList = openCSV.mapCSV(companyPath.get(company), company);
+
+            kensen.put(company, remittanceList);
             //loop each data (row and insert it to db)
             openCSV.mapKeywords(company, companyPath.get(company), "api");
             Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
@@ -190,15 +194,32 @@ public class FileController {
             
         }
 
+        // validation 
         if (validationService.getSpoil()){
                 ArrayList<String> spoilStore = validationService.getWhatSpoil();
                 FileResponse spoilResponse = new FileResponse(spoilStore);
                 return new ResponseEntity<FileResponse>(spoilResponse, HttpStatus.OK);
-        } else {
-
-        }
+        } 
         
-        // new for loop todo
+        // save to db
+
+        //  Map <String, List<Remittance>> kensen = new HashMap<String, List<Remittance>>();
+        companyIter = companyPath.keySet().iterator();
+        while(companyIter.hasNext()){
+                List<Remittance> remittanceList = kensen.get(companyIter.next());
+                for (Remittance remittance: remittanceList) {
+                        remittanceDAO.save((Remittance) remittance);
+                    } 
+        }
+        // while (companyIter.hasNext()){
+        //         String company = companyIter.next();
+        //         List<Remittance> remittanceList = openCSV.mapCSV(companyPath.get(company), company);
+
+        //         for (Remittance remittance: remittanceList) {
+        //             remittanceDAO.save((Remittance) remittance);
+        //         } 
+        //     }
+        
 
         //return successful upload entity
         
