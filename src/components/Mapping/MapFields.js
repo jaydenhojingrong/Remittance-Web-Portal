@@ -12,6 +12,7 @@ function MapFields() {
   const [field, setField] = useState("");
   const [allHeaders, setAllHeaders] = useState([]);
   const [allSsotHeaders, setAllSsotHeaders] = useState([]);
+  const [allCsvHeaders, setAllCsvHeaders] = useState([]);
   const [inputHeaders, setInputHeaders] = useState([]);
   const [ouputHeaders, setOuputHeaders] = useState([]);
   const [counter, setCounter] = useState(false);
@@ -26,15 +27,20 @@ function MapFields() {
       )
       .then((response) => {
         // console.log(response);
-        // console.log(response.data);
-        console.log([...new Set(response.data.map(item => item.ssotHeader))]);
+        // console.log([...new Set(response.data.map(item => item.ssotHeader))]);
         setAllHeaders(response.data);
+        setAllCsvHeaders(localStorage.getItem("headers"));
+        console.log(localStorage.getItem("headers").split(","));
+        console.log(localStorage.getItem("fileName"));
+        console.log(localStorage.getItem("fileDownloadURL"));
         // findUniqueSSOT()
         // bindToInterface();
 
         setAllSsotHeaders([...new Set(response.data.map(item => item.ssotHeader))])
+        // bindOutputHeader();
+        // csvHeaders();
         setCounter(true)
-        bindOutputHeader();
+        
       })
       .catch((error) => {
         console.log(error);
@@ -79,11 +85,15 @@ function MapFields() {
   // }
 
   function bindOutputHeader() {
+    for (let i = 0; i < allCsvHeaders.length; i++) {
+      console.log(allCsvHeaders[i]);
+      setInputHeaders(inputHeaders => [...inputHeaders, { id: allCsvHeaders[i], shape: 'interfaceBox' }]);
+    }
     for (let i = 0; i < allSsotHeaders.length; i++) {
-      setInputHeaders(inputHeaders => [...inputHeaders, { id: i + "a", shape: 'interfaceBox' }]);
+      
       setOuputHeaders(ouputHeaders => [...ouputHeaders, { id: allSsotHeaders[i], shape: 'interfaceBox' }]);
       // setInitialLines(initialLines => [...initialLines, { props: { start: i+"a", end: allSsotHeaders[i] }}])
-      setLines(lines => [...lines, { props: { start: i + "a", end: allSsotHeaders[i] } }]);
+      // setLines(lines => [...lines, { props: { start: i + "a", end: allSsotHeaders[i] } }]);
     }
   }
 
