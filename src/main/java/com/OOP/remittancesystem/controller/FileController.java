@@ -104,6 +104,14 @@ public class FileController {
             //for each company csv.. cast them into a list of remittance (csv -> list of objects)
             List<Remittance> remittanceList = openCSV.mapCSV(companyPath.get(company), company);
             //loop each data (row and insert it to db)
+            openCSV.mapKeywords(company, companyPath.get(company), "api");
+            Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
+            remittanceMap.entrySet().forEach(entry -> {
+                        System.out.println(company+"\n");
+                        System.out.println(entry.getKey());
+                        System.out.println(entry.getValue());
+            });
+
             for (Remittance remittance: remittanceList) {
 
                 try {
@@ -126,13 +134,7 @@ public class FileController {
             //Convert List<Remittance> remittanceList into  Map<String apiHeader, String value> remittanceMap 
             //call createrequestbody
             //send to hy api
-            openCSV.mapKeywords(company, companyPath.get(company), "api");
-            Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
-            remittanceMap.entrySet().forEach(entry -> {
-                        System.out.println("\n\n\n\n");
-                        System.out.println(entry.getKey());
-                        System.out.println(entry.getValue());
-            });
+            
         }
         
         //return successful upload entity
