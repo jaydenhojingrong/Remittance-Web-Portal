@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Table(name = "remittancetransaction")
 @Entity
@@ -18,33 +20,75 @@ public class Remittance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int rowID;
-
+    
+    // according to FinanceGo only!!!!:
+    @Size(min = 3, max = 3, message = "sCountry must be between 3 and 3 characters")
     @CsvBindByName(column = "sCountry", required = false)
     private String sCountry;
+
+    //according to FinanceGo only: sender first name: required|max:50|regex:/^[A-Za-z0-9 .-]+$/
+    // according to EverywhereRemit only!!!!:
+    @Size(min = 1, max = 50, message = "sFirstName must be between 1 and 50 characters")
     @CsvBindByName(column = "sFirstName", required = false)
     private String sFirstName;
+
+    //according to FinanceGo only: sender first name: required|max:50|regex:/^[A-Za-z0-9 .-]+$/
+    // according to EverywhereRemit only!!!!:
+    @Size(min = 1, max = 50, message = "sLastName must be between 1 and 50 characters")
     @CsvBindByName(column = "sLastName", required = false)
     private String sLastName;
+
+    // according to EverywhereRemit and FinanceGo!!!!:
+    @Size(min = 3, max = 3, message = "sNationality must be between 3 and 3 characters")
     @CsvBindByName(column = "sNationality", required = false)
     private String sNationality;
+
+     // according to FinanceGo only!!!!:
+    @Pattern(regexp = "national|passport")  
     @CsvBindByName(column = "sIDType", required = false)
     private String sIDType;
-    @CsvBindByName(column = "sIDNumber", required = false)
+
+
+    // according to FinanceGo: n supposed to be text
+    @CsvBindByName(column = "sIDNumber", required = true)
     private String sIDNumber;
-    @CsvBindByName(column = "sAddress", required = false)
+
+    // according to financego only!!!!: required|regex:/^[A-Za-z0-9 ,.-]+$/
+    @Size(min = 1, max = 25, message = "sAddress must be between 1 and 25 characters")
+    @CsvBindByName(column = "sAddress", required = true)
     private String sAddress;
+
+    // according to FinanceGo: required|max:50|regex:/^[A-Za-z0-9 .-]+$/
+    // according to EverywhereRemit only!!!!:
+    @Size(min = 1, max = 50, message = "rFirstName must be between 1 and 50 characters")
     @CsvBindByName(column = "rFirstName", required = false)
     private String rFirstName;
+
+    // according to FinanceGo: required|max:50|regex:/^[A-Za-z0-9 .-]+$/ CONFLICTING!!!
+    // according to EverywhereRemit only!!!!:
+    @Size(min = 1, max = 20, message = "rLastName must be between 1 and 20 characters")
     @CsvBindByName(column = "rLastName", required = false)
     private String rLastName;
-    @CsvBindByName(column = "rAccountNumber",required = false)
+
+    // according to FinanceNow only: required|max:16|regex:/^[0-9]+$/ --  number type
+    // according to EverywhereRemit only!!!!:
+    @Size(min = 1, max = 50, message = "rAccountNumber must be between 1 and 50 characters")
+    @CsvBindByName(column = "rAccountNumber",required = true)
     private String rAccountNum;
+
     @CsvBindByName(column = "rCurrency",required = false)
     private String rCurrency;
+
+    // according to EverywhereRemit only!!!!:
+    @Size(min = 1, max = 30, message = "rAccountNumber must be between 1 and 30 characters")
     @CsvBindByName(column = "sSourceOfFund",required = false)
     private String sSourceOfFund;
+
+    // no remittance purpose requirements for paymentgo:
+    @Size(min = 1, max = 50, message = "remitPurpose must be between 1 and 50 characters")
     @CsvBindByName(column = "remitPurpose", required = false)
     private String remitPurpose;
+
     @CsvBindByName(column = "amount", required = true)
     private String amount;
 

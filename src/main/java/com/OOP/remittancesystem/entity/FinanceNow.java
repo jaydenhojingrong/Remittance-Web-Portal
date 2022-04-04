@@ -14,13 +14,17 @@ public class FinanceNow extends Remittance {
     //stores only the columns that do not exist in all three companies BUT exist in FinanceNow
     //e.g. does not store sender first name since it exist in all three
 
+    // date type field validation:
     @CsvBindByName(column = "sDOB", required = false)
     private String sDOB;
 
-    @CsvBindByName(column = "sCity", required = false)
+
+    // required|regex:/^[A-Za-z0-9 ,.-]+$/"
+    @CsvBindByName(column = "sCity", required = true)
     private String sCity;
     
-    // @Size(min = 3, max = 3, message = "country name must be 3 characters")
+    @Size(min = 3, max = 3, message = "country name must be 3 characters")
+    @Pattern(regexp = "01|02|05|99")  
     @CsvBindByName(column = "rCountry", required = false)
     private String rCountry;
 
@@ -53,6 +57,39 @@ public class FinanceNow extends Remittance {
     @Size(min = 3, max = 3, message = "rNationality must be between 3 and 3 characters")
     @CsvBindByName(column = "rNationality", required = false)
     private String rNationality;
+
+    // NEW FIELD ADDED: -- will it conflict with sql columns???
+    @Size(min = 3, max = 3, message = "Sender Id Country must be between 3 and 3 characters")
+    @CsvBindByName(column = "sIdCountry", required = false)
+    private String sIdCountry;
+
+    // NEW FIELD ADDED: -- will it conflict with sql columns???
+    @Pattern(regexp = "EUR|SGD|USD")  
+    @CsvBindByName(column = "sCurrency", required = false)
+    private String sCurrency;
+
+    // NEW FIELD ADDED: -- will it conflict with sql columns??? required|in:individual
+    @Pattern(regexp = "individual")  
+    @CsvBindByName(column = "sSegment", required = true)
+    private String sSegment;
+
+    // NEW FIELD ADDED: -- will it conflict with sql columns??? required|in:PHP
+    @Pattern(regexp = "PHP")  
+    @CsvBindByName(column = "dCurrency", required = true)
+    private String dCurrency;
+
+    // NEW FIELD ADDED: -- will it conflict with sql columns??? required|in:individual and field type is number
+    @CsvBindByName(column = "sUnits", required = true)
+    private Integer sUnits;
+
+    // NEW FIELD ADDED: -- will it conflict with sql columns??? 
+    @Pattern(regexp = "bank_account")  
+    @CsvBindByName(column = "rType", required = true)
+    private String rType;
+
+    // NEW FIELD ADDED: -- will it conflict with sql columns???  whats select type
+    @CsvBindByName(column = "rbank", required = true)
+    private String rbank;
 
     public String getsDOB() {
         return sDOB;
