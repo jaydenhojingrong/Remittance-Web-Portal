@@ -19,8 +19,8 @@ Sample Description text
 
 
 ## Documentation and Slides
-- The documentation for the Website is listed in this [Google Docs] )https://docs.google.com/document/d/1TH-2T7WjOwWoIifjMQuwx-XUwoR1D0_0xwM2nWQGlFM/edit?usp=sharing)
-- The presentation slides for the Website is listed in this [Google Slides](https://docs.google.com/presentation/d/1cmd2PcAx-LY5UmClwsrdcRgjJUuaU0WDT5JM4I3Yky4/edit?usp=sharing)
+- The documentation for the Website is listed in this [Google Document] (https://docs.google.com/document/d/1TH-2T7WjOwWoIifjMQuwx-XUwoR1D0_0xwM2nWQGlFM/edit?usp=sharing)
+- The presentation slides for the Website is listed in this [Google Slide](https://docs.google.com/presentation/d/1cmd2PcAx-LY5UmClwsrdcRgjJUuaU0WDT5JM4I3Yky4/edit?usp=sharing)
 
 ## Get Started
 
