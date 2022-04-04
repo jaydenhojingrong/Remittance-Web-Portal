@@ -127,11 +127,11 @@ public class FileController {
 
                                 for (int i = 0; i <= entry.getValue().size()-1; i++){
                                         String value = entry.getValue().get(i);
-                                        String ssotHeader = validationService.getSsotHeader("FinanceNow", value);
+                                        String ssotHeader = validationService.getSsotHeader(company, value);
 
                                         // System.out.println(ssotHeader);
-                                        boolean sizeBool = validationService.sizeValidation(value,ssotHeader);
-                                        boolean regexBool = validationService.regexValidation(value,ssotHeader);
+                                        boolean sizeBool = validationService.sizeValidation(value,ssotHeader, company);
+                                        boolean regexBool = validationService.regexValidation(value,ssotHeader, company);
 
                                         // System.out.print("sizebool");
                                         // System.out.println(sizeBool);
