@@ -127,26 +127,29 @@ export default function UploadFile() {
   }
 
   const submitFile = () => {
-    sendTransaction();
-    // const formData = new FormData();
-    // formData.append("file", selectedFile);
-    // const config = {
-    //   headers: {
-    //     'content-type': 'multipart/form-data'
+    // sendTransaction();
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
 
-    //   }
-    // }
-    // axios.post(
-    //   "http://localhost:8080/files/", formData, config
-    // )
-    //   .then((response) => {
-    //     console.log(response);
-    //     sendTransaction();
-    //     window.location.replace("/admin/mapping");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+      }
+    }
+    axios.post(
+      "http://localhost:8080/files/extractheaders", formData, config
+    )
+      .then((response) => {
+        console.log(response.data.headers);
+        localStorage.setItem("fileDownloadURL", response.data.fileDownloadURL);
+        localStorage.setItem("fileName", response.data.fileName);
+        localStorage.setItem("headers", response.data.headers);
+        // sendTransaction();
+        // window.location.replace("/admin/mapping");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <>
