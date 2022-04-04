@@ -80,7 +80,7 @@ public class FinanceNow extends Remittance {
 
     // NEW FIELD ADDED: -- will it conflict with sql columns??? required|in:individual and field type is number
     @CsvBindByName(column = "sUnits", required = true)
-    private Integer sUnits;
+    private String sUnits;
 
     // NEW FIELD ADDED: -- will it conflict with sql columns??? 
     @Pattern(regexp = "bank_account")  
