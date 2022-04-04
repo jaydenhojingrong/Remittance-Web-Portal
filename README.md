@@ -2,9 +2,12 @@
 
 <!-- ![Notus React](https://github.com/creativetimofficial/public-assets/blob/master/notus-react/notus-react.jpg?raw=true) -->
 
-Sample image?
+Screenshots:
+[Dashboard](https://github.com/jaydenhojingrong/Remittance-Web-Portal/public/dashboard.png)
+[Mapping](https://github.com/jaydenhojingrong/Remittance-Web-Portal/public/mapping.png)
 
-Sample Description text
+
+A minimalistic web page constructed using React, Springboot and SQL that automatically map fields to one another based on a Single Source of Truth that is fully customizable and easy to use. 
 
 ## Table of Contents
 
@@ -18,14 +21,14 @@ Sample Description text
 
 
 ## Documentation and Slides
-- The documentation for the Website is listed in this [Google Document](https://docs.google.com/presentation/d/1TeKF7JN_-i3zOv3ahheOMmAOA_8OY6CHfI-vNN4A_ug/edit?usp=sharing)
+- The documentation for the Website is listed in this [Google Document](https://docs.google.com/document/d/1TH-2T7WjOwWoIifjMQuwx-XUwoR1D0_0xwM2nWQGlFM/edit?usp=sharing)
 - The presentation slides for the Website is listed in this [Google Slide](https://docs.google.com/presentation/d/1TeKF7JN_-i3zOv3ahheOMmAOA_8OY6CHfI-vNN4A_ug/edit?usp=sharing)
 
 ## How to start up the system
 
 - import the [SQL script](https://github.com/jaydenhojingrong/Remittance-Web-Portal/blob/main/db_script/remittancedb.sql) into your localhost / server 
 - Ensure that mavan is installed and put in environment PATH: https://www.tutorialspoint.com/maven/maven_environment_setup.html
-- Ensure that ;atest version of node.js is installed: https://nodejs.org/en/
+- Ensure that latest version of node.js is installed: https://nodejs.org/en/
 - Unzip the downloaded file to a folder in your computer
 - Open Terminal <br /> <br />
   **FRONTEND**: 
