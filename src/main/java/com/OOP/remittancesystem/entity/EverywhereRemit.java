@@ -5,7 +5,6 @@ import com.opencsv.bean.CsvBindByName;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 @Table(name = "remittancetransaction")
 @Entity

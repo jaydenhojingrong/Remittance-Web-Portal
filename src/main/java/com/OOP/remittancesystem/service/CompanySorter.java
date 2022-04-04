@@ -95,7 +95,6 @@ public class CompanySorter {
                     String[] csvCols = csvRow.split(",");
                     //check whether amount col exist
                     if (csvCols.length == amountCol){
-                        //TODO: Maars help plz. If the amount column is not found need to throw exception to frontend. cannot process the file
                         System.out.println("Amount column not found");
                         break;
                     }
