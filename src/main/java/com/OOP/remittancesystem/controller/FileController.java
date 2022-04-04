@@ -222,7 +222,7 @@ public class FileController {
         
 
         //return successful upload entity
-        
+        validationService.resetSpoil();
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
     }
 

@@ -18,8 +18,9 @@ public class ValidationService {
 	@Autowired
 	private HeaderService headerService;
 	
-
+    // default value of spoil  
     private boolean spoil = false;
+    // stores value of spoiled columns this will be returned as a JSON object under the "spoil" header
     private ArrayList<String> whatSpoilList = new ArrayList<String>();
 
     // calls headerservice get size criteria saved in DB
@@ -38,12 +39,10 @@ public class ValidationService {
     // calls headerservice get regex criteria saved in DB
     public String getValidation(String apiHeader, String company ){
 
-        // System.out.println("CURRENT COMP"+ company);
         String validationReq;
 
         try{
             validationReq = headerService.getRegexByApiHeaderAndCompany(apiHeader,  company);
-            // System.out.println("HERE"+ validationReq + "    "+ company);
         } catch (Exception e){
             return null;
         }
@@ -51,7 +50,7 @@ public class ValidationService {
         return validationReq;
     }
 
-    // executes the actual size validation 
+    // executes the actual size validation by using the split method to get minimum and maximum values
     public boolean sizeValidation(String value, String apiHeader, String company){
 
         String size = getSize(apiHeader, company);
@@ -64,10 +63,10 @@ public class ValidationService {
             return true;
         }
 
-
         String[] sizeArray = size.split("\\|");
         int min;
         int max;
+
         try{
             min = Integer.parseInt(sizeArray[0]);
 
@@ -76,9 +75,7 @@ public class ValidationService {
             return true;
         }
 
-
         if (value.length() >= min & value.length() <= max){
-
             return true;
         } else {
             setSpoil();
@@ -87,6 +84,7 @@ public class ValidationService {
         }
     }
     
+    // executes the actual regex validation using java pattern matches
     public boolean regexValidation(String value, String apiHeader, String company)  {
 
         String validation = getValidation(apiHeader, company);
@@ -98,22 +96,17 @@ public class ValidationService {
         if (validation == null || validation.isEmpty()){
             return true;
         }
+
         if (Pattern.matches(validation, value)){
-            // System.out.println(value);
             return true;
         } else {
-            System.out.println(company);
-            System.out.println("real validation");
-            System.out.println(Pattern.matches(validation,value));
-            System.out.println(validation);
-            System.out.println(value);
-            System.out.println("fuck");
             setSpoil();
             setWhatSpoil(apiHeader);
             return false;
         }
     }
 
+    // set spoil is used to set the default boolean value "spoil" value to true as long as there is ONE error in either regex or size 
     public void setSpoil(){
         this.spoil = true;
     }
@@ -122,17 +115,23 @@ public class ValidationService {
         return this.spoil;
     }
 
+    // add the spoilt column values into the spoilt list  
     public void setWhatSpoil(String msg){
         this.whatSpoilList.add(msg);
     }
 
+    // get the entire spoiled column values to return as a JSON value
     public ArrayList<String> getWhatSpoil(){
         return this.whatSpoilList;
     }
 
-    // todo clear cache of object
+    // clear cache of object
     public void clearWhatSpoil(){
         this.whatSpoilList = new ArrayList<String>();
     }
 
+    // reset default spoil boolean back to false
+    public void resetSpoil(){
+        this.spoil = false; 
+    }
 }
