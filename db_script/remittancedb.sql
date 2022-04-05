@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 INSERT INTO `transactions` (`transactionid`, `username`, `filename`, `company`, `transactionstatus`) VALUES
 (1, 'hyong.2019@scis.smu.edu.sg', 'grock.csv', 'PaymentGo', 'Transaction Successful'),
 (2, 'znchua.2019@smu.edu.sg', 'EngLieh.csv', 'EverywhereRemit', 'Transaction Pending AML'),
-(3, 'hyong.2019@scis.smu.edu.sg', 'Luffy.csv', 'FinanceNow', 'Transaction Rejected'),
+(3, 'hyong.2019@scis.smu.edu.sg', 'Luffy.csv', 'FinanceNow', 'Transaction Rejected.'),
 (4, 'hyong.2019@scis.smu.edu.sg', 'remit.csv', 'FinanceNow', 'Transaction Pending Compliance Checks');
 COMMIT;
 
