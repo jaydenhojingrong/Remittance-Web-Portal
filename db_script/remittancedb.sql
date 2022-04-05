@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Apr 04, 2022 at 10:50 PM
--- Server version: 8.0.21
--- PHP Version: 7.4.9
+-- Host: localhost:8889
+-- Generation Time: Apr 05, 2022 at 03:51 AM
+-- Server version: 5.7.34
+-- PHP Version: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,15 +29,13 @@ USE `remittancedb`;
 -- Table structure for table `headernames`
 --
 
-DROP TABLE IF EXISTS `headernames`;
-CREATE TABLE IF NOT EXISTS `headernames` (
+CREATE TABLE `headernames` (
   `current_header` varchar(99) NOT NULL,
   `ssot_header` varchar(99) NOT NULL,
   `company` varchar(99) NOT NULL,
   `api_header` varchar(99) NOT NULL,
   `size` varchar(99) NOT NULL,
-  `regex` varchar(99) NOT NULL,
-  PRIMARY KEY (`current_header`,`company`)
+  `regex` varchar(99) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -54,8 +52,11 @@ INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`, `api_head
 ('Receiver Account Number', 'rAccountNumber', 'FinanceNow', 'BankAccountNumber', '1|20', ''),
 ('Receiver Account Number', 'rAccountNumber', 'PaymentGo', 'payeeAccountNo', '', ''),
 ('Receiver Address', 'rAddress', 'FinanceNow', 'ReceiverAddress', '1|25', ''),
+('Receiver Bank Name', 'rBank', 'PaymentGo', 'payeeBankName', '', ''),
+('Receiver Branch Name', 'rBranch', 'PaymentGo', 'payeeBranchName', '', ''),
 ('Receiver City', 'rCity', 'FinanceNow', 'ReceiverCity', '1|25', ''),
 ('Receiver Country', 'rCountry', 'FinanceNow', 'ReceiverCountry', '1|3', ''),
+('Receiver Currency', 'rCurrency', 'PaymentGo', 'transCurrency', '', ''),
 ('Receiver Date of Birth', 'rDOB', 'PaymentGo', 'payeeBirthDate', '', ''),
 ('Receiver First name', 'rFirstName', 'EverywhereRemit', 'recipient_legal_name_first', '', '^[A-Za-z0-9 .-]+$'),
 ('Receiver First Name', 'rFirstName', 'FinanceNow', 'ReceiverFirstName', '1|50', ''),
@@ -67,6 +68,8 @@ INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`, `api_head
 ('Receiver Last Name', 'rLastName', 'EverywhereRemit', 'recipient_legal_name_last', '0|50', '^[A-Za-z0-9 .-]+$'),
 ('Receiver Last Name', 'rLastName', 'FinanceNow', 'ReceiverLastName', '1|30', ''),
 ('Receiver Last Name', 'rLastName', 'PaymentGo', 'payeeSurname', '', ''),
+('Receiver Mobile Number', 'rMobileNumber', 'EverywhereRemit', 'recipient_mobile_number', '', ''),
+('Receiver Mobile Number', 'rMobileNumber', 'PaymentGo', 'payeePhone', '', ''),
 ('Receiver Nationality', 'rNationality', 'FinanceNow', 'ReceiverNationality', '1|3', ''),
 ('ReceiverCountry', 'rCountry', 'FinanceNow', 'ReceiverCountry', '1|3', ''),
 ('Receiving Amount', 'amount', 'EverywhereRemit', 'units', '', ''),
@@ -75,6 +78,8 @@ INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`, `api_head
 ('Recipient Country', 'rCountry', 'EverywhereRemit', 'recipient_country', '3|3', 'CHN'),
 ('Recipient Currency', 'recipient_currency', 'EverywhereRemit', 'recipient_currency', '', 'CNY'),
 ('Recipient Type', 'rType', 'EverywhereRemit', 'recipient_type', '', 'bank_account'),
+('Segment', 'segment', 'EverywhereRemit', 'segment', '', ''),
+('Sender Account Number', 'sAccountNumber', 'PaymentGo', 'remitAccountNo', '', ''),
 ('Sender Address', 'sAddress', 'EverywhereRemit', 'sender_address_line', '', '^[A-Za-z0-9 ,.-]+$'),
 ('Sender Address', 'sAddress', 'FinanceNow', 'SenderAddress', '0|60', ''),
 ('Sender Address', 'sAddress', 'PaymentGo', 'remitAddress', '', ''),
@@ -85,6 +90,7 @@ INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`, `api_head
 ('Sender Country', 'sCountry', 'FinanceNow', 'SenderCountry', '0|3', ''),
 ('Sender Country', 'sCountry', 'PaymentGo', 'remitCountryCode', '', ''),
 ('Sender Currency', 'sCurrency', 'EverywhereRemit', 'sender_currency', '', 'EUR|SGD|USD'),
+('Sender Currency', 'sCurrency', 'PaymentGo', 'settleCurrency', '', ''),
 ('Sender Date of Birth', 'sDOB', 'EverywhereRemit', 'sender_date_of_birth', '0|50', '\\\\d{4}-\\\\d{1,2}-\\\\d{1,2}'),
 ('Sender Date of Birth', 'sDOB', 'FinanceNow', 'SenderDateOfBirth', '1|11', ''),
 ('Sender First Name', 'sFirstName', 'EverywhereRemit', 'sender_legal_name_first', '0|50', '^[A-Za-z0-9 .-]+$'),
@@ -119,10 +125,9 @@ INSERT INTO `headernames` (`current_header`, `ssot_header`, `company`, `api_head
 -- Table structure for table `remittancetransaction`
 --
 
-DROP TABLE IF EXISTS `remittancetransaction`;
-CREATE TABLE IF NOT EXISTS `remittancetransaction` (
+CREATE TABLE `remittancetransaction` (
   `dtype` varchar(31) NOT NULL,
-  `rowid` int NOT NULL AUTO_INCREMENT,
+  `rowid` int(11) NOT NULL,
   `amount` varchar(255) DEFAULT NULL,
   `r_account_num` varchar(255) DEFAULT NULL,
   `r_currency` varchar(255) DEFAULT NULL,
@@ -159,9 +164,8 @@ CREATE TABLE IF NOT EXISTS `remittancetransaction` (
   `r_branch` varchar(255) DEFAULT NULL,
   `rdob` varchar(255) DEFAULT NULL,
   `r_mobile_no` varchar(255) DEFAULT NULL,
-  `s_account_number` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`rowid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `s_account_number` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `remittancetransaction`
@@ -185,15 +189,13 @@ INSERT INTO `remittancetransaction` (`dtype`, `rowid`, `amount`, `r_account_num`
 -- Table structure for table `transactions`
 --
 
-DROP TABLE IF EXISTS `transactions`;
-CREATE TABLE IF NOT EXISTS `transactions` (
-  `transactionid` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `transactions` (
+  `transactionid` int(11) NOT NULL,
   `username` varchar(99) NOT NULL,
   `filename` varchar(99) NOT NULL,
   `company` varchar(99) NOT NULL,
-  `transactionstatus` varchar(255) NOT NULL,
-  PRIMARY KEY (`transactionid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `transactionstatus` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transactions`
@@ -202,8 +204,46 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 INSERT INTO `transactions` (`transactionid`, `username`, `filename`, `company`, `transactionstatus`) VALUES
 (1, 'hyong.2019@scis.smu.edu.sg', 'grock.csv', 'PaymentGo', 'Transaction Successful'),
 (2, 'znchua.2019@smu.edu.sg', 'EngLieh.csv', 'EverywhereRemit', 'Transaction Pending AML'),
-(3, 'hyong.2019@scis.smu.edu.sg', 'Luffy.csv', 'FinanceNow', 'Transaction Rejected.'),
+(3, 'hyong.2019@scis.smu.edu.sg', 'Luffy.csv', 'FinanceNow', 'Transaction Rejected'),
 (4, 'hyong.2019@scis.smu.edu.sg', 'remit.csv', 'FinanceNow', 'Transaction Pending Compliance Checks');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `headernames`
+--
+ALTER TABLE `headernames`
+  ADD PRIMARY KEY (`current_header`,`company`);
+
+--
+-- Indexes for table `remittancetransaction`
+--
+ALTER TABLE `remittancetransaction`
+  ADD PRIMARY KEY (`rowid`);
+
+--
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`transactionid`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `remittancetransaction`
+--
+ALTER TABLE `remittancetransaction`
+  MODIFY `rowid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `transactionid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
