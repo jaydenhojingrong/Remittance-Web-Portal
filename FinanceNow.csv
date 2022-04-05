@@ -1,2 +1,0 @@
-SenderFirstName,SenderLastName,SenderIdNumber,SenderIdType,SenderDateOfBirth,SenderNationality,SenderCountry,SenderCity,SenderAddress,PurposeOfRemittance,SenderBeneficiaryRelationship,null,SenderSourceOfFund,ReceiverFirstName,ReceiverLastName,ReceiverIdNumber,ReceiverIdType,null,BankAccountNumber,ReceiverNationality,ReceiverCity,ReceiverAddress,null,TransferAmount
-XIAO MING,PENG,S9575000J,2,1994-2-2,SGP,SGP,Singapore,4 Sago Lane Singapore,1,02,1,1,Max,Chua,231236199995056X,12,1994-2-2,6.22E+11,CHN,BEIJING,Liaoning Province,SMUPWTRX1,1000

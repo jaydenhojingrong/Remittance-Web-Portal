@@ -1,13 +1,7 @@
 package com.OOP.remittancesystem.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 import java.util.regex.*;
-
-import com.OOP.remittancesystem.entity.HeaderNames;
-import com.OOP.remittancesystem.service.HeaderService;  
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +22,7 @@ public class ValidationService {
         
         String sizeReq;
 
+        // catch nullpoint exception
         try{
             sizeReq = headerService.getSizeByApiHeaderAndCompany(apiHeader,  company);
         } catch (Exception e){
@@ -41,6 +36,7 @@ public class ValidationService {
 
         String validationReq;
 
+         // catch nullpoint exception
         try{
             validationReq = headerService.getRegexByApiHeaderAndCompany(apiHeader,  company);
         } catch (Exception e){
@@ -51,58 +47,62 @@ public class ValidationService {
     }
 
     // executes the actual size validation by using the split method to get minimum and maximum values
-    public boolean sizeValidation(String value, String apiHeader, String company){
+    public void sizeValidation(String value, String apiHeader, String company){
 
         String size = getSize(apiHeader, company);
 
+         // catching null to return out of method 
         if (size == null){
-            return true;
+            return;
         }
 
+        // catching empty string to return out of method
         if (size == ""){
-            return true;
+            return;
         }
 
+        // custom split for string in our DB for storing size EG [(minimum) | (maximum)]
         String[] sizeArray = size.split("\\|");
-        int min;
-        int max;
+        int min = 0;
+        int max = Integer.MAX_VALUE;
 
         try{
             min = Integer.parseInt(sizeArray[0]);
 
             max = Integer.parseInt(sizeArray[1]);
         } catch (Exception e) {
-            return true;
+            return;
         }
 
         if (value.length() >= min & value.length() <= max){
-            return true;
+            return;
         } else {
             setSpoil();
             setWhatSpoil(apiHeader);
-            return false;
+            return;
         }
     }
     
     // executes the actual regex validation using java pattern matches
-    public boolean regexValidation(String value, String apiHeader, String company)  {
+    public void regexValidation(String value, String apiHeader, String company)  {
 
         String validation = getValidation(apiHeader, company);
         
+        // catch outlier regex due to the slashes not working normally with method
         if (validation.equals("\\\\d{4}-\\\\d{1,2}-\\\\d{1,2}") ){
             validation = "\\d{4}-\\d{1,2}-\\d{1,2}";
         }
 
         if (validation == null || validation.isEmpty()){
-            return true;
+            return;
         }
 
         if (Pattern.matches(validation, value)){
-            return true;
+            return;
         } else {
             setSpoil();
             setWhatSpoil(apiHeader);
-            return false;
+            return;
         }
     }
 

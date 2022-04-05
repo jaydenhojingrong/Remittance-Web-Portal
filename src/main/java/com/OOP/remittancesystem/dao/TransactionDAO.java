@@ -10,5 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionDAO extends JpaRepository<Transactions, Integer> {
     public List<Transactions> findByUsername(String username);
+    
     public Transactions save(Transactions transactions);
 }

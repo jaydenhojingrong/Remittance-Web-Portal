@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 
 import com.OOP.remittancesystem.dao.RemittanceDAO;
+import com.OOP.remittancesystem.dao.TransactionDAO;
 import com.OOP.remittancesystem.entity.Remittance;
+import com.OOP.remittancesystem.entity.Transactions;
 import com.OOP.remittancesystem.fileHandling.FileResponse;
 import com.OOP.remittancesystem.fileHandling.OpenCSVReadAndParseToBean;
 import com.OOP.remittancesystem.service.CompanySorter;
@@ -60,6 +62,9 @@ public class FileController {
     @Autowired
     private ValidationService validationService;
 
+    @Autowired
+    private TransactionDAO transactionDAO;
+
     @PostMapping("/extractheaders")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<FileResponse> uploadFile(@RequestParam("file")MultipartFile file) {
@@ -87,19 +92,8 @@ public class FileController {
 
     @PostMapping        
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<FileResponse> processFile(@RequestParam("file")MultipartFile file)
+    public ResponseEntity<FileResponse> processFile(@RequestParam String fileName,@RequestParam String fileDownloadUrl,@RequestParam String username)
     throws Throwable{
-
-        //store the file in the server
-        //e.g. localhost:8080/files/dummy.csv
-        String fileName = fileStorageService.storeFile(file);
-        String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/files/")
-                .path(fileName)
-                .toUriString();
-        List<String> test = new ArrayList<>();
-        //create a fileResponse for json output at the end
-        FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize(),test );
 
         //take in the file which was earlier put in server.. and sort them in an arrayList by company
         //e.g. <EverywhereRemit: [row1],[row2],[row3], PaymentGo: [row1]...>
@@ -111,10 +105,7 @@ public class FileController {
         //loop through all identified companies in the csv file
         Iterator <String> companyIter = companyPath.keySet().iterator();
 
-        Map <String, List<Remittance>> kensen = new HashMap<String, List<Remittance>>();
-
-       
-
+        Map <String, List<Remittance>> remitEntriesDB = new HashMap<String, List<Remittance>>();
 
         while (companyIter.hasNext()){
         
@@ -128,72 +119,29 @@ public class FileController {
             //for each company csv.. cast them into a list of remittance (csv -> list of objects)
             List<Remittance> remittanceList = openCSV.mapCSV(companyPath.get(company), company);
 
-            kensen.put(company, remittanceList);
+            remitEntriesDB.put(company, remittanceList);
             //loop each data (row and insert it to db)
             openCSV.mapKeywords(company, companyPath.get(company), "api");
             Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
 
-        //     System.out.print(remittanceService.toJSON(remittanceMap));
+            //System.out.print(remittanceService.toJSON(remittanceMap));
             remittanceMap.entrySet().forEach(entry -> {
                         try {
-                                // System.out.println(company+"\n");
-                                // System.out.println(entry.getKey());
-                                // System.out.println(entry.getValue());
-                                // System.out.println("-----------------------------");
-
 
                                 for (int i = 0; i <= entry.getValue().size()-1; i++){
                                         String value = entry.getValue().get(i);
 
-                                        boolean sizeBool = validationService.sizeValidation(value,entry.getKey(), company);
-                                        boolean regexBool = validationService.regexValidation(value,entry.getKey(), company);
-
-                                        // System.out.println(entry.getKey());
-                                        // System.out.print("sizebool");
-                                        // System.out.println(sizeBool);
-                                        // System.out.print("regexbool");
-                                        // System.out.println(regexBool);
-                                        // System.out.println(value);
-                                        // System.out.println("-----------------------------");
-                                        // System.out.println("\n\n\n\n\n");
+                                        validationService.sizeValidation(value,entry.getKey(), company);
+                                        validationService.regexValidation(value,entry.getKey(), company);
 
                                 }
 
                         } catch (Exception e){
                                 System.out.println(e);
                                 
-                        }
+                }
                         
-                
             });
-
-
-            // todo put the .save in another for loop
-
-        // -----
-        //     for (Remittance remittance: remittanceList) {
-
-        //         try {
-        //             remittanceDAO.save((Remittance) remittance);
-        //         } 
-        //         //handles validation error under entity
-        //         //throws json back to front end
-        //         catch (javax.validation.ConstraintViolationException e){
-        //             String message= "";
-        //             Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-        //             for (ConstraintViolation<?> violation : violations) {
-        //             message = violation.getMessage() + " ";
-        //             System.out.println(message + " Throwing the exception.");
-        //             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
-        //             // return new ResponseEntity.status(HttpStatus.CREATED).body("HTTP Status will be CREATED (CODE 201)\n");
-        //             }
-        //         }
-        //     }
-
-            //Convert List<Remittance> remittanceList into  Map<String apiHeader, String value> remittanceMap 
-            //call createrequestbody
-            //send to hy api
-            
         }
 
         // validation 
@@ -203,39 +151,42 @@ public class FileController {
                 return new ResponseEntity<FileResponse>(spoilResponse, HttpStatus.OK);
         } 
         
-        // save to db
-
-        //  Map <String, List<Remittance>> kensen = new HashMap<String, List<Remittance>>();
         companyIter = companyPath.keySet().iterator();
         while(companyIter.hasNext()){
                 String company = companyIter.next();
-                List<Remittance> remittanceList = kensen.get(company);
+                List<Remittance> remittanceList = remitEntriesDB.get(company);
                 Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
                 ArrayList<String> jsonBody = remittanceService.toJSON(remittanceMap);
                 
                 
-
+                String status = "";
                 for(int i = 0; i < jsonBody.size(); i++){
                         ResponseEntity<String> response = sendTransaction(company,jsonBody.get(i));
+                        int messageLen = response.getBody().length();
+                        status = response.getBody().substring(21, messageLen - 2);
+                        // System.out.println(status);
                 }  
 
+                // save to db, row by row
                 for (Remittance remittance: remittanceList) {
                         remittanceDAO.save((Remittance) remittance);
-                    } 
-        }
-        // while (companyIter.hasNext()){
-        //         String company = companyIter.next();
-        //         List<Remittance> remittanceList = openCSV.mapCSV(companyPath.get(company), company);
+                }
 
-        //         for (Remittance remittance: remittanceList) {
-        //             remittanceDAO.save((Remittance) remittance);
-        //         } 
-        //     }
-        
+                Transactions transaction = new Transactions(username, fileName, company, status);
+                transactionDAO.save(transaction);
+        }
+
 
         //return successful upload entity
         validationService.resetSpoil();
-        return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
+
+
+        //return success msg, if code reaches here, its success
+        ArrayList<String> responseList = new ArrayList<String>();
+        responseList.add("Success");
+        FileResponse successResponse = new FileResponse(responseList);
+        return new ResponseEntity<FileResponse>(successResponse, HttpStatus.OK);
+
     }
 
     @GetMapping("/{fileName:.+}")
