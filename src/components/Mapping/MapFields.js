@@ -55,7 +55,7 @@ function MapFields() {
     )
       .then((response) => {
         console.log(response);
-        if (response.data.spoil.length == 0) {
+        if (response.data.spoil.length == 0 || response.data.spoil == "Success") {
           // sendTransaction();
           // window.location.replace("/admin/dashboard");
           alert("Submitted, please proceed back to the dashboard.")
