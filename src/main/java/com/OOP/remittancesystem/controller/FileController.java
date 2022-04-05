@@ -105,7 +105,7 @@ public class FileController {
         //loop through all identified companies in the csv file
         Iterator <String> companyIter = companyPath.keySet().iterator();
 
-        Map <String, List<Remittance>> kensen = new HashMap<String, List<Remittance>>();
+        Map <String, List<Remittance>> remitEntriesDB = new HashMap<String, List<Remittance>>();
 
         while (companyIter.hasNext()){
         
@@ -119,34 +119,28 @@ public class FileController {
             //for each company csv.. cast them into a list of remittance (csv -> list of objects)
             List<Remittance> remittanceList = openCSV.mapCSV(companyPath.get(company), company);
 
-            kensen.put(company, remittanceList);
+            remitEntriesDB.put(company, remittanceList);
             //loop each data (row and insert it to db)
             openCSV.mapKeywords(company, companyPath.get(company), "api");
             Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
 
-        //     System.out.print(remittanceService.toJSON(remittanceMap));
+            //System.out.print(remittanceService.toJSON(remittanceMap));
             remittanceMap.entrySet().forEach(entry -> {
                         try {
-                                // System.out.println(company+"\n");
-                                // System.out.println(entry.getKey());
-                                // System.out.println(entry.getValue());
-                                // System.out.println("-----------------------------");
-
 
                                 for (int i = 0; i <= entry.getValue().size()-1; i++){
                                         String value = entry.getValue().get(i);
 
-                                        boolean sizeBool = validationService.sizeValidation(value,entry.getKey(), company);
-                                        boolean regexBool = validationService.regexValidation(value,entry.getKey(), company);
+                                        validationService.sizeValidation(value,entry.getKey(), company);
+                                        validationService.regexValidation(value,entry.getKey(), company);
 
                                 }
 
                         } catch (Exception e){
                                 System.out.println(e);
                                 
-                        }
+                }
                         
-                
             });
         }
 
@@ -157,13 +151,10 @@ public class FileController {
                 return new ResponseEntity<FileResponse>(spoilResponse, HttpStatus.OK);
         } 
         
-        // save to db
-
-        //  Map <String, List<Remittance>> kensen = new HashMap<String, List<Remittance>>();
         companyIter = companyPath.keySet().iterator();
         while(companyIter.hasNext()){
                 String company = companyIter.next();
-                List<Remittance> remittanceList = kensen.get(company);
+                List<Remittance> remittanceList = remitEntriesDB.get(company);
                 Map <String, List<String>> remittanceMap = openCSV.csvToHashMap(company, companyPath.get(company));
                 ArrayList<String> jsonBody = remittanceService.toJSON(remittanceMap);
                 
@@ -176,6 +167,7 @@ public class FileController {
                         // System.out.println(status);
                 }  
 
+                // save to db, row by row
                 for (Remittance remittance: remittanceList) {
                         remittanceDAO.save((Remittance) remittance);
                 }
@@ -188,6 +180,8 @@ public class FileController {
         //return successful upload entity
         validationService.resetSpoil();
 
+
+        //return success msg, if code reaches here, its success
         ArrayList<String> responseList = new ArrayList<String>();
         responseList.add("Success");
         FileResponse successResponse = new FileResponse(responseList);
