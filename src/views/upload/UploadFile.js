@@ -129,7 +129,6 @@ export default function UploadFile() {
   }
 
   const submitFile = () => {
-    // sendTransaction();
     const formData = new FormData();
     formData.append("file", selectedFile);
     const config = {
@@ -138,13 +137,13 @@ export default function UploadFile() {
       }
     }
     axios.post(
-      "http://localhost:8080/files/", formData, config
+      "http://localhost:8080/files?fileName="+localStorage.getItem("fileName") + "&fileDownloadUrl=" + localStorage.getItem("fileDownloadURL") + "&username=" + localStorage.getItem("username"), formData, config
     )
       .then((response) => {
         console.log(response.data);
-        if (response.data.spoil == null) {
-          extractHeaders();
+        if (response.data.spoil == "Success") {
           // sendTransaction();
+          window.location.replace("/admin/mapping");
         } else {
           setSpoil(response.data.spoil);
           setError(true);
@@ -174,7 +173,7 @@ export default function UploadFile() {
           localStorage.setItem("fileName", response.data.fileName);
           localStorage.setItem("headers", response.data.headers);
           // sendTransaction();
-          window.location.replace("/admin/mapping");
+          submitFile();
 
       })
       .catch((error) => {
@@ -227,7 +226,7 @@ export default function UploadFile() {
                       </div>
                     </div>
                     <div className="flex justify-center p-2">
-                      <button className="w-full px-4 py-2 text-white bg-blueGray-600 rounded shadow-xl" onClick={submitFile}>Upload</button>
+                      <button className="w-full px-4 py-2 text-white bg-blueGray-600 rounded shadow-xl" onClick={extractHeaders}>Upload</button>
                     </div>
                   </div>
                 </div>
