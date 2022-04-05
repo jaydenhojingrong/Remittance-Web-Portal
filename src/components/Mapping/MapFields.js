@@ -16,6 +16,9 @@ function MapFields() {
   const [inputHeaders, setInputHeaders] = useState([]);
   const [ouputHeaders, setOuputHeaders] = useState([]);
   const [counter, setCounter] = useState(false);
+  const [error, setError] = useState(false);
+  const [spoil, setSpoil] = useState([]);
+
 
   useEffect(() => {
     var config = {
@@ -39,18 +42,30 @@ function MapFields() {
       });
   }, [counter]);
 
-  function callBackend() {
-    var config = {
-      headers: { 'Access-Control-Allow-Origin': '*' }
-    };
-    axios
-      .post(
-        "http://localhost:8080/processFile?fileName=" + localStorage.getItem("fileName") + "&fileDownloadURL=" + localStorage.getItem("fileDownloadURL") + "&username=" + localStorage.getItem("username"),
-        config
-      )
+  async function callBackend() {
+    const formData = new FormData();
+    formData.append("file", localStorage.getItem("selectedFile"));
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+    await axios.post(
+      "http://localhost:8080/files?fileName=" + localStorage.getItem("fileName") + "&fileDownloadUrl=" + localStorage.getItem("fileDownloadURL") + "&username=" + localStorage.getItem("username"), formData, config
+    )
       .then((response) => {
-        console.log(response.data);
-        window.location.replace("/admin/dashboard");
+        console.log(response);
+        if (response.data.spoil.length == 0) {
+          // sendTransaction();
+          // window.location.replace("/admin/dashboard");
+          alert("Submitted, please proceed back to the dashboard.")
+        } else {
+          setSpoil(response.data.spoil);
+          console.log(response.data.spoil);
+          alert("Missing Fields - please check the file")
+          setError(true);
+        }
+
       })
       .catch((error) => {
         console.log(error);
@@ -63,7 +78,7 @@ function MapFields() {
     };
     axios
       .post(
-        "http://localhost:8080/addHeader?currentHeader=" + current + "&ssotHeader=" + ssot + "&company=" + company +"&apiHeader=" +api,
+        "http://localhost:8080/addHeader?currentHeader=" + current + "&ssotHeader=" + ssot + "&company=" + company + "&apiHeader=" + api,
         config
       )
       .then((response) => {
@@ -85,7 +100,7 @@ function MapFields() {
       )
       .then((response) => {
         console.log(response.data);
-        if(response.data.apiHeader!=undefined){
+        if (response.data.apiHeader != undefined) {
           addHeaders(current, ssot, company, response.data.apiHeader)
         }
       })
@@ -143,16 +158,16 @@ function MapFields() {
     }
     if (noError == false) {
       // console.log("redirect to success page");
-      callBackend();
+      submit()
     }
   }
 
   function submit() {
-    for(let i = 0; i < changedConnection.length; i++){
+    for (let i = 0; i < changedConnection.length; i++) {
       let checkboxes = document.getElementsByName(changedConnection[i].start);
       for (let j = 0; j < checkboxes.length; j++) {
         if (checkboxes[j].checked) {
-            getApiHeader(changedConnection[i].start, changedConnection[i].end, checkboxes[j].value);
+          getApiHeader(changedConnection[i].start, changedConnection[i].end, checkboxes[j].value);
         }
       }
     }

@@ -163,6 +163,13 @@ public class FileController {
                 for(int i = 0; i < jsonBody.size(); i++){
                         ResponseEntity<String> response = sendTransaction(company,jsonBody.get(i));
                         int messageLen = response.getBody().length();
+                        String code = response.getBody().substring(9, 10);
+                        if (code == "0"){
+                                ArrayList<String> responseList = new ArrayList<String>();
+                                responseList.add("Missing fields");
+                                FileResponse failureResponse = new FileResponse(responseList);
+                                return new ResponseEntity<FileResponse>(failureResponse, HttpStatus.BAD_REQUEST);
+                        }
                         status = response.getBody().substring(21, messageLen - 2);
                         // System.out.println(status);
                 }  
@@ -277,42 +284,19 @@ public class FileController {
         //add HashMap into arg
         // build the request
         try {
-                // Map<String, Object> map = new HashMap<>();
-                // map.put("access_token","C9zC7BaCBZPpXbBnMJHX14XeWKsCHg");
-                // map.put("api_name",company.toLowerCase());
-                // JSONObject json = new JSONObject(jsonbody.get(0).toString());
-                
-                // map.put("payload", json.toString());
-
-                // HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
-
-                // ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
-
-                // if (response.getStatusCode() == HttpStatus.CREATED) {
-                //         System.out.println("Request Successful");
-                //         System.out.println(response.getBody());
-                // } else {
-                //         System.out.println("Request Failed");
-                //         System.out.println(response.getStatusCode());
-                // }
                 JSONObject obj = new JSONObject();
                 obj.put("access_token","C9zC7BaCBZPpXbBnMJHX14XeWKsCHg");
                 obj.put("api_name",company.toLowerCase());
-                System.out.println("Here!!" + jsonbody);
                 JSONObject json = new JSONObject(jsonbody.toString());
                 
                 obj.put("payload", json);
                 // add HashMap into arg
                 // build the request
                 HttpEntity<String> entity = new HttpEntity<String>(obj.toString(), headers);
-                System.out.print("passed me");
-                System.out.print(entity);
                 // send POST request
                 // String response = restTemplate.postForObject(url, entity, String.class);
                 // check response
                 ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-                System.out.println("Response below");
-                System.out.println(response);
                 if (response.getStatusCode() == HttpStatus.CREATED) {
                         System.out.println("Request Successful");
                         System.out.println(response.getBody());

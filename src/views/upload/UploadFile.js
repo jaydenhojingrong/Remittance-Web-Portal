@@ -12,7 +12,7 @@ export default function UploadFile() {
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
     setIsFilePicked(true);
-    console.log(selectedFile);
+    console.log(event.target.files[0]);
     console.log(isFilePicked);
     console.log(event.target.files[0].name);
   };
@@ -156,7 +156,6 @@ export default function UploadFile() {
   };
 
   const extractHeaders = () => {
-    // sendTransaction();
     const formData = new FormData();
     formData.append("file", selectedFile);
     const config = {
@@ -172,8 +171,9 @@ export default function UploadFile() {
           localStorage.setItem("fileDownloadURL", response.data.fileDownloadURL);
           localStorage.setItem("fileName", response.data.fileName);
           localStorage.setItem("headers", response.data.headers);
-          // sendTransaction();
-          submitFile();
+          localStorage.setItem("selectedFile", selectedFile);
+          // submitFile();
+          window.location.replace("/admin/mapping");
 
       })
       .catch((error) => {
