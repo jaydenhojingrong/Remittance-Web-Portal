@@ -143,7 +143,7 @@ export default function CardTable({ color }) {
                         <i className="fas fa-circle text-orange-500 mr-2"></i> {item.transactionStatus}
                         </>
                       }
-                      {item.transactionStatus == "Transaction Rejected" &&
+                      {item.transactionStatus == "Transaction Rejected." &&
                       <>
                         <i className="fas fa-circle text-red-500 mr-2"></i> {item.transactionStatus}
                         </>
