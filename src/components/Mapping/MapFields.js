@@ -45,7 +45,7 @@ function MapFields() {
     };
     axios
       .post(
-        "http://localhost:8080/processFile?fileName=" + localStorage.getItem("fileName") + "&fileDownloadURL=" + localStorage.getItem("fileDownloadURL"),
+        "http://localhost:8080/processFile?fileName=" + localStorage.getItem("fileName") + "&fileDownloadURL=" + localStorage.getItem("fileDownloadURL") + "&username=" + localStorage.getItem("username"),
         config
       )
       .then((response) => {

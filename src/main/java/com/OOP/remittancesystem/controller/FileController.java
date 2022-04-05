@@ -92,19 +92,8 @@ public class FileController {
 
     @PostMapping        
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<FileResponse> processFile(@RequestParam("file")MultipartFile file)
+    public ResponseEntity<FileResponse> processFile(@RequestParam String fileName,@RequestParam String fileDownloadUrl,@RequestParam String username)
     throws Throwable{
-
-        //store the file in the server
-        //e.g. localhost:8080/files/dummy.csv
-        String fileName = fileStorageService.storeFile(file);
-        String fileDownloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/files/")
-                .path(fileName)
-                .toUriString();
-        List<String> test = new ArrayList<>();
-        //create a fileResponse for json output at the end
-        FileResponse fileResponse = new FileResponse(fileName, fileDownloadUrl, file.getContentType(), file.getSize(),test );
 
         //take in the file which was earlier put in server.. and sort them in an arrayList by company
         //e.g. <EverywhereRemit: [row1],[row2],[row3], PaymentGo: [row1]...>
@@ -117,9 +106,6 @@ public class FileController {
         Iterator <String> companyIter = companyPath.keySet().iterator();
 
         Map <String, List<Remittance>> kensen = new HashMap<String, List<Remittance>>();
-
-       
-
 
         while (companyIter.hasNext()){
         
@@ -194,7 +180,6 @@ public class FileController {
                         remittanceDAO.save((Remittance) remittance);
                 }
 
-                String username = "hyong.2019@scis.smu.edu.sg";
                 Transactions transaction = new Transactions(username, fileName, company, status);
                 transactionDAO.save(transaction);
         }
@@ -202,7 +187,12 @@ public class FileController {
 
         //return successful upload entity
         validationService.resetSpoil();
-        return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
+
+        ArrayList<String> responseList = new ArrayList<String>();
+        responseList.add("Success");
+        FileResponse successResponse = new FileResponse(responseList);
+        return new ResponseEntity<FileResponse>(successResponse, HttpStatus.OK);
+
     }
 
     @GetMapping("/{fileName:.+}")
